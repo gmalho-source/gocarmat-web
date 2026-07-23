@@ -7,6 +7,8 @@ use App\Models\Redirect;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::view('/sobre-nos', 'about')->name('about');
+Route::view('/servicos', 'services')->name('services');
 Route::view('/eva-powerlab', 'eva')->name('eva');
 Route::get('/marcacoes', [BookingController::class, 'create'])->name('marcacoes');
 Route::post('/marcacoes', [BookingController::class, 'store'])->name('marcacoes.store');
