@@ -43,7 +43,7 @@
                     @endforeach
                 </ul>
             </div>
-            <div class="relative hidden xl:col-span-2 xl:block">
+            <div class="relative hidden 2xl:col-span-2 2xl:block">
                 <img src="{{ asset('images/footer-graphic.png') }}" alt="" class="absolute -top-5 right-0 h-[271px] w-auto max-w-none">
             </div>
         </div>
@@ -55,6 +55,6 @@
             <a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener" class="transition hover:text-white">Livro de Reclamações</a>
         </div>
 
-        <img src="{{ asset('images/footer-badge.svg') }}" alt="" class="absolute bottom-6 right-16 hidden h-14 w-auto xl:block">
+        <img src="{{ asset('images/footer-badge.svg') }}" alt="" class="absolute bottom-6 right-16 hidden h-14 w-auto 2xl:block">
     </div>
 </footer>

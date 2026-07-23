@@ -75,6 +75,10 @@ class ImportWordpress extends Command
             $rawBody = (string) $item->children(self::NS['content'])->encoded;
             $body = $this->cleanBody($rawBody);
 
+            if (! $skippedImages) {
+                $body = $this->localizeInlineImages($body, $slug);
+            }
+
             // Meta Yoast + thumbnail
             $meta = [];
             foreach ($wp->postmeta as $pm) {
@@ -173,9 +177,9 @@ class ImportWordpress extends Command
         $html = implode("\n", $out);
 
         // Remover atributos style/class/dir e spans decorativos
+        // (sem consumir espaços adjacentes, para não colar palavras)
         $html = preg_replace('/\s(?:style|class|dir|lang)="[^"]*"/i', '', $html);
-        $html = preg_replace('/<span>\s*/i', '', $html);
-        $html = preg_replace('/\s*<\/span>/i', '', $html);
+        $html = str_ireplace(['<span>', '</span>'], '', $html);
 
         // <b>/<i> => <strong>/<em>
         $html = str_ireplace(['<b>', '</b>', '<i>', '</i>'], ['<strong>', '</strong>', '<em>', '</em>'], $html);
@@ -205,6 +209,46 @@ class ImportWordpress extends Command
         }
 
         return Str::limit(trim(strip_tags($body)), 300, '');
+    }
+
+    /**
+     * Descarrega as imagens inline do corpo (alojadas no WordPress antigo)
+     * e reescreve os src para o storage local.
+     */
+    private function localizeInlineImages(string $html, string $slug): string
+    {
+        return preg_replace_callback(
+            '/src="(https?:\/\/(?:www\.)?gocarmat\.pt\/wp-content\/uploads\/[^"]+)"/i',
+            function (array $m) use ($slug) {
+                $url = html_entity_decode($m[1]);
+                $name = pathinfo((string) parse_url($url, PHP_URL_PATH), PATHINFO_FILENAME);
+                $ext = strtolower(pathinfo((string) parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION)) ?: 'jpg';
+                $path = "blog/inline/{$slug}-".Str::slug($name).".{$ext}";
+
+                if (! Storage::disk('public')->exists($path)) {
+                    try {
+                        $tmp = tempnam(sys_get_temp_dir(), 'wpimg');
+                        $response = Http::timeout(60)->retry(2, 1000)->sink($tmp)->get($url);
+                        if (! $response->successful()) {
+                            @unlink($tmp);
+
+                            return $m[0]; // mantém o URL original se falhar
+                        }
+                        $stream = fopen($tmp, 'rb');
+                        Storage::disk('public')->writeStream($path, $stream);
+                        fclose($stream);
+                        @unlink($tmp);
+                    } catch (\Throwable $e) {
+                        $this->warn("    imagem inline falhou: {$url}");
+
+                        return $m[0];
+                    }
+                }
+
+                return 'src="'.Storage::disk('public')->url($path).'"';
+            },
+            $html,
+        );
     }
 
     /** Descarrega a imagem de destaque para storage/app/public/blog. */
