@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Models\Redirect;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Redirects 301 dos URLs antigos do WordPress (ex: /inspecao-automovel -> /blog/inspecao-automovel)
 Route::fallback(function (string $any = '') {
