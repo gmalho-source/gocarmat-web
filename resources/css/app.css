@@ -23,22 +23,20 @@ body {
     @apply bg-cloud font-sans text-carbono antialiased;
 }
 
-/* Entrada do hero: zoom-in com inércia — movimento inicial rápido
-   que desacelera e desliza lentamente até assentar */
+/* Entrada do hero: efeito Ken Burns — zoom lento e contínuo
+   com uma leve deriva lateral, a assentar suavemente no fim */
 @keyframes hero-zoom {
-    0% {
-        transform: scale(1.16);
+    from {
+        transform: scale(1.18) translateX(1.8%);
     }
-    38% {
-        transform: scale(1.035);
-    }
-    100% {
-        transform: scale(1);
+    to {
+        transform: scale(1) translateX(0);
     }
 }
 
 .animate-hero-zoom {
-    animation: hero-zoom 3.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: hero-zoom 9s cubic-bezier(0.33, 0.4, 0.35, 1) both;
+    will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
