@@ -11,6 +11,7 @@ Route::view('/sobre-nos', 'about')->name('about');
 Route::view('/servicos', 'services')->name('services');
 Route::view('/eva-powerlab', 'eva')->name('eva');
 Route::get('/marcacoes', [BookingController::class, 'create'])->name('marcacoes');
+Route::redirect('/contactos', '/marcacoes', 301);
 Route::post('/marcacoes', [BookingController::class, 'store'])->name('marcacoes.store');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
