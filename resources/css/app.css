@@ -23,6 +23,26 @@ body {
     @apply bg-cloud font-sans text-carbono antialiased;
 }
 
+/* Entrada do hero: zoom-in suave até assentar */
+@keyframes hero-zoom {
+    from {
+        transform: scale(1.12);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.animate-hero-zoom {
+    animation: hero-zoom 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-hero-zoom {
+        animation: none;
+    }
+}
+
 /* Corpo de artigos do blog (HTML vindo do editor do backoffice) */
 .prose-post {
     font-size: 1.0625rem;

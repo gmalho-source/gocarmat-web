@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="relative min-h-[320px]">
-            <img src="{{ asset('images/hero.jpg') }}" alt="Cliente a carregar o seu carro elétrico" class="absolute inset-0 size-full object-cover">
+            <img src="{{ asset('images/hero.jpg') }}" alt="Cliente a carregar o seu carro elétrico" class="animate-hero-zoom absolute inset-0 size-full object-cover">
             <div class="absolute bottom-8 right-8 flex w-[min(480px,90%)] items-center gap-6 rounded-[32px] bg-carbono px-9 py-6">
                 <p class="shrink-0 text-[64px] font-bold leading-[1.1] tracking-[-0.06em] text-lima xl:text-[88px]">+16<span class="block text-right text-xl tracking-[-0.6px] text-gelo">ANOS</span></p>
                 <p class="text-lg font-bold leading-[1.2] tracking-[-0.6px] text-gelo xl:text-xl">
