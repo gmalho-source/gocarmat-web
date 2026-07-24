@@ -23,18 +23,22 @@ body {
     @apply bg-cloud font-sans text-carbono antialiased;
 }
 
-/* Entrada do hero: zoom-in suave até assentar */
+/* Entrada do hero: zoom-in com inércia — movimento inicial rápido
+   que desacelera e desliza lentamente até assentar */
 @keyframes hero-zoom {
-    from {
-        transform: scale(1.12);
+    0% {
+        transform: scale(1.16);
     }
-    to {
+    38% {
+        transform: scale(1.035);
+    }
+    100% {
         transform: scale(1);
     }
 }
 
 .animate-hero-zoom {
-    animation: hero-zoom 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: hero-zoom 3.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
