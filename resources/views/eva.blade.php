@@ -68,7 +68,7 @@
             <p class="mt-6 max-w-[560px] text-base font-light leading-[1.68] tracking-[-0.16px] text-carbono sm:text-lg">
                 Trabalhar em alta tensão exige formação, equipamento e certificação próprios. Na EVA, cada intervenção fica registada no Livro de Manutenção Digital (LMD).
             </p>
-            <img src="{{ asset('images/eva-car.png') }}" alt="Carro elétrico" class="mt-auto w-full max-w-[640px] translate-y-2 self-center pt-8">
+            <img src="{{ asset('images/eva-car-profile.png') }}" alt="Carro elétrico" class="mt-auto w-full max-w-[640px] translate-y-2 self-center pt-8">
         </div>
         <div>
             <h2 class="font-mono text-3xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] sm:text-4xl">
@@ -91,7 +91,7 @@
     </section>
 
     {{-- BANDA MARCAÇÃO --}}
-    <section class="mt-16 flex flex-col items-start gap-8 rounded-[32px] bg-carbono px-8 py-12 sm:px-12 xl:mt-24 xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-16">
+    <section class="mt-16 flex flex-col items-start gap-8 rounded-t-[32px] bg-carbono px-8 py-12 sm:px-12 xl:mt-24 xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-16">
         <div class="flex items-center gap-8">
             <div class="flex size-[90px] shrink-0 items-center justify-center rounded-full bg-lima text-carbono xl:size-[120px]">
                 <x-ui.icon name="bolt" class="size-12" />
@@ -105,7 +105,5 @@
         </div>
         <x-pill variant="lima" :href="route('marcacoes')">Marcar agora</x-pill>
     </section>
-
-    <div class="h-24 xl:h-[128px]"></div>
 </div>
 @endsection

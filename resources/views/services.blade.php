@@ -90,7 +90,7 @@
     </section>
 
     {{-- BANDA EVA --}}
-    <section class="mt-16 flex flex-col items-start gap-8 rounded-[32px] bg-lima px-8 py-12 sm:px-12 xl:mt-24 xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-16">
+    <section class="mt-16 flex flex-col items-start gap-8 rounded-t-[32px] bg-lima px-8 py-12 sm:px-12 xl:mt-24 xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-16">
         <div>
             <h2 class="font-mono text-3xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] text-carbono sm:text-4xl">Tem um elétrico ou híbrido?</h2>
             <p class="mt-3 max-w-[640px] text-lg font-bold leading-[1.3] tracking-[-0.3px] text-carbono">
@@ -99,7 +99,5 @@
         </div>
         <x-pill variant="dark" :href="route('eva')">Conhecer o EVA Powerlab</x-pill>
     </section>
-
-    <div class="h-24 xl:h-[128px]"></div>
 </div>
 @endsection

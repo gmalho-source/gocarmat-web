@@ -55,6 +55,8 @@
             <a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener" class="transition hover:text-white">Livro de Reclamações</a>
         </div>
 
-        <img src="{{ asset('images/footer-badge.svg') }}" alt="" class="absolute bottom-6 right-16 hidden h-14 w-auto 2xl:block">
+        <a href="https://jelly.pt" target="_blank" rel="noopener" title="Jelly - Digital Marketing &amp; AI" class="absolute bottom-7 right-16 hidden transition hover:opacity-80 2xl:block">
+            <img src="{{ asset('images/footer-badge.svg') }}" alt="Jelly digital agency logo" class="h-6 w-auto">
+        </a>
     </div>
 </footer>

@@ -92,7 +92,7 @@
     </section>
 
     {{-- RECOLHA E ENTREGA --}}
-    <section class="mt-20 flex flex-col items-start gap-8 rounded-[32px] bg-carbono px-8 py-12 sm:px-12 xl:mt-[110px] xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-14">
+    <section class="mt-20 flex flex-col items-start gap-8 rounded-t-[32px] bg-carbono px-8 py-12 sm:px-12 xl:mt-[110px] xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-14">
         <div class="flex items-center gap-8">
             <div class="flex size-[90px] shrink-0 items-center justify-center rounded-full bg-energia text-white xl:size-[110px]">
                 <x-ui.icon name="car-burst" class="size-12" />
@@ -106,7 +106,5 @@
         </div>
         <x-pill variant="lima" :href="route('marcacoes')">Marcar Serviço</x-pill>
     </section>
-
-    <div class="h-24 xl:h-[128px]"></div>
 </div>
 @endsection
