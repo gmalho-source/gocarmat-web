@@ -6,11 +6,35 @@
 @section('content')
 <div class="mx-auto w-full max-w-[1920px] px-4 sm:px-8 xl:px-16">
 
-    <h1 class="mt-10 font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] sm:text-[52px]">
-        Gocarmat Blog
-    </h1>
+    <div class="mt-10 flex flex-wrap items-center justify-between gap-6">
+        <h1 class="font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] sm:text-[52px]">
+            Gocarmat Blog
+        </h1>
+        <form method="GET" action="{{ route('blog.index') }}" class="flex w-full max-w-[420px] items-center gap-2 rounded-full border-2 border-carbono bg-white py-1 pl-6 pr-1 focus-within:border-energia">
+            <x-ui.icon name="search" class="size-5 shrink-0 text-carbono/60" />
+            <input type="search" name="q" value="{{ $search ?? '' }}" placeholder="Pesquisar artigos..."
+                   class="w-full bg-transparent py-2.5 text-[15px] tracking-[-0.15px] outline-none placeholder:text-carbono/40">
+            <button type="submit" class="shrink-0 rounded-full bg-energia px-6 py-2.5 text-[14px] font-semibold text-precision transition hover:opacity-85">
+                Pesquisar
+            </button>
+        </form>
+    </div>
 
-    @if ($posts->onFirstPage() && $posts->isNotEmpty())
+    @if (($search ?? '') !== '')
+        <p class="mt-8 text-base font-light leading-[1.68] tracking-[-0.16px]">
+            {{ $posts->total() }} {{ $posts->total() === 1 ? 'resultado' : 'resultados' }} para
+            <strong class="font-semibold">&ldquo;{{ $search }}&rdquo;</strong>
+            &middot; <a href="{{ route('blog.index') }}" class="text-energia underline hover:no-underline">limpar pesquisa</a>
+        </p>
+        @if ($posts->isEmpty())
+            <div class="mt-10 rounded-2xl bg-white px-10 py-12">
+                <p class="text-2xl font-bold tracking-[-0.03em]">Sem resultados.</p>
+                <p class="mt-2 text-base font-light leading-[1.68]">Tente outra palavra — por exemplo &ldquo;pneus&rdquo;, &ldquo;travões&rdquo; ou &ldquo;revisão&rdquo;.</p>
+            </div>
+        @endif
+    @endif
+
+    @if (($search ?? '') === '' && $posts->onFirstPage() && $posts->isNotEmpty())
         {{-- Destaque --}}
         @php $featured = $posts->first(); @endphp
         <a href="{{ route('blog.show', $featured->slug) }}" class="group mt-12 block">
@@ -28,7 +52,7 @@
     @endif
 
     <div class="mt-12 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-        @foreach ($posts->skip($posts->onFirstPage() ? 1 : 0) as $post)
+        @foreach ($posts->skip((($search ?? '') === '' && $posts->onFirstPage()) ? 1 : 0) as $post)
             <a href="{{ route('blog.show', $post->slug) }}" class="group flex flex-col bg-white transition hover:-translate-y-1">
                 @if ($post->featured_image)
                     <div class="h-[240px] shrink-0 overflow-hidden">

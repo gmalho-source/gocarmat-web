@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Redirect;
+use App\Models\Tag;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -117,19 +118,27 @@ class ImportWordpress extends Command
                 ],
             );
 
-            // Categorias
+            // Categorias e tags
             $categoryIds = [];
+            $tagIds = [];
             foreach ($item->category as $cat) {
-                if ((string) $cat['domain'] !== 'category') {
-                    continue;
+                $domain = (string) $cat['domain'];
+                if ($domain === 'category') {
+                    $category = Category::firstOrCreate(
+                        ['slug' => (string) $cat['nicename']],
+                        ['name' => trim((string) $cat)],
+                    );
+                    $categoryIds[] = $category->id;
+                } elseif ($domain === 'post_tag') {
+                    $tag = Tag::firstOrCreate(
+                        ['slug' => (string) $cat['nicename']],
+                        ['name' => trim((string) $cat)],
+                    );
+                    $tagIds[] = $tag->id;
                 }
-                $category = Category::firstOrCreate(
-                    ['slug' => (string) $cat['nicename']],
-                    ['name' => trim((string) $cat)],
-                );
-                $categoryIds[] = $category->id;
             }
             $post->categories()->sync($categoryIds);
+            $post->tags()->sync($tagIds);
 
             // Redirect 301 do URL antigo (na raiz) para /blog/{slug}
             $oldPath = rtrim((string) parse_url($link, PHP_URL_PATH), '/');

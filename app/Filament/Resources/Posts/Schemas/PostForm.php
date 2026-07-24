@@ -87,6 +87,22 @@ class PostForm
                             ->directory('blog')
                             ->imageEditor()
                             ->maxSize(4096),
+                        Select::make('tags')
+                            ->label('Tags')
+                            ->helperText('Palavras-chave do artigo; escreva para pesquisar ou criar novas.')
+                            ->relationship('tags', 'name')
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->createOptionForm([
+                                TextInput::make('name')
+                                    ->label('Nome')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (?string $state, callable $set) => $set('slug', Str::slug((string) $state))),
+                                TextInput::make('slug')->required(),
+                            ])
+                            ->columnSpanFull(),
                     ]),
 
                 Section::make('SEO')
