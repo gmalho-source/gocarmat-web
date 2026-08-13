@@ -12,7 +12,7 @@ Site para a GOCARMAT (rede de 4 oficinas multimarca na Grande Lisboa, com o labo
 ## Comandos
 
 ```bash
-php artisan serve --port=8090     # dev server
+php artisan serve --port=8095     # dev server (8090 é usado por outro projeto local)
 npm run build                      # rebuild do CSS/JS (fazer após mexer em views/CSS)
 php artisan gocarmat:import-wordpress storage/app/import/wordpress-export.xml --skip-images
                                    # importação WordPress (idempotente; tags/categorias/redirects)
@@ -52,3 +52,5 @@ Guia completo em `DEPLOY.md`. Estado atual: **staging deployado** em `/home/goca
 - Loja Online e Campanhas: fase futura — só links no menu.
 - `/contactos` → 301 → `/marcacoes` (mesma página no design).
 - Emails em dev vão para `storage/logs/laravel.log` (`MAIL_MAILER=log`).
+- ⚠️ **`QUEUE_CONNECTION` tem de ser `sync`**. As notificações do Filament (ex: recuperação de password) implementam `ShouldQueue`; com `database` ficam presas na tabela `jobs` e o email nunca sai, porque não há queue worker no alojamento partilhado.
+- Backoffice tem recuperação de password (`->passwordReset()`) e página de perfil (`->profile()`), onde cada utilizador muda a sua própria password.
