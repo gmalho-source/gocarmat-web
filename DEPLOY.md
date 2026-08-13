@@ -1,5 +1,43 @@
 # Deploy GOCARMAT em cPanel
 
+## Deploy automático (GitHub Actions → FTPS)
+
+A partir do momento em que os secrets estiverem configurados, **cada push para `main` publica automaticamente no staging**. O workflow está em `.github/workflows/deploy-staging.yml` e faz: instala dependências PHP, compila os assets, envia os ficheiros alterados por FTPS e chama `public/deploy.php` para correr migrações e reconstruir caches.
+
+Isto é necessário porque o servidor partilhado não tem Composer nem Node — a compilação acontece toda no GitHub.
+
+### Configuração (uma vez)
+
+**1. Conta FTP no cPanel** — *FTP Accounts* → criar (ex: `deploy@gocarmat.pt`), com diretório `/home/gocarmat/gocarmat`.
+
+**2. Segredo do endpoint** — gerar um valor aleatório longo (`openssl rand -hex 24`) e acrescentar ao `.env` **do servidor**:
+```
+DEPLOY_SECRET=<valor>
+```
+
+**3. Secrets no GitHub** (*Settings → Secrets and variables → Actions*):
+
+| Secret | Valor |
+|---|---|
+| `FTP_SERVER` | `185.31.158.162` (ou `ftp.gocarmat.pt`) |
+| `FTP_USERNAME` | utilizador FTP completo |
+| `FTP_PASSWORD` | password do FTP |
+| `FTP_SERVER_DIR` | `/` se a conta FTP já apontar para `~/gocarmat`, senão `/gocarmat/` |
+| `DEPLOY_URL` | `https://staging.gocarmat.pt/deploy.php` |
+| `DEPLOY_SECRET` | o **mesmo** valor posto no `.env` do servidor |
+
+### O que nunca é enviado
+
+O workflow exclui `.env`, `storage/**`, `database/database.sqlite` e `public/storage/**` — ou seja, **a base de dados e as imagens carregadas no backoffice nunca são sobrepostas** por um deploy.
+
+### Primeira execução
+
+O primeiro deploy envia todos os ficheiros (alguns minutos); os seguintes são incrementais e rápidos, porque a action guarda no servidor o estado do último envio.
+
+---
+
+## Deploy manual (primeira instalação / recuperação)
+
 Requisitos: PHP ≥ 8.3 (MultiPHP Manager), MySQL, e idealmente acesso SSH.
 
 ## 1. Preparação no cPanel (uma vez)

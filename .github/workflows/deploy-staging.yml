@@ -1,0 +1,81 @@
+name: Deploy para staging
+
+# Corre a cada push para main. Compila as dependências (o servidor partilhado não
+# tem composer nem node), envia por FTPS e depois dispara as migrações/caches.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Preparar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: bcmath, ctype, curl, dom, fileinfo, intl, mbstring, pdo_sqlite, zip
+          coverage: none
+
+      - name: Instalar dependências PHP
+        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Preparar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Compilar assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: Enviar ficheiros por FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          # Nunca enviar: segredos, dados do servidor e ficheiros de trabalho.
+          # storage/ e a base de dados vivem só no servidor.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/tests/**
+            .env
+            .env.*
+            database/database.sqlite
+            storage/**
+            public/storage/**
+            public/atualizar.php
+            *.md
+            .editorconfig
+            phpunit.xml
+            package*.json
+            vite.config.js
+            postcss.config.js
+            tailwind.config.js
+
+      - name: Correr migrações e reconstruir caches
+        run: |
+          codigo=$(curl -sS -o /tmp/deploy.log -w "%{http_code}" -X POST \
+            -H "X-Deploy-Secret: ${{ secrets.DEPLOY_SECRET }}" \
+            --max-time 600 \
+            "${{ secrets.DEPLOY_URL }}")
+          cat /tmp/deploy.log
+          if [ "$codigo" != "200" ]; then
+            echo "::error::O pós-deploy devolveu HTTP $codigo"
+            exit 1
+          fi

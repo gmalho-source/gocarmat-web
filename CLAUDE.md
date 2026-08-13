@@ -35,7 +35,7 @@ Mockup Figma: fileKey `YyW4CEWQ5n46oteChtccZh` (Home 2:18788, Sobre Nós 23-557,
 
 ## Deploy
 
-Guia completo em `DEPLOY.md`. Estado atual: **staging deployado** em `/home/gocarmat/gocarmat` no servidor 185.31.158.162 (cPanel, SSH porta 45693, user `gocarmat`), docroot `staging.gocarmat.pt` → symlink para `gocarmat/public`, PHP 8.4 (`/opt/cpanel/ea-php84/root/usr/bin/php`), SQLite. **DNS de staging.gocarmat.pt pendente** — a zona autoritativa está nos ns1-4.webhs.org e o registo A ainda não propagou. SSH por chave ainda não funciona (suporte a investigar); deploys feitos por zip + Terminal do cPanel.
+**Automático:** push para `main` → GitHub Actions compila (composer + vite), envia por FTPS e chama `public/deploy.php` (migrações + caches). O servidor não tem Composer nem Node, por isso a compilação é feita no CI. `.env`, `storage/**` e a base de dados nunca são sobrepostos. Guia completo em `DEPLOY.md`. Estado atual: **staging deployado** em `/home/gocarmat/gocarmat` no servidor 185.31.158.162 (cPanel, SSH porta 45693, user `gocarmat`), docroot `staging.gocarmat.pt` → symlink para `gocarmat/public`, PHP 8.4 (`/opt/cpanel/ea-php84/root/usr/bin/php`), SQLite. **DNS de staging.gocarmat.pt pendente** — a zona autoritativa está nos ns1-4.webhs.org e o registo A ainda não propagou. SSH por chave ainda não funciona (suporte a investigar); deploys feitos por zip + Terminal do cPanel.
 ⚠️ O staging está na versão do commit `f9fca00` — falta atualizar com tags/pesquisa/Ken Burns/footer.
 
 ## Por fazer (fase 1)
