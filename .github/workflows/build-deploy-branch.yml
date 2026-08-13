@@ -1,0 +1,71 @@
+name: Preparar branch de deploy
+
+# O servidor partilhado não tem Composer nem Node, e o FTP não aguenta o volume
+# de ficheiros. Estratégia: o GitHub compila tudo e publica o resultado pronto a
+# correr no branch "deploy", que o Git Version Control do cPanel depois puxa.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: build-deploy-branch
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Preparar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: bcmath, ctype, curl, dom, fileinfo, intl, mbstring, pdo_sqlite, zip
+          coverage: none
+
+      - name: Instalar dependências PHP
+        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Preparar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Compilar assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publicar no branch deploy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # O branch deploy inclui o que o .gitignore normalmente exclui
+          # (vendor/ e public/build), porque o servidor não os consegue gerar.
+          cat > .gitignore <<'FIM'
+          /node_modules
+          /.github
+          /tests
+          /storage/logs/*
+          /storage/framework/cache/data/*
+          /storage/framework/sessions/*
+          /storage/framework/views/*
+          /public/storage
+          /database/database.sqlite
+          .env
+          .env.*
+          !.env.production.example
+          FIM
+
+          git add -A
+          git commit -q -m "build: $GITHUB_SHA"
+          git push -q --force origin HEAD:deploy
+          echo "Branch deploy atualizado a partir de $GITHUB_SHA"

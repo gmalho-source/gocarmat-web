@@ -1,0 +1,22 @@
+---
+# Tarefas que o Git Version Control do cPanel corre ao fazer "Deploy HEAD Commit".
+# Copia a aplicação do repositório clonado para a pasta servida pelo subdomínio
+# e corre as tarefas de manutenção. Nunca toca no .env, na base de dados nem no
+# storage (imagens carregadas no backoffice).
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/gocarmat/gocarmat
+    - export PHP=/opt/cpanel/ea-php84/root/usr/bin/php
+    - /bin/mkdir -p $DEPLOYPATH
+    - >-
+      /usr/bin/rsync -a --delete
+      --exclude '.git' --exclude '.github' --exclude '.cpanel.yml'
+      --exclude '.env' --exclude 'storage/' --exclude 'public/storage'
+      --exclude 'database/database.sqlite'
+      ./ $DEPLOYPATH/
+    - cd $DEPLOYPATH && $PHP artisan optimize:clear
+    - cd $DEPLOYPATH && $PHP artisan storage:link --force
+    - cd $DEPLOYPATH && $PHP artisan migrate --force
+    - cd $DEPLOYPATH && $PHP artisan config:cache
+    - cd $DEPLOYPATH && $PHP artisan route:cache
+    - cd $DEPLOYPATH && $PHP artisan view:cache
