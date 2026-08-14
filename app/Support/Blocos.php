@@ -31,4 +31,24 @@ class Blocos
     {
         return in_array($chave, ['carbono', 'energia'], true);
     }
+
+    /**
+     * URL de uma imagem de bloco.
+     *
+     * As imagens carregadas no backoffice vivem em storage/; as originais do
+     * design vivem em public/images. Assim um bloco funciona com ambas, e o
+     * cliente pode substituir a imagem original sem partir nada.
+     */
+    public static function imagem(?string $caminho, ?string $omissao = null): ?string
+    {
+        $valor = filled($caminho) ? $caminho : $omissao;
+
+        if (blank($valor)) {
+            return null;
+        }
+
+        return str_starts_with($valor, 'images/')
+            ? asset($valor)
+            : asset('storage/'.$valor);
+    }
 }

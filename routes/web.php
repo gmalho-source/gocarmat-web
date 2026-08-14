@@ -2,16 +2,18 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use App\Models\Page;
 use App\Models\Redirect;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::view('/sobre-nos', 'about')->name('about');
-Route::view('/servicos', 'services')->name('services');
-Route::view('/eva-powerlab', 'eva')->name('eva');
-Route::get('/marcacoes', [BookingController::class, 'create'])->name('marcacoes');
+// Estas páginas são geridas no backoffice (composer de blocos). Cada rota indica
+// a view original como alternativa, caso a página ainda não exista na BD.
+Route::get('/', fn () => app(PageController::class)->show('home', 'home'))->name('home');
+Route::get('/sobre-nos', fn () => app(PageController::class)->show('sobre-nos', 'about'))->name('about');
+Route::get('/servicos', fn () => app(PageController::class)->show('servicos', 'services'))->name('services');
+Route::get('/eva-powerlab', fn () => app(PageController::class)->show('eva-powerlab', 'eva'))->name('eva');
+Route::get('/marcacoes', fn () => app(PageController::class)->show('marcacoes', 'bookings.create'))->name('marcacoes');
 Route::redirect('/contactos', '/marcacoes', 301);
 Route::post('/marcacoes', [BookingController::class, 'store'])->name('marcacoes.store');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

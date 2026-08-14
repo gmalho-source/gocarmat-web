@@ -1,6 +1,14 @@
 @extends('layouts.site')
 
-@section('title', $page->metaTitle().' — GOCARMAT')
+@php
+    // Evita "GOCARMAT" repetido quando o meta title já inclui a marca.
+    $tituloPagina = $page->metaTitle();
+    $tituloCompleto = str_contains(mb_strtoupper($tituloPagina), 'GOCARMAT')
+        ? $tituloPagina
+        : $tituloPagina.' — GOCARMAT';
+@endphp
+
+@section('title', $tituloCompleto)
 @section('meta_description', $page->metaDescription())
 
 @push('meta')

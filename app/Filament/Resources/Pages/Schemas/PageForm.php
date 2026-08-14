@@ -121,6 +121,227 @@ class PageForm
     /** Blocos disponíveis no composer. */
     private static function blocos(): array
     {
+        return array_merge(self::blocosDeSeccao(), self::blocosGenericos());
+    }
+
+    /**
+     * Blocos que reproduzem as secções desenhadas no mockup.
+     * São os que compõem a Home, Sobre Nós, Serviços, EVA Powerlab e Marcações.
+     */
+    private static function blocosDeSeccao(): array
+    {
+        return [
+            Builder\Block::make('hero_home')
+                ->label('Hero da Home (com cartão de destaque)')
+                ->icon('heroicon-o-home')
+                ->schema([
+                    TextInput::make('eyebrow')->label('Sobretítulo'),
+                    TextInput::make('titulo')->label('Título')->required(),
+                    Textarea::make('texto')->label('Texto')->rows(3),
+                    FileUpload::make('imagem')->label('Imagem (deixe vazio para manter a atual)')->image()->disk('public')->directory('pages'),
+                    Repeater::make('botoes')->label('Botões')
+                        ->schema([
+                            TextInput::make('texto')->label('Texto')->required(),
+                            TextInput::make('link')->label('Link')->required(),
+                        ])->maxItems(2),
+                    TextInput::make('destaque_numero')->label('Número em destaque (ex: +16)'),
+                    TextInput::make('destaque_unidade')->label('Unidade (ex: ANOS)'),
+                    Textarea::make('destaque_texto')->label('Texto do destaque')->rows(2),
+                ]),
+
+            Builder\Block::make('hero_split')
+                ->label('Hero de página interior')
+                ->icon('heroicon-o-rectangle-group')
+                ->schema([
+                    TextInput::make('eyebrow')->label('Sobretítulo'),
+                    TextInput::make('titulo')->label('Título')->required(),
+                    TextInput::make('titulo_destaque')->label('Parte do título a destacar (lima)'),
+                    Textarea::make('texto')->label('Texto')->rows(3),
+                    FileUpload::make('imagem')->label('Imagem')->image()->disk('public')->directory('pages'),
+                    Select::make('fundo')->label('Fundo')->options(self::FUNDOS)->default('carbono')->native(false),
+                    Toggle::make('overlay_azul')->label('Aplicar sobreposição azul na imagem'),
+                    TextInput::make('cartao_titulo')->label('Cartão sobreposto — título'),
+                    TextInput::make('cartao_texto')->label('Cartão sobreposto — texto'),
+                    Repeater::make('botoes')->label('Botões')
+                        ->schema([
+                            TextInput::make('texto')->label('Texto')->required(),
+                            TextInput::make('link')->label('Link')->required(),
+                        ])->maxItems(2),
+                ]),
+
+            Builder\Block::make('servicos_cards')
+                ->label('Serviços — cards da Home')
+                ->icon('heroicon-o-wrench-screwdriver')
+                ->schema([
+                    TextInput::make('titulo')->label('Título da secção'),
+                    TextInput::make('botao_texto')->label('Texto do botão'),
+                    TextInput::make('botao_link')->label('Link do botão'),
+                    Repeater::make('itens')->label('Serviços')
+                        ->schema([
+                            TextInput::make('numero')->label('Número (ex: 01.)'),
+                            TextInput::make('etiqueta')->label('Etiqueta'),
+                            TextInput::make('titulo')->label('Título')->required(),
+                            Textarea::make('texto')->label('Texto')->rows(3),
+                            FileUpload::make('imagem')->label('Imagem')->image()->disk('public')->directory('pages'),
+                            TextInput::make('link')->label('Link'),
+                        ])->reorderable(),
+                ]),
+
+            Builder\Block::make('servicos_detalhe')
+                ->label('Serviços — cards detalhados')
+                ->icon('heroicon-o-list-bullet')
+                ->schema([
+                    Repeater::make('itens')->label('Serviços')
+                        ->schema([
+                            TextInput::make('numero')->label('Número'),
+                            TextInput::make('etiqueta')->label('Etiqueta'),
+                            TextInput::make('titulo')->label('Título')->required(),
+                            Textarea::make('texto')->label('Texto')->rows(3),
+                            Repeater::make('bullets')->label('Pontos')
+                                ->simple(TextInput::make('texto')->required()),
+                            FileUpload::make('imagem')->label('Imagem')->image()->disk('public')->directory('pages'),
+                            Select::make('variante')->label('Cor do cartão')
+                                ->options(['branco' => 'Branco', 'gelo' => 'Azul gelo', 'azul' => 'Azul'])
+                                ->default('branco')->native(false),
+                            TextInput::make('link')->label('Link'),
+                        ])->reorderable(),
+                ]),
+
+            Builder\Block::make('eva_banner')
+                ->label('EVA Powerlab — banda da Home')
+                ->icon('heroicon-o-bolt')
+                ->schema([
+                    TextInput::make('etiqueta')->label('Etiqueta'),
+                    TextInput::make('titulo')->label('Título')->required(),
+                    TextInput::make('subtitulo')->label('Subtítulo'),
+                    Textarea::make('texto')->label('Texto')->rows(3),
+                    TextInput::make('botao_texto')->label('Texto do botão'),
+                    TextInput::make('botao_link')->label('Link do botão'),
+                    Repeater::make('servicos')->label('Serviços (pills)')
+                        ->simple(TextInput::make('texto')->required()),
+                ]),
+
+            Builder\Block::make('eva_servicos')
+                ->label('EVA Powerlab — cards de serviço')
+                ->icon('heroicon-o-cpu-chip')
+                ->schema([
+                    Repeater::make('itens')->label('Serviços')
+                        ->schema([
+                            TextInput::make('etiqueta')->label('Etiqueta'),
+                            TextInput::make('titulo')->label('Título')->required(),
+                            Textarea::make('texto')->label('Texto')->rows(3),
+                            Select::make('icone')->label('Ícone')
+                                ->options(['bolt' => 'Raio', 'car-burst' => 'Carro', 'shield' => 'Escudo', 'certificate' => 'Certificado', 'wrench' => 'Chave', 'unlock' => 'Desbloqueio'])
+                                ->default('bolt')->native(false),
+                        ])->reorderable(),
+                ]),
+
+            Builder\Block::make('porque_faq')
+                ->label('Painel + perguntas frequentes')
+                ->icon('heroicon-o-chat-bubble-left-right')
+                ->schema([
+                    TextInput::make('titulo')->label('Título do painel')->required(),
+                    Textarea::make('texto')->label('Texto do painel')->rows(3),
+                    FileUpload::make('imagem')->label('Imagem do painel')->image()->disk('public')->directory('pages'),
+                    TextInput::make('faq_titulo')->label('Título das perguntas')->default('Perguntas frequentes'),
+                    Repeater::make('faqs')->label('Perguntas')
+                        ->schema([
+                            TextInput::make('pergunta')->label('Pergunta')->required(),
+                            Textarea::make('resposta')->label('Resposta')->rows(3)->required(),
+                        ]),
+                ]),
+
+            Builder\Block::make('missao_visao')
+                ->label('Missão e Visão')
+                ->icon('heroicon-o-flag')
+                ->schema([
+                    TextInput::make('titulo_1')->label('Título 1')->default('Missão')->required(),
+                    Textarea::make('texto_1')->label('Texto 1')->rows(3)->required(),
+                    TextInput::make('titulo_2')->label('Título 2')->default('Visão')->required(),
+                    Textarea::make('texto_2')->label('Texto 2')->rows(3)->required(),
+                ]),
+
+            Builder\Block::make('valores')
+                ->label('Valores (cartões numerados)')
+                ->icon('heroicon-o-sparkles')
+                ->schema([
+                    TextInput::make('titulo')->label('Título da secção'),
+                    Repeater::make('itens')->label('Valores')
+                        ->schema([
+                            TextInput::make('numero')->label('Número'),
+                            TextInput::make('titulo')->label('Título')->required(),
+                            Textarea::make('texto')->label('Texto')->rows(2),
+                        ])->reorderable(),
+                    TextInput::make('destaque_titulo')->label('Cartão lima — título'),
+                    Textarea::make('destaque_texto')->label('Cartão lima — texto')->rows(2),
+                    TextInput::make('destaque_botao')->label('Cartão lima — botão'),
+                    TextInput::make('destaque_link')->label('Cartão lima — link'),
+                ]),
+
+            Builder\Block::make('oficinas_titulo')
+                ->label('Oficinas (com título e botão)')
+                ->icon('heroicon-o-map-pin')
+                ->schema([
+                    TextInput::make('titulo')->label('Título')->default('4 oficinas - o mesmo cuidado'),
+                    TextInput::make('botao_texto')->label('Texto do botão'),
+                    TextInput::make('botao_link')->label('Link do botão'),
+                ]),
+
+            Builder\Block::make('blog_grelha')
+                ->label('Blog — grelha da Home')
+                ->icon('heroicon-o-newspaper')
+                ->schema([
+                    TextInput::make('titulo')->label('Título')->default('Gocarmat Blog'),
+                    TextInput::make('botao_texto')->label('Texto do botão')->default('Ver todos os Artigos'),
+                ]),
+
+            Builder\Block::make('cta_icone')
+                ->label('Faixa de CTA com ícone')
+                ->icon('heroicon-o-megaphone')
+                ->schema([
+                    TextInput::make('titulo')->label('Título')->required(),
+                    Textarea::make('texto')->label('Texto')->rows(2),
+                    Select::make('icone')->label('Ícone')
+                        ->options(['bolt' => 'Raio', 'car-burst' => 'Carro', 'shield' => 'Escudo', 'wrench' => 'Chave'])
+                        ->native(false),
+                    Select::make('cor_icone')->label('Cor do ícone')
+                        ->options(['energia' => 'Azul', 'lima' => 'Lima'])->default('energia')->native(false),
+                    TextInput::make('botao_texto')->label('Texto do botão'),
+                    TextInput::make('botao_link')->label('Link do botão'),
+                    Select::make('fundo')->label('Fundo')->options(self::FUNDOS)->default('carbono')->native(false),
+                    Toggle::make('colar_ao_rodape')->label('Colar ao rodapé (sem margem inferior)'),
+                ]),
+
+            Builder\Block::make('marcacoes_form')
+                ->label('Formulário de marcações')
+                ->icon('heroicon-o-inbox-arrow-down')
+                ->schema([
+                    TextInput::make('eyebrow')->label('Sobretítulo')->default('Contactos / Marcações'),
+                    TextInput::make('titulo')->label('Título')->default('Marcações'),
+                    TextInput::make('botao_texto')->label('Texto do botão')->default('Enviar'),
+                    TextInput::make('sucesso_titulo')->label('Mensagem de sucesso — título'),
+                    Textarea::make('sucesso_texto')->label('Mensagem de sucesso — texto')->rows(2),
+                    Textarea::make('newsletter_texto')->label('Texto do opt-in de newsletter')->rows(2),
+                    Textarea::make('rgpd_texto')->label('Texto do consentimento RGPD')->rows(3),
+                ]),
+
+            Builder\Block::make('contactos_lista')
+                ->label('Lista de contactos por e-mail')
+                ->icon('heroicon-o-envelope')
+                ->schema([
+                    TextInput::make('titulo')->label('Título')->default('Outros contactos'),
+                    Repeater::make('itens')->label('Contactos')
+                        ->schema([
+                            TextInput::make('label')->label('Descrição')->required(),
+                            TextInput::make('email')->label('E-mail')->email()->required(),
+                        ])->reorderable(),
+                ]),
+        ];
+    }
+
+    /** Blocos genéricos, para páginas novas. */
+    private static function blocosGenericos(): array
+    {
         return [
             Builder\Block::make('hero')
                 ->label('Destaque (hero)')

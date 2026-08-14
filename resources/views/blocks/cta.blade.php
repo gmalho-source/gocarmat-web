@@ -14,6 +14,6 @@
     </div>
 
     @if (filled($data['botao_texto'] ?? null))
-        <x-pill :variant="$escuro ? 'lima' : 'dark'" :href="$data['botao_link'] ?: '#'">{{ $data['botao_texto'] }}</x-pill>
+        <x-pill :variant="$escuro ? 'lima' : 'dark'" :href="($data['botao_link'] ?? null) ?: '#'">{{ $data['botao_texto'] }}</x-pill>
     @endif
 </section>
