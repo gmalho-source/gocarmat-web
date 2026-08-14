@@ -3,6 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
+use App\Models\Page;
 use App\Models\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -26,11 +27,18 @@ Route::get('/robots.txt', function () {
     return response($conteudo, 200, ['Content-Type' => 'text/plain']);
 });
 
-// Redirects 301 dos URLs antigos do WordPress (ex: /inspecao-automovel -> /blog/inspecao-automovel)
+// Páginas criadas no backoffice e, em último caso, os redirects 301 dos URLs
+// antigos do WordPress (ex: /inspecao-automovel -> /blog/inspecao-automovel).
 Route::fallback(function (string $any = '') {
-    $path = '/'.trim(request()->path(), '/');
+    $path = trim(request()->path(), '/');
 
-    $redirect = Redirect::where('from_path', $path)->first();
+    $page = Page::published()->where('slug', $path)->first();
+
+    if ($page) {
+        return response()->view('pages.show', ['page' => $page]);
+    }
+
+    $redirect = Redirect::where('from_path', '/'.$path)->first();
 
     if ($redirect) {
         $redirect->increment('hits');
