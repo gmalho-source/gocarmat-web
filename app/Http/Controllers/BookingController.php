@@ -64,6 +64,10 @@ class BookingController extends Controller
             'source' => 'marcacoes',
         ]);
 
+        if ($booking->newsletter_opt_in) {
+            app(\App\Services\Mailchimp::class)->subscrever($booking->email, $booking->name, 'marcacoes');
+        }
+
         $adminEmail = Setting::get('notification_email', 'apoiocliente@gocarmat.pt');
 
         try {
