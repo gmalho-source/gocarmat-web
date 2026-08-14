@@ -17,6 +17,15 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::view('/politica-de-privacidade', 'privacy')->name('privacy');
 
+// Em pré-produção bloqueia os motores de busca; em produção permite tudo.
+Route::get('/robots.txt', function () {
+    $conteudo = filled(config('staging.password'))
+        ? "User-agent: *\nDisallow: /\n"
+        : "User-agent: *\nDisallow: /admin\n\nSitemap: ".url('/sitemap.xml')."\n";
+
+    return response($conteudo, 200, ['Content-Type' => 'text/plain']);
+});
+
 // Redirects 301 dos URLs antigos do WordPress (ex: /inspecao-automovel -> /blog/inspecao-automovel)
 Route::fallback(function (string $any = '') {
     $path = '/'.trim(request()->path(), '/');

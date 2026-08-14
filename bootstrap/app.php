@@ -12,7 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Protege ambientes de pré-produção (ativa-se via STAGING_PASSWORD).
+        $middleware->prepend(App\Http\Middleware\ProtegerStaging::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
