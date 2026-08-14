@@ -43,6 +43,15 @@
         </section>
     @endforelse
 
-    <div class="h-24 xl:h-[128px]"></div>
+    @php
+        // Quando a página acaba numa faixa colada ao rodapé, não há espaçador
+        // — a banda encosta ao footer, como no desenho.
+        $ultimo = collect($page->content ?? [])->last();
+        $encostaAoRodape = (bool) ($ultimo['data']['colar_ao_rodape'] ?? false);
+    @endphp
+
+    @unless ($encostaAoRodape)
+        <div class="h-24 xl:h-[128px]"></div>
+    @endunless
 </div>
 @endsection
