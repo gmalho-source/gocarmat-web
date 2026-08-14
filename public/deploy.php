@@ -47,6 +47,13 @@ if (! hash_equals($segredo, (string) ($_SERVER['HTTP_X_DEPLOY_SECRET'] ?? ''))) 
     exit("Não autorizado.\n");
 }
 
+/**
+ * Ações pontuais, além das tarefas de manutenção. Existem porque este
+ * alojamento não tem terminal — sem isto não haveria forma de criar um
+ * utilizador do backoffice ou popular as páginas depois de um deploy.
+ */
+$acao = $_GET['acao'] ?? null;
+
 echo "== Pós-deploy GOCARMAT ==\n";
 
 // As caches de bootstrap são geradas a partir do vendor/ anterior. Se o deploy
@@ -67,6 +74,34 @@ try {
 }
 
 $falhou = false;
+
+// Ações pontuais, pedidas explicitamente por ?acao=
+if ($acao === 'criar-admin') {
+    echo "\n-- Criar/repor utilizador do backoffice\n";
+    try {
+        \Illuminate\Support\Facades\Artisan::call('gocarmat:criar-admin', array_filter([
+            '--email' => $_GET['email'] ?? null,
+            '--nome' => $_GET['nome'] ?? null,
+        ]));
+        echo trim(\Illuminate\Support\Facades\Artisan::output())."\n";
+    } catch (\Throwable $e) {
+        $falhou = true;
+        echo 'ERRO: '.$e->getMessage()."\n";
+    }
+}
+
+if ($acao === 'seed-pages') {
+    echo "\n-- Criar páginas do site na base de dados\n";
+    try {
+        \Illuminate\Support\Facades\Artisan::call('gocarmat:seed-pages', array_filter([
+            '--force' => isset($_GET['force']) ? true : null,
+        ]));
+        echo trim(\Illuminate\Support\Facades\Artisan::output())."\n";
+    } catch (\Throwable $e) {
+        $falhou = true;
+        echo 'ERRO: '.$e->getMessage()."\n";
+    }
+}
 
 foreach ([
     'Limpar caches' => ['optimize:clear', []],
