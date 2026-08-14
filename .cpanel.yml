@@ -1,0 +1,21 @@
+---
+# Tarefas do "Deploy HEAD Commit" do Git Version Control do cPanel.
+#
+# Copia a aplicação (já compilada pelo GitHub Actions no branch "deploy") do
+# repositório para a pasta servida pelo subdomínio. Nunca toca no .env, na base
+# de dados nem no storage — é lá que vivem os dados e as imagens do backoffice.
+deployment:
+  tasks:
+    - export ORIGEM=/home/gocarmat/repositories/gocarmat-web
+    - export DESTINO=/home/gocarmat/gocarmat
+    - /bin/mkdir -p $DESTINO
+    - >-
+      /usr/bin/rsync -a --delete
+      --exclude '.git' --exclude '.github' --exclude '.cpanel.yml'
+      --exclude '.env' --exclude 'storage/' --exclude 'public/storage'
+      --exclude 'database/database.sqlite'
+      $ORIGEM/ $DESTINO/
+      || /bin/cp -Rf $ORIGEM/app $ORIGEM/bootstrap $ORIGEM/config $ORIGEM/database
+      $ORIGEM/public $ORIGEM/resources $ORIGEM/routes $ORIGEM/vendor
+      $ORIGEM/artisan $ORIGEM/composer.json $DESTINO/
+    - /bin/rm -rf $DESTINO/.git $DESTINO/.github
