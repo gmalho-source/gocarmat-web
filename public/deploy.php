@@ -49,6 +49,14 @@ if (! hash_equals($segredo, (string) ($_SERVER['HTTP_X_DEPLOY_SECRET'] ?? ''))) 
 
 echo "== Pós-deploy GOCARMAT ==\n";
 
+// As caches de bootstrap são geradas a partir do vendor/ anterior. Se o deploy
+// trocou as dependências (ex: passou a --no-dev), ficam a apontar para classes
+// que já não existem e a aplicação nem arranca. Têm de ser removidas primeiro.
+echo "\n-- Limpar caches de bootstrap\n";
+foreach (glob($raiz.'/bootstrap/cache/*.php') ?: [] as $ficheiro) {
+    echo '  removido: '.basename($ficheiro).(@unlink($ficheiro) ? '' : ' (FALHOU)')."\n";
+}
+
 try {
     require $raiz.'/vendor/autoload.php';
     $app = require $raiz.'/bootstrap/app.php';

@@ -19,3 +19,6 @@ deployment:
       $ORIGEM/public $ORIGEM/resources $ORIGEM/routes $ORIGEM/vendor
       $ORIGEM/artisan $ORIGEM/composer.json $DESTINO/
     - /bin/rm -rf $DESTINO/.git $DESTINO/.github
+    # Caches geradas com o vendor/ anterior impedem o arranque se as
+    # dependências mudarem (ex: dev → --no-dev). Reconstruídas em deploy.php.
+    - /bin/rm -f $DESTINO/bootstrap/cache/packages.php $DESTINO/bootstrap/cache/services.php $DESTINO/bootstrap/cache/config.php $DESTINO/bootstrap/cache/routes-v7.php
