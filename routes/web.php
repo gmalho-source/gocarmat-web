@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SitemapController;
 use App\Models\Page;
 use App\Models\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +18,12 @@ Route::get('/eva-powerlab', fn () => app(PageController::class)->show('eva-power
 Route::get('/marcacoes', fn () => app(PageController::class)->show('marcacoes', 'bookings.create'))->name('marcacoes');
 Route::redirect('/contactos', '/marcacoes', 301);
 Route::post('/marcacoes', [BookingController::class, 'store'])->name('marcacoes.store');
+Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::view('/politica-de-privacidade', 'privacy')->name('privacy');
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 // Em pré-produção bloqueia os motores de busca; em produção permite tudo.
 Route::get('/robots.txt', function () {

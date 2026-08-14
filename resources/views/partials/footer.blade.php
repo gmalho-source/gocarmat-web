@@ -18,6 +18,37 @@
                 <p class="mt-8 max-w-[512px] text-base font-light leading-[1.68] tracking-[-0.16px] text-gelo">
                     A GOCARMAT é uma rede de oficinas multimarca, com 16 anos de experiência, a operar na Grande Lisboa e a crescer para todo o país. Capitais 100% portugueses e um laboratório próprio de mobilidade elétrica, o EVA Powerlab.
                 </p>
+
+                {{-- Subscrição da newsletter --}}
+                <div class="mt-8 max-w-[420px]">
+                    @if (session('newsletter') === 'ok')
+                        <p class="rounded-2xl bg-lima px-6 py-4 text-base font-semibold text-carbono">
+                            Obrigado! A sua subscrição foi registada.
+                        </p>
+                    @else
+                        <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] text-cristal">
+                            Newsletter
+                        </p>
+                        <form method="POST" action="{{ route('newsletter.store') }}" class="mt-3 flex items-center gap-2 rounded-full bg-white/10 p-1.5 focus-within:bg-white/15">
+                            @csrf
+                            <div class="hidden" aria-hidden="true">
+                                <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+                            </div>
+                            <label for="newsletter_email" class="sr-only">O seu e-mail</label>
+                            <input id="newsletter_email" type="email" name="email" required placeholder="O seu e-mail"
+                                   class="w-full bg-transparent px-4 py-2 text-[15px] text-white outline-none placeholder:text-gelo/60">
+                            <button type="submit" class="shrink-0 rounded-full bg-lima px-6 py-2.5 text-[14px] font-semibold text-carbono transition hover:opacity-85">
+                                Subscrever
+                            </button>
+                        </form>
+                        @error('email')
+                            <p class="mt-2 text-sm text-lima">{{ $message }}</p>
+                        @enderror
+                        <p class="mt-2 text-[13px] font-light leading-[1.5] text-gelo/70">
+                            Ao subscrever aceita a nossa <a href="{{ url('/politica-de-privacidade') }}" class="underline hover:text-white">Política de Privacidade</a>.
+                        </p>
+                    @endif
+                </div>
             </div>
             <div class="xl:col-span-2">
                 <p class="font-mono text-2xl font-bold uppercase leading-[1.2]">GoCarmat</p>

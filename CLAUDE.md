@@ -42,12 +42,9 @@ Mockup Figma: fileKey `YyW4CEWQ5n46oteChtccZh` (Home 2:18788, Sobre Nós 23-557,
 
 Definir `STAGING_PASSWORD` no `.env` fecha **todo** o site (incluindo `/admin`) atrás de autenticação HTTP básica, devolve `X-Robots-Tag: noindex, nofollow` e faz o `robots.txt` bloquear tudo — evita indexação pelo Google (conteúdo duplicado face ao site real) e exposição do trabalho em curso. Em produção, deixar a variável vazia. Ver `app/Http/Middleware/ProtegerStaging.php`.
 
-## Por fazer (fase 1)
+## Por fazer
 
-- Mailchimp (campo no footer + opt-in das marcações → audience)
-- Cookie consent RGPD + snippets GA4/Meta Pixel (lidos das Settings)
-- Sitemap.xml e favicons
-- Atualizar staging para o HEAD; migrar staging/produção para MySQL
+- Migrar staging/produção para MySQL (hoje SQLite)
 - Produção: SMTP real no `.env`, remover utilizador dev do backoffice, DNS final
 - Validar com o cliente: textos das FAQs do EVA (3 respostas escritas por nós), horário alargado (9h-19h+sáb vs 08:30-18:00 das oficinas), texto do card Climatização
 
