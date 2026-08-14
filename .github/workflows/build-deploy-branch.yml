@@ -66,7 +66,27 @@ jobs:
           !.env.production.example
           FIM
 
+          # A história do branch deploy tem de ser contínua: se cada build criar
+          # um commit sem relação com o anterior, o "Update from Remote" do
+          # cPanel não consegue avançar e falha. Por isso o novo commit é sempre
+          # filho do anterior.
+          git fetch origin deploy 2>/dev/null && existe=1 || existe=0
+
+          if [ "$existe" = "1" ]; then
+            git branch -f deploy origin/deploy
+          else
+            git branch -f deploy
+          fi
+
+          # Muda de branch sem tocar nos ficheiros já compilados
+          git symbolic-ref HEAD refs/heads/deploy
+          git reset
+
           git add -A
-          git commit -q -m "build: $GITHUB_SHA"
-          git push -q --force origin HEAD:deploy
-          echo "Branch deploy atualizado a partir de $GITHUB_SHA"
+          if git diff --cached --quiet; then
+            echo "Sem alterações para publicar."
+          else
+            git commit -q -m "build: $GITHUB_SHA"
+            git push -q origin deploy
+            echo "Branch deploy atualizado a partir de $GITHUB_SHA"
+          fi
