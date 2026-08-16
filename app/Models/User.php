@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,8 +14,20 @@ use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
+    /**
+     * Quem pode entrar no backoffice.
+     *
+     * Sem este método, o Filament recusa o acesso (403) fora do ambiente local.
+     * Os utilizadores só são criados por administradores — não há registo
+     * público — por isso qualquer conta existente pode entrar.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
