@@ -124,8 +124,13 @@ if ($acao === 'instalar') {
             @mkdir(dirname($destino), 0755, true);
         }
 
-        // Só copia o que mudou — muito mais rápido em deploys sucessivos
-        if (is_file($destino) && filesize($destino) === $item->getSize() && filemtime($destino) >= $item->getMTime()) {
+        // Só copia o que mudou de facto. A comparação é pelo conteúdo (hash) e
+        // não pela data: os deploys anteriores do cPanel deixaram ficheiros com
+        // data mais recente que a do repositório, o que levaria a saltar
+        // ficheiros desatualizados e a misturar versões da aplicação.
+        if (is_file($destino)
+            && filesize($destino) === $item->getSize()
+            && md5_file($destino) === md5_file($item->getPathname())) {
             continue;
         }
 
@@ -138,6 +143,22 @@ if ($acao === 'instalar') {
     foreach (glob($raiz.'/bootstrap/cache/*.php') ?: [] as $ficheiro) {
         @unlink($ficheiro);
     }
+}
+
+// Diagnóstico: últimas linhas do log de erros (sem terminal, é a única forma
+// de perceber o que se passou depois de um deploy).
+if ($acao === 'log') {
+    $log = $raiz.'/storage/logs/laravel.log';
+    echo "\n-- Últimas linhas de ".basename($log)."\n";
+
+    if (! is_readable($log)) {
+        echo "(sem log)\n";
+    } else {
+        $linhas = @file($log) ?: [];
+        echo implode('', array_slice($linhas, -((int) ($_GET['linhas'] ?? 40))));
+    }
+
+    exit;
 }
 
 // Ações pontuais, pedidas explicitamente por ?acao=
