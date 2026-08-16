@@ -55,6 +55,9 @@ jobs:
           /node_modules
           /.github
           /tests
+          # O cPanel grava os logs de cada deploy nesta pasta. Se não for
+          # ignorada, fica "por commitar" e bloqueia os deploys seguintes.
+          /.cpanel
           /storage/logs/*
           /storage/framework/cache/data/*
           /storage/framework/sessions/*
