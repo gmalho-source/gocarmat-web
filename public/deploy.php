@@ -75,6 +75,71 @@ try {
 
 $falhou = false;
 
+/**
+ * Instala a aplicação a partir do repositório clonado pelo cPanel.
+ *
+ * Substitui o "Deploy HEAD Commit" do painel, que bloqueia sempre que a árvore
+ * do repositório fica suja. Copia apenas o código: .env, base de dados e
+ * storage (imagens do backoffice) nunca são tocados.
+ */
+if ($acao === 'instalar') {
+    echo "\n-- Instalar ficheiros a partir do repositório\n";
+
+    $origem = $_GET['origem'] ?? '/home/gocarmat/repositories/gocarmat-web';
+
+    if (! is_dir($origem) || ! is_file($origem.'/artisan')) {
+        http_response_code(500);
+        exit("Repositório não encontrado em {$origem}\n");
+    }
+
+    $preservar = ['.env', 'storage', 'public/storage', 'database/database.sqlite', '.git', '.github', '.cpanel', 'node_modules'];
+    $copiados = 0;
+    $erros = 0;
+
+    $it = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($origem, FilesystemIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+
+    foreach ($it as $item) {
+        $relativo = str_replace('\\', '/', ltrim(str_replace($origem, '', $item->getPathname()), '/\\'));
+
+        foreach ($preservar as $p) {
+            if ($relativo === $p || str_starts_with($relativo, $p.'/')) {
+                continue 2;
+            }
+        }
+
+        $destino = $raiz.'/'.$relativo;
+
+        if ($item->isDir()) {
+            if (! is_dir($destino)) {
+                @mkdir($destino, 0755, true);
+            }
+
+            continue;
+        }
+
+        if (! is_dir(dirname($destino))) {
+            @mkdir(dirname($destino), 0755, true);
+        }
+
+        // Só copia o que mudou — muito mais rápido em deploys sucessivos
+        if (is_file($destino) && filesize($destino) === $item->getSize() && filemtime($destino) >= $item->getMTime()) {
+            continue;
+        }
+
+        @copy($item->getPathname(), $destino) ? $copiados++ : $erros++;
+    }
+
+    echo "{$copiados} ficheiros atualizados".($erros ? ", {$erros} falharam" : '')."\n";
+
+    // O código mudou: as caches de bootstrap têm de desaparecer antes de arrancar
+    foreach (glob($raiz.'/bootstrap/cache/*.php') ?: [] as $ficheiro) {
+        @unlink($ficheiro);
+    }
+}
+
 // Ações pontuais, pedidas explicitamente por ?acao=
 if ($acao === 'criar-admin') {
     echo "\n-- Criar/repor utilizador do backoffice\n";
