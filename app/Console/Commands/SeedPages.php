@@ -291,6 +291,18 @@ class SeedPages extends Command
                     ['type' => 'oficinas_titulo', 'data' => ['titulo' => '4 oficinas - o mesmo cuidado']],
                 ],
             ],
+
+            'teste' => [
+                'title' => 'Teste',
+                'meta_title' => 'Teste — GOCARMAT',
+                'content' => [
+                    ['type' => 'hero', 'data' => [
+                        'eyebrow' => 'Teste',
+                        'titulo' => 'Página de teste',
+                        'fundo' => 'energia',
+                    ]],
+                ],
+            ],
         ];
     }
 }
