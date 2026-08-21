@@ -194,6 +194,27 @@ if ($acao === 'seed-pages') {
     }
 }
 
+// Apaga uma página pelo slug (ex: ?acao=delete-page&slug=teste). Usado quando
+// uma página deixa de existir no código e a linha correspondente na base de
+// dados também precisa de desaparecer — o deploy normal só copia código.
+if ($acao === 'delete-page') {
+    $slug = $_GET['slug'] ?? null;
+    echo "\n-- Apagar página '{$slug}'\n";
+
+    if (! $slug) {
+        $falhou = true;
+        echo "ERRO: falta o parâmetro slug.\n";
+    } else {
+        try {
+            $apagadas = \App\Models\Page::where('slug', $slug)->delete();
+            echo $apagadas ? "página '{$slug}' apagada.\n" : "não existia nenhuma página com o slug '{$slug}'.\n";
+        } catch (\Throwable $e) {
+            $falhou = true;
+            echo 'ERRO: '.$e->getMessage()."\n";
+        }
+    }
+}
+
 foreach ([
     'Limpar caches' => ['optimize:clear', []],
     'Ligação do storage' => ['storage:link', ['--force' => true]],
