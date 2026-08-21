@@ -7,13 +7,21 @@ use Illuminate\Console\Command;
 
 class SeedPages extends Command
 {
-    protected $signature = 'gocarmat:seed-pages {--force : Substituir páginas já existentes}';
+    protected $signature = 'gocarmat:seed-pages
+        {--force : Substituir páginas já existentes (apaga edições feitas no backoffice)}
+        {--only= : Agir apenas sobre este slug (ex: --only=campanhas)}';
 
     protected $description = 'Cria na base de dados as páginas do site (Home, Sobre Nós, Serviços, EVA Powerlab e Marcações) em blocos editáveis, com o conteúdo atual.';
 
     public function handle(): int
     {
+        $apenas = $this->option('only');
+
         foreach ($this->paginas() as $slug => $dados) {
+            if ($apenas && $slug !== $apenas) {
+                continue;
+            }
+
             $existente = Page::where('slug', $slug)->first();
 
             if ($existente && ! $this->option('force')) {
@@ -31,6 +39,13 @@ class SeedPages extends Command
         }
 
         $this->newLine();
+
+        if ($apenas && ! array_key_exists($apenas, $this->paginas())) {
+            $this->error("Não existe nenhuma página definida com o slug '{$apenas}'.");
+
+            return self::FAILURE;
+        }
+
         $this->info('Páginas disponíveis no backoffice em Páginas.');
 
         return self::SUCCESS;
