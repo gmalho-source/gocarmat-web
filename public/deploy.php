@@ -185,6 +185,7 @@ if ($acao === 'seed-pages') {
     try {
         \Illuminate\Support\Facades\Artisan::call('gocarmat:seed-pages', array_filter([
             '--force' => isset($_GET['force']) ? true : null,
+            '--only' => $_GET['only'] ?? null,
         ]));
         echo trim(\Illuminate\Support\Facades\Artisan::output())."\n";
     } catch (\Throwable $e) {
