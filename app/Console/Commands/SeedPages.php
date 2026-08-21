@@ -283,7 +283,7 @@ class SeedPages extends Command
                 'content' => [
                     ['type' => 'hero', 'data' => [
                         'eyebrow' => 'Campanhas',
-                        'titulo' => 'Brevemente Online',
+                        'titulo' => 'Brevemente 2 Online',
                         'fundo' => 'energia',
                     ]],
                 ],
