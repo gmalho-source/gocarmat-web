@@ -92,7 +92,11 @@ if ($acao === 'instalar') {
         exit("Repositório não encontrado em {$origem}\n");
     }
 
-    $preservar = ['.env', 'storage', 'public/storage', 'database/database.sqlite', '.git', '.github', '.cpanel', 'node_modules'];
+    // 'public/deploy.php' é preservado de propósito: é este ficheiro a correr.
+    // Se fosse substituído pela versão do repositório, uma versão antiga podia
+    // apagar as suas próprias funcionalidades e deixar o deploy sem saída.
+    // Atualiza-se manualmente quando necessário.
+    $preservar = ['.env', 'storage', 'public/storage', 'database/database.sqlite', '.git', '.github', '.cpanel', 'node_modules', 'public/deploy.php'];
     $copiados = 0;
     $erros = 0;
 
