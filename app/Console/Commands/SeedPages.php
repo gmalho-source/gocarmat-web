@@ -292,13 +292,13 @@ class SeedPages extends Command
                 ],
             ],
 
-            'teste' => [
-                'title' => 'Teste',
-                'meta_title' => 'Teste — GOCARMAT',
+            'campanhas' => [
+                'title' => 'Campanhas',
+                'meta_title' => 'Campanhas — GOCARMAT',
                 'content' => [
                     ['type' => 'hero', 'data' => [
-                        'eyebrow' => 'Teste',
-                        'titulo' => 'Página de teste',
+                        'eyebrow' => 'Campanhas',
+                        'titulo' => 'Esta página vai estar disponível brevemente.',
                         'fundo' => 'energia',
                     ]],
                 ],
