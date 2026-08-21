@@ -5,7 +5,6 @@
         ['label' => 'Serviços', 'href' => url('/servicos')],
         ['label' => 'EVA Powerlab', 'href' => url('/eva-powerlab')],
         ['label' => 'Campanhas', 'href' => url('/campanhas')],
-        ['label' => 'Teste', 'href' => url('/teste')],
         ['label' => 'Blog', 'href' => url('/blog')],
         ['label' => 'Contactos', 'href' => url('/contactos')],
     ];
