@@ -19,7 +19,7 @@
         <div class="mt-8 space-y-4">
             @foreach ($data['faqs'] ?? [] as $faq)
                 <details class="group rounded-2xl bg-white open:bg-carbono" {{ $loop->first ? 'open' : '' }}>
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-8 py-6 text-lg font-bold tracking-[-0.3px] text-carbono group-open:text-lima">
+                    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-8 py-6 text-lg font-bold tracking-[-0.3px] text-carbono transition hover:opacity-70 group-open:text-lima">
                         {{ $faq['pergunta'] }}
                         <span class="shrink-0 text-2xl leading-none text-energia transition group-open:rotate-45 group-open:text-lima" aria-hidden="true">+</span>
                     </summary>

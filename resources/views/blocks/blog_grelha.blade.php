@@ -16,7 +16,7 @@
     @if ($posts->isNotEmpty())
         <div class="mt-14 grid gap-8 xl:grid-cols-12">
             @php $featured = $posts->first(); @endphp
-            <a href="{{ route('blog.show', $featured->slug) }}" class="group xl:col-span-5">
+            <a href="{{ route('blog.show', $featured->slug) }}" class="group transition hover:-translate-y-1 xl:col-span-5">
                 @if ($featured->featured_image)
                     <div class="h-[384px] overflow-hidden">
                         <img src="{{ asset('storage/'.$featured->featured_image) }}" alt="{{ $featured->title }}" class="size-full object-cover transition duration-300 group-hover:scale-105">
@@ -31,7 +31,7 @@
 
             <div class="grid gap-8 xl:col-span-4">
                 @foreach ($posts->slice(1, 2) as $post)
-                    <a href="{{ route('blog.show', $post->slug) }}" class="group grid grid-cols-[minmax(0,42%)_minmax(0,58%)] overflow-hidden">
+                    <a href="{{ route('blog.show', $post->slug) }}" class="group grid grid-cols-[minmax(0,42%)_minmax(0,58%)] overflow-hidden transition hover:-translate-y-1">
                         @if ($post->featured_image)
                             <div class="overflow-hidden">
                                 <img src="{{ asset('storage/'.$post->featured_image) }}" alt="{{ $post->title }}" class="size-full min-h-[220px] object-cover transition duration-300 group-hover:scale-105">
@@ -47,7 +47,7 @@
 
             @php $last = $posts->slice(3, 1)->first(); @endphp
             @if ($last)
-                <a href="{{ route('blog.show', $last->slug) }}" class="group xl:col-span-3">
+                <a href="{{ route('blog.show', $last->slug) }}" class="group transition hover:-translate-y-1 xl:col-span-3">
                     @if ($last->featured_image)
                         <div class="h-[288px] overflow-hidden">
                             <img src="{{ asset('storage/'.$last->featured_image) }}" alt="{{ $last->title }}" class="size-full object-cover transition duration-300 group-hover:scale-105">

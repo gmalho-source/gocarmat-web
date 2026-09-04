@@ -4,6 +4,7 @@
         <div class="relative overflow-hidden px-8 py-12 sm:px-12 xl:h-[473px] xl:px-[50px] xl:py-[62px]">
             <img src="{{ \App\Support\Blocos::imagem($data['imagem_fundo'] ?? null, 'images/eva-bg.jpg') }}" alt="" class="absolute inset-0 size-full object-cover">
             <div class="absolute inset-0 bg-carbono/75"></div>
+            <img src="{{ \App\Support\Blocos::imagem($data['imagem_carro'] ?? null, 'images/eva-car.png') }}" alt="" class="pointer-events-none absolute bottom-0 right-10 hidden w-[60%] max-w-[640px] 2xl:block">
             <div class="relative">
                 @if (filled($data['etiqueta'] ?? null))
                     <span class="inline-flex rounded border border-lima px-4 pb-[7px] pt-2 font-mono text-[11px] font-bold uppercase leading-none tracking-[0.33px] text-lima">{{ $data['etiqueta'] }}</span>
@@ -34,6 +35,4 @@
             @endif
         </div>
     </div>
-
-    <img src="{{ \App\Support\Blocos::imagem($data['imagem_carro'] ?? null, 'images/eva-car.png') }}" alt="" class="pointer-events-none absolute bottom-0 left-[38%] hidden w-[565px] 2xl:block">
 </section>

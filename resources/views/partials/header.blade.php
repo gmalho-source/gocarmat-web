@@ -10,7 +10,7 @@
     ];
 @endphp
 <header class="mx-auto flex w-full max-w-[1920px] items-center justify-between gap-6 px-4 pt-8 sm:px-8 xl:px-16">
-    <a href="{{ url('/') }}" class="shrink-0">
+    <a href="{{ url('/') }}" class="shrink-0 transition hover:opacity-80">
         <img src="{{ asset('images/logo.svg') }}" alt="GOCARMAT — A sua oficina multimarca" class="h-11 w-auto 2xl:h-[62px]">
     </a>
 
@@ -33,14 +33,14 @@
 
     {{-- Menu mobile --}}
     <details class="relative lg:hidden">
-        <summary class="flex cursor-pointer list-none items-center gap-2 rounded-full border-2 border-carbono px-4 py-2 font-mono text-sm font-bold uppercase">
+        <summary class="flex cursor-pointer list-none items-center gap-2 rounded-full border-2 border-carbono px-4 py-2 font-mono text-sm font-bold uppercase transition hover:border-energia hover:text-energia">
             Menu
         </summary>
         <nav class="absolute right-0 z-50 mt-2 flex w-56 flex-col gap-1 rounded-2xl bg-white p-4 shadow-xl">
             @foreach ($menu as $item)
-                <a href="{{ $item['href'] }}" class="px-2 py-1.5 font-mono text-sm font-bold uppercase text-carbono">{{ $item['label'] }}</a>
+                <a href="{{ $item['href'] }}" class="px-2 py-1.5 font-mono text-sm font-bold uppercase text-carbono transition hover:text-energia">{{ $item['label'] }}</a>
             @endforeach
-            <a href="{{ url('/marcacoes') }}" class="mt-2 rounded-full bg-energia px-4 py-2 text-center text-sm font-semibold text-precision">Marcações</a>
+            <a href="{{ url('/marcacoes') }}" class="mt-2 rounded-full bg-energia px-4 py-2 text-center text-sm font-semibold text-precision transition hover:opacity-85">Marcações</a>
         </nav>
     </details>
 </header>

@@ -3,10 +3,12 @@
     $f = \App\Support\Blocos::fundo($data['fundo'] ?? 'carbono');
     $escuro = \App\Support\Blocos::escuro($data['fundo'] ?? 'carbono');
     $proporcao = $data['proporcao'] ?? '58';
+    $py = $data['py'] ?? '110px';
+    $arredondar = $data['juntar_abaixo'] ?? false ? 'rounded-t-[32px]' : 'rounded-[32px]';
 @endphp
 
-<section class="mt-7 grid overflow-hidden rounded-[32px] lg:grid-cols-[minmax(0,{{ $proporcao }}%)_minmax(0,{{ 100 - (int) $proporcao }}%)]">
-    <div class="{{ $f['sec'] }} px-8 py-14 sm:px-12 xl:px-24 xl:py-[110px]">
+<section class="mt-7 grid overflow-hidden {{ $arredondar }} lg:grid-cols-[minmax(0,var(--split))_minmax(0,calc(100%-var(--split)))]" style="--split: {{ (int) $proporcao }}%">
+    <div class="{{ $f['sec'] }} px-8 py-14 sm:px-12 xl:px-24 xl:py-[var(--py)]" style="--py: {{ $py }}">
         @if (filled($data['eyebrow'] ?? null))
             <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] {{ $escuro ? 'text-lima' : 'text-energia' }}">
                 {{ $data['eyebrow'] }}
