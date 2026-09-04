@@ -37,7 +37,7 @@
     @if (($search ?? '') === '' && $posts->onFirstPage() && $posts->isNotEmpty())
         {{-- Destaque --}}
         @php $featured = $posts->first(); @endphp
-        <a href="{{ route('blog.show', $featured->slug) }}" class="group mt-12 block">
+        <a href="{{ route('blog.show', $featured->slug) }}" class="group mt-12 block transition hover:-translate-y-1">
             @if ($featured->featured_image)
                 <div class="h-[320px] overflow-hidden sm:h-[420px] xl:h-[520px]">
                     <img src="{{ asset('storage/' . $featured->featured_image) }}" alt="{{ $featured->title }}" class="size-full object-cover transition duration-300 group-hover:scale-105">

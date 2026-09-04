@@ -7,25 +7,25 @@
     ];
 @endphp
 
-<section class="mt-16 grid gap-8 xl:mt-20 xl:grid-cols-2 xl:gap-10">
+<section class="mt-16 grid gap-8 xl:mt-20 xl:grid-cols-3 xl:gap-10">
     @foreach ($data['itens'] ?? [] as $item)
         @php $v = $variantes[$item['variante'] ?? 'branco'] ?? $variantes['branco']; @endphp
         <a href="{{ ($item['link'] ?? null) ?: route('marcacoes') }}" class="group flex flex-col overflow-hidden transition hover:-translate-y-1">
-            <div class="flex-1 px-9 pb-10 pt-9 {{ $v['card'] }}">
+            <div class="flex-1 px-9 pb-10 pt-9 transition-colors duration-300 {{ $v['card'] }} group-hover:bg-energia">
                 <div class="flex items-start justify-between gap-4">
-                    <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] {{ $v['num'] }}">{{ $item['numero'] ?? '' }}</p>
+                    <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] transition-colors duration-300 {{ $v['num'] }} group-hover:text-lima">{{ $item['numero'] ?? '' }}</p>
                     @if (filled($item['etiqueta'] ?? null))
-                        <span class="rounded border px-4 pb-[7px] pt-2 font-mono text-[11px] font-bold uppercase leading-none tracking-[0.33px] {{ $v['tag'] }}">{{ $item['etiqueta'] }}</span>
+                        <span class="rounded border px-4 pb-[7px] pt-2 font-mono text-[11px] font-bold uppercase leading-none tracking-[0.33px] transition-colors duration-300 {{ $v['tag'] }} group-hover:border-white/50 group-hover:text-white">{{ $item['etiqueta'] }}</span>
                     @endif
                 </div>
-                <h2 class="mt-4 font-mono text-[28px] font-bold leading-[1.2] tracking-[-0.03em] xl:text-[32px] {{ $v['text'] }}">{{ $item['titulo'] }}</h2>
-                <p class="mt-4 max-w-[600px] text-base font-light leading-[1.68] tracking-[-0.16px] {{ $v['text'] }}">{{ $item['texto'] ?? '' }}</p>
+                <h2 class="mt-4 font-mono text-[28px] font-bold leading-[1.2] tracking-[-0.03em] xl:text-[32px] transition-colors duration-300 {{ $v['text'] }} group-hover:text-white">{{ $item['titulo'] }}</h2>
+                <p class="mt-4 max-w-[600px] text-base font-light leading-[1.68] tracking-[-0.16px] transition-colors duration-300 {{ $v['text'] }} group-hover:text-gelo">{{ $item['texto'] ?? '' }}</p>
 
                 @if (filled($item['bullets'] ?? null))
                     <ul class="mt-7 space-y-3">
                         @foreach ($item['bullets'] as $bullet)
-                            <li class="flex items-center gap-3 text-base font-bold tracking-[-0.16px] {{ $v['text'] }}">
-                                <svg class="size-5 shrink-0 {{ $v['check'] }}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                            <li class="flex items-center gap-3 text-base font-bold tracking-[-0.16px] transition-colors duration-300 {{ $v['text'] }} group-hover:text-white">
+                                <svg class="size-5 shrink-0 transition-colors duration-300 {{ $v['check'] }} group-hover:text-lima" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                                     <circle cx="10" cy="10" r="8.2" />
                                     <path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>

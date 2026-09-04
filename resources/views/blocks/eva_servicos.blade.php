@@ -1,5 +1,5 @@
 {{-- Cards do EVA Powerlab: etiqueta escura, título azul e ícone lima flutuante --}}
-<section class="mt-20 grid gap-x-8 gap-y-14 sm:grid-cols-2 xl:mt-24 xl:gap-x-10">
+<section class="mt-20 grid gap-x-8 gap-y-14 sm:grid-cols-2 xl:mt-24 xl:grid-cols-3 xl:gap-x-10">
     @foreach ($data['itens'] ?? [] as $item)
         <div class="relative bg-white px-10 pb-11 pt-10">
             <div class="absolute -top-9 right-10 flex size-[80px] items-center justify-center bg-lima text-energia">
