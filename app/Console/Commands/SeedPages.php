@@ -191,7 +191,7 @@ class SeedPages extends Command
                         'texto' => 'Serviço 360: seja qual for o problema, a GOCARMAT resolve — com orçamentos grátis e check-up gratuito.',
                         'imagem' => 'images/servico-inspecao.jpg',
                         'fundo' => 'energia',
-                        'proporcao' => '62',
+                        'proporcao' => '50',
                     ]],
                     ['type' => 'servicos_detalhe', 'data' => [
                         'itens' => [
