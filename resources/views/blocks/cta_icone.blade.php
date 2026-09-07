@@ -5,7 +5,7 @@
     $colado = (bool) ($data['colar_ao_rodape'] ?? false);
 @endphp
 
-<section class="mt-16 flex flex-col items-start gap-8 px-8 py-12 sm:px-12 xl:mt-24 xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-14 {{ $f['sec'] }} {{ $colado ? 'rounded-t-[32px]' : 'rounded-[32px]' }}">
+<section {{ ($data['ligar_barra_fixa'] ?? false) ? 'data-cta-scroll-target' : '' }} class="mt-16 flex flex-col items-start gap-8 px-8 py-12 sm:px-12 xl:mt-24 xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-14 {{ $f['sec'] }} {{ $colado ? 'rounded-t-[32px]' : 'rounded-[32px]' }}">
     <div class="flex items-center gap-8">
         @if (filled($data['icone'] ?? null))
             <div class="flex size-[90px] shrink-0 items-center justify-center rounded-full xl:size-[110px] {{ $corIcone }}">
