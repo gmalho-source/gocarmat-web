@@ -161,7 +161,11 @@ class SeedPages extends Command
                         'destaque_botao' => 'Marcar Serviço',
                         'destaque_link' => '/marcacoes',
                     ]],
-                    ['type' => 'oficinas_titulo', 'data' => ['titulo' => '4 oficinas - o mesmo cuidado']],
+                    ['type' => 'oficinas_titulo', 'data' => [
+                        'titulo' => '4 oficinas - o mesmo cuidado',
+                        'botao_texto' => 'Marcar na Oficina mais próxima',
+                        'botao_link' => '/marcacoes',
+                    ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Vamos buscar e entregar o seu carro',
                         'texto' => 'Recolhemos e entregamos a sua viatura em casa ou no local de trabalho — contacte-nos para saber mais.',
