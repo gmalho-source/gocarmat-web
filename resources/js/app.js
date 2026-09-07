@@ -84,4 +84,30 @@ function initCarousels() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', initCarousels);
+// Barra de CTA fixa das páginas de campanha: só aparece depois de passar o
+// hero, e desaparece assim que o CTA real (antes do footer) entra em vista —
+// como se a barra "batesse" nele e deixasse de ser fixa.
+function initCampanhaCtaFixo() {
+    const barra = document.querySelector('[data-cta-fixo]');
+    const alvo = document.querySelector('[data-cta-scroll-target]');
+    if (!barra || !alvo) return;
+
+    const limiteInicial = 200;
+
+    const atualizar = () => {
+        const passouHero = window.scrollY > limiteInicial;
+        const alvoVisivel = alvo.getBoundingClientRect().top < window.innerHeight;
+        const mostrar = passouHero && !alvoVisivel;
+        barra.classList.toggle('hidden', !mostrar);
+        barra.classList.toggle('flex', mostrar);
+    };
+
+    window.addEventListener('scroll', atualizar, { passive: true });
+    window.addEventListener('resize', atualizar);
+    atualizar();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initCarousels();
+    initCampanhaCtaFixo();
+});

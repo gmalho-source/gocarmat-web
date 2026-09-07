@@ -1,12 +1,16 @@
 {{-- Formulário de marcações. A lógica (validação, emails) fica no controlador;
-     aqui só o conteúdo editável: títulos e textos de apoio. --}}
+     aqui só o conteúdo editável: títulos e textos de apoio.
+     Layout em 2 colunas: form à esquerda (azul), imagem + texto à direita.
+     O grid usa items-stretch para as duas colunas terem sempre a mesma altura,
+     para o texto da direita nunca ultrapassar a área azul do formulário. --}}
 @php
     $inputClass = 'w-full rounded-lg border-2 border-white/80 bg-white px-5 py-3.5 text-base text-carbono placeholder:text-carbono/40 focus:border-lima focus:outline-none';
     $labelClass = 'mb-2 block text-base font-semibold text-white';
     $servicos = \App\Http\Controllers\BookingController::SERVICES;
 @endphp
 
-<section class="mt-7 overflow-hidden rounded-[32px] bg-energia px-8 py-14 sm:px-12 xl:px-24 xl:py-[100px]">
+<section class="mt-7 grid lg:grid-cols-2 lg:items-stretch">
+<div class="overflow-hidden rounded-l-[32px] bg-energia px-8 py-6 sm:px-12 xl:px-24 xl:py-7">
     @if (filled($data['eyebrow'] ?? null))
         <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] text-gelo">{{ $data['eyebrow'] }}</p>
     @endif
@@ -87,4 +91,31 @@
             <x-ui.icon name="arrow-right" class="size-5" />
         </button>
     </form>
+</div>
+
+@if (filled($data['imagem'] ?? null))
+    <div class="flex flex-col">
+        <div class="relative h-[220px] overflow-hidden rounded-r-[32px] lg:h-1/2">
+            <img src="{{ \App\Support\Blocos::imagem($data['imagem']) }}" alt="" class="absolute inset-0 size-full object-cover">
+        </div>
+
+        @if (filled($data['lado_titulo'] ?? null))
+            <div class="mt-8 px-8 sm:px-12 xl:px-16">
+                <h2 class="text-3xl font-bold leading-[1.2] tracking-[-0.03em] text-energia sm:text-4xl">{{ $data['lado_titulo'] }}</h2>
+
+                @if (filled($data['lado_subtitulo'] ?? null))
+                    <p class="mt-6 text-lg font-bold leading-[1.4] tracking-[-0.16px] text-carbono">{{ $data['lado_subtitulo'] }}</p>
+                @endif
+
+                @if (filled($data['lado_texto'] ?? null))
+                    <p class="mt-4 text-base font-light leading-[1.68] tracking-[-0.16px] text-carbono">{{ $data['lado_texto'] }}</p>
+                @endif
+
+                @if (filled($data['lado_texto_destaque'] ?? null))
+                    <p class="mt-4 text-base font-bold leading-[1.68] tracking-[-0.16px] text-carbono">{{ $data['lado_texto_destaque'] }}</p>
+                @endif
+            </div>
+        @endif
+    </div>
+@endif
 </section>
