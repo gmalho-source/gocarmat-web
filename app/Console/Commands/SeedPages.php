@@ -502,12 +502,12 @@ class SeedPages extends Command
                     ]],
                     ['type' => 'eva_servicos', 'data' => [
                         'itens' => [
-                            ['etiqueta' => 'lab', 'icone' => 'bolt', 'titulo' => 'EVA LAB', 'texto' => 'Diagnóstico ao sistema de gestão da bateria (BMS), módulo a módulo. Descobrimos o estado de saúde real (SoH) do pack.'],
-                            ['etiqueta' => 'resgate', 'icone' => 'car-burst', 'titulo' => 'RESCUE', 'texto' => 'Desbloqueio e assistência a elétricos imobilizados. Resposta rápida para voltar a pôr o carro na estrada.'],
-                            ['etiqueta' => 'segurança', 'icone' => 'car-burst', 'titulo' => 'EVA COLLISION', 'texto' => 'Colisão e pintura para elétricos e híbridos, com os cuidados de alta tensão que estes veículos exigem.'],
-                            ['etiqueta' => 'tis', 'icone' => 'bolt', 'titulo' => 'TESLA INDEPENDENT SERVICE', 'texto' => 'Manutenção e reparação de Tesla com equipamento dedicado. Ao nível da marca, sem depender da marca.'],
-                            ['etiqueta' => 'garantia', 'icone' => 'shield', 'titulo' => 'EVA BATTERY WARRANTY', 'texto' => 'Garantia até 5 anos nas baterias recuperadas e certificadas no EVA Powerlab.'],
-                            ['etiqueta' => 'mv-ber', 'icone' => 'certificate', 'titulo' => 'CERTIFICAÇÃO MV-BER', 'texto' => 'Certificamos a saúde da bateria e registamos a intervenção no Livro de Manutenção Digital. Prova e valor de revenda.'],
+                            ['etiqueta' => 'lab', 'icone' => 'bolt', 'titulo' => 'EVA LAB', 'texto' => 'Diagnóstico e reparação de baterias e eletrónica de alta tensão.', 'link' => '/eva-powerlab/eva-lab'],
+                            ['etiqueta' => 'resgate', 'icone' => 'car-burst', 'titulo' => 'RESCUE', 'texto' => 'Desbloqueio de híbridos e elétricos imobilizados.', 'link' => '/eva-powerlab/rescue'],
+                            ['etiqueta' => 'segurança', 'icone' => 'car-burst', 'titulo' => 'EVA COLLISION', 'texto' => 'Colisão de veículos eletrificados, com protocolos de alta tensão.', 'link' => '/eva-powerlab/eva-collision'],
+                            ['etiqueta' => 'tis', 'icone' => 'bolt', 'titulo' => 'TESLA INDEPENDENT SERVICE', 'texto' => 'Serviço independente para Model S, X, 3 e Y.', 'link' => '/eva-powerlab/tesla-independent-service'],
+                            ['etiqueta' => 'garantia', 'icone' => 'shield', 'titulo' => 'EVA BATTERY WARRANTY', 'texto' => 'Extensão de garantia até 5 anos para baterias.', 'link' => '/eva-powerlab/battery-warranty'],
+                            ['etiqueta' => 'mv-ber', 'icone' => 'certificate', 'titulo' => 'CERTIFICAÇÃO MV-BER', 'texto' => 'Certificado, Livro de Manutenção Digital e selo de qualidade.', 'link' => '/eva-powerlab/certificacao-mv-ber'],
                         ],
                     ]],
                     ['type' => 'porque_faq', 'data' => [
@@ -528,6 +528,465 @@ class SeedPages extends Command
                         'icone' => 'bolt',
                         'cor_icone' => 'lima',
                         'botao_texto' => 'Marcar agora',
+                        'botao_link' => '/marcacoes',
+                        'fundo' => 'carbono',
+                        'colar_ao_rodape' => true,
+                    ]],
+                ],
+            ],
+
+            'eva-powerlab/eva-lab' => [
+                'title' => 'EVA Lab',
+                'meta_title' => 'EVA Lab — Laboratório de Alta Tensão | Gocarmat',
+                'meta_description' => 'Diagnóstico de BMS, reparação de placas eletrónicas e teste de módulos e células de baterias de alta tensão. Reparamos em vez de substituir.',
+                'content' => [
+                    ['type' => 'servico_hero', 'data' => [
+                        'fundo' => 'carbono',
+                        'breadcrumb_pai' => 'EVA Powerlab',
+                        'breadcrumb_link' => '/eva-powerlab',
+                        'breadcrumb_atual' => 'EVA Lab',
+                        'titulo' => 'Reparar em vez de substituir.',
+                        'texto' => 'Laboratório de alta tensão para diagnóstico e recuperação de baterias e eletrónica de veículos elétricos e híbridos.',
+                        'imagem' => 'images/servico-revisao.jpg',
+                        'botoes' => [
+                            ['texto' => 'Enviar um Caso para Análise', 'link' => '/marcacoes'],
+                            ['texto' => 'Falar com um Técnico', 'link' => '/marcacoes'],
+                        ],
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'corpo' => '<p class="text-2xl font-bold leading-[1.35] tracking-[-0.16px] text-carbono sm:text-[28px]">Quando uma bateria de alta tensão dá erro, a resposta habitual da rede oficial é substituir o conjunto completo. É a solução mais rápida — e quase sempre <span class="text-energia">a mais cara</span>.</p>'
+                            .'<p>O EVA Lab existe para dar uma segunda opção. É uma unidade laboratorial equipada para caracterizar e reparar sistemas eletrónicos e baterias de alta potência ao nível do módulo, da célula e da placa. Na prática: identificamos o que falhou de facto, e intervimos apenas nisso.</p>',
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => 'O que ',
+                        'titulo_destaque' => 'fazemos',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Diagnóstico avançado de BMS', 'texto' => 'Análise do sistema de gestão da bateria para distinguir uma falha real de célula de um erro de leitura, comunicação ou balanceamento — a distinção muda por completo o custo da reparação.'],
+                            ['numero' => '02', 'titulo' => 'Reparação de placas eletrónicas', 'texto' => 'Intervenção ao nível do componente em placas de BMS, controlo e potência, em vez da substituição da unidade completa.'],
+                            ['numero' => '03', 'titulo' => 'Testes de módulos e células', 'texto' => 'Caracterização individual de módulos e células para localizar a origem da degradação e avaliar se o pack é recuperável.'],
+                            ['numero' => '04', 'titulo' => 'Engenharia inversa e validação', 'texto' => 'Para sistemas sem documentação disponível ou fora de suporte do fabricante. Nenhum componente sai do laboratório sem validação funcional.'],
+                        ],
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => 'Porque é que isto ',
+                        'titulo_destaque' => 'importa',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Evita substituições desnecessárias', 'texto' => 'Um pack não se substitui por causa de um módulo.'],
+                            ['numero' => '02', 'titulo' => 'Recupera componentes críticos', 'texto' => 'Que de outra forma seriam abatidos.'],
+                            ['numero' => '03', 'titulo' => 'Reduz o custo de reparação', 'texto' => 'Em sistemas complexos, onde a peça nova é a maior fatia do orçamento.'],
+                            ['numero' => '04', 'titulo' => 'Menos desperdício', 'texto' => 'Cada pack recuperado é um pack que não vai a resíduo.'],
+                        ],
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'titulo' => 'Para quem',
+                        'corpo' => '<div class="mt-2 space-y-5">'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Oficinas e centros de colisão sem capacidade de intervenção em alta tensão</span></div>'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Gestores de frota com veículos imobilizados por avaria de bateria</span></div>'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Peritos e seguradoras que precisam de uma avaliação técnica independente antes de decidir uma perda total</span></div>'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Proprietários com um orçamento de substituição de bateria em mãos e vontade de ouvir uma segunda opinião</span></div>'
+                            .'</div>',
+                    ]],
+                    ['type' => 'porque_faq', 'data' => [
+                        'titulo' => 'Porquê o EVA Lab?',
+                        'texto' => 'Reparamos ao nível do módulo, da célula e da placa — identificamos o que falhou de facto, e intervimos apenas nisso. Nenhum componente sai do laboratório sem validação funcional.',
+                        'imagem' => 'images/eva-car.png',
+                        'faq_titulo' => 'Perguntas frequentes',
+                        'faqs' => [
+                            ['pergunta' => 'E se o pack não for recuperável?', 'resposta' => 'Dizemo-lo antes de avançar, com o relatório de diagnóstico e a fundamentação técnica. Não iniciamos reparações sem viabilidade confirmada.'],
+                            ['pergunta' => 'Fica com garantia?', 'resposta' => 'Sim. As baterias reparadas no EVA Lab ficam cobertas pelas condições do EVA Battery Warranty.'],
+                        ],
+                    ]],
+                    ['type' => 'cta_icone', 'data' => [
+                        'titulo' => 'Tem um pack com erro e um orçamento de substituição em cima da mesa?',
+                        'texto' => 'Envie-nos os dados do veículo e o código de avaria. Dizemos-lhe se vale a pena reparar.',
+                        'icone' => 'bolt',
+                        'cor_icone' => 'lima',
+                        'botao_texto' => 'Enviar Caso',
+                        'botao_link' => '/marcacoes',
+                        'fundo' => 'carbono',
+                        'colar_ao_rodape' => true,
+                    ]],
+                ],
+            ],
+
+            'eva-powerlab/rescue' => [
+                'title' => 'Rescue',
+                'meta_title' => 'Rescue — Desbloqueio de Híbridos e Elétricos | Gocarmat',
+                'meta_description' => 'Veículo híbrido que não entra em modo READY? Diagnóstico no local, reativação funcional e preparação segura para transporte, sem reboque desnecessário.',
+                'content' => [
+                    ['type' => 'servico_hero', 'data' => [
+                        'fundo' => 'carbono',
+                        'breadcrumb_pai' => 'EVA Powerlab',
+                        'breadcrumb_link' => '/eva-powerlab',
+                        'breadcrumb_atual' => 'Rescue',
+                        'titulo' => 'O carro não arranca. Nem sempre precisa de reboque.',
+                        'texto' => 'Serviço técnico para híbridos e elétricos imobilizados por bloqueio eletrónico, bateria de alta tensão em fim de carga ou falha de comunicação entre sistemas.',
+                        'imagem' => 'images/servico-inspecao.jpg',
+                        'botoes' => [
+                            ['texto' => 'Pedir Assistência', 'link' => '/marcacoes'],
+                            ['texto' => 'Como Funciona', 'link' => '/marcacoes'],
+                        ],
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'corpo' => '<p class="text-2xl font-bold leading-[1.35] tracking-[-0.16px] text-carbono sm:text-[28px]">Um híbrido que fica sem combustível não se resolve com cinco litros no depósito. Um elétrico com a bateria de alta tensão abaixo do limite mínimo não se resolve <span class="text-energia">com cabos de arranque</span>.</p>'
+                            .'<p>Nestes casos, o veículo entra em bloqueio e deixa de entrar em modo READY — e o reboque para a marca é, muitas vezes, o primeiro reflexo. Nem sempre é necessário. O serviço Rescue faz o diagnóstico no local e, quando é possível, a reativação funcional ali mesmo.</p>',
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => 'Situações que ',
+                        'titulo_destaque' => 'resolvemos',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Sem modo READY', 'texto' => 'Veículos que não entram em modo de condução.'],
+                            ['numero' => '02', 'titulo' => 'Bloqueios eletrónicos', 'texto' => 'Falhas de comunicação entre sistemas.'],
+                            ['numero' => '03', 'titulo' => 'Bateria AT no limite', 'texto' => 'Bateria de alta tensão abaixo do limite mínimo.'],
+                            ['numero' => '04', 'titulo' => 'Combustível no limite', 'texto' => 'Em veículos híbridos.'],
+                        ],
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 3,
+                        'titulo' => 'O que a intervenção ',
+                        'titulo_destaque' => 'inclui',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Diagnóstico no local', 'texto' => 'Avaliação da causa da imobilização antes de qualquer decisão de transporte.'],
+                            ['numero' => '02', 'titulo' => 'Reativação funcional', 'texto' => 'Quando o quadro técnico o permite, o veículo sai pelo seu próprio pé.'],
+                            ['numero' => '03', 'titulo' => 'Preparação segura para transporte', 'texto' => 'Quando não permite, o veículo é preparado e imobilizado em segurança — com os procedimentos de alta tensão que um reboque convencional não executa.'],
+                        ],
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 3,
+                        'titulo' => 'O que ',
+                        'titulo_destaque' => 'ganha com isto',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Menos tempo parado', 'texto' => 'A diferença entre resolver no local e esperar por uma marcação na rede oficial mede-se em dias.'],
+                            ['numero' => '02', 'titulo' => 'Menos reboques desnecessários', 'texto' => 'E menos um custo na fatura.'],
+                            ['numero' => '03', 'titulo' => 'Menos degradação da bateria', 'texto' => 'Um pack que fica longos períodos com o estado de carga (SoC) muito baixo degrada-se quimicamente — resolver depressa protege o ativo mais caro do veículo.'],
+                        ],
+                    ]],
+                    ['type' => 'porque_faq', 'data' => [
+                        'titulo' => 'Porquê o Rescue?',
+                        'texto' => 'Nem todo o veículo imobilizado precisa de reboque. Fazemos diagnóstico no local e, sempre que possível, reativação funcional imediata — para o carro seguir viagem pelo seu próprio pé.',
+                        'imagem' => 'images/eva-car.png',
+                        'faq_titulo' => 'Perguntas frequentes',
+                        'faqs' => [
+                            ['pergunta' => 'O Rescue substitui sempre o reboque?', 'resposta' => 'Não. Sempre que o quadro técnico o permite, reativamos o veículo no local. Quando não permite, preparamos e imobilizamos o veículo em segurança para transporte — com os procedimentos de alta tensão que um reboque convencional não executa.'],
+                            ['pergunta' => 'Porque é que a rapidez importa tanto?', 'resposta' => 'Porque um pack que fica muito tempo com o estado de carga (SoC) muito baixo degrada-se quimicamente. Resolver depressa protege o ativo mais caro do veículo.'],
+                        ],
+                    ]],
+                    ['type' => 'cta_icone', 'data' => [
+                        'titulo' => 'Veículo imobilizado neste momento?',
+                        'texto' => 'Descreva o que aparece no painel e dizemos-lhe o que fazer a seguir.',
+                        'icone' => 'car-burst',
+                        'cor_icone' => 'lima',
+                        'botao_texto' => 'Pedir Assistência',
+                        'botao_link' => '/marcacoes',
+                        'fundo' => 'carbono',
+                        'colar_ao_rodape' => true,
+                    ]],
+                ],
+            ],
+
+            'eva-powerlab/tesla-independent-service' => [
+                'title' => 'Tesla Independent Service',
+                'meta_title' => 'Serviço Independente para Tesla | Gocarmat TIS',
+                'meta_description' => 'Diagnóstico, eletrónica, alta tensão e carregamento para Tesla Model S, X, 3 e Y. Oficina independente, sem afiliação à Tesla, Inc.',
+                'content' => [
+                    ['type' => 'servico_hero', 'data' => [
+                        'fundo' => 'carbono',
+                        'breadcrumb_pai' => 'EVA Powerlab',
+                        'breadcrumb_link' => '/eva-powerlab',
+                        'breadcrumb_atual' => 'Tesla Independent Service',
+                        'titulo' => 'Serviço independente para veículos Tesla.',
+                        'texto' => 'Diagnóstico, eletrónica, alta tensão e sistemas de carregamento para Model S, Model X, Model 3 e Model Y — fora da rede oficial.',
+                        'imagem' => 'images/eva-bg.jpg',
+                        'botoes' => [
+                            ['texto' => 'Pedir Orçamento', 'link' => '/marcacoes'],
+                            ['texto' => 'Ver Capacidades Técnicas', 'link' => '/marcacoes'],
+                        ],
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'corpo' => '<p class="text-2xl font-bold leading-[1.35] tracking-[-0.16px] text-carbono sm:text-[28px]">Ter um Tesla fora de garantia não deveria significar depender de <span class="text-energia">um único ponto de serviço</span>.</p>'
+                            .'<p>O direito europeu à reparação independente existe precisamente para isso — e a Gocarmat opera dentro dele. A unidade TIS reúne ferramentas de diagnóstico dedicadas e procedimentos técnicos específicos para a plataforma Tesla, com intervenção que vai da leitura de códigos de avaria à reparação de componentes de alta tensão.</p>'
+                            .'<p class="text-xs text-carbono/60">A Gocarmat não está afiliada nem é endossada pela Tesla, Inc. Tesla e os respetivos logótipos são marcas registadas da Tesla, Inc. Este é um serviço independente, prestado ao abrigo do quadro regulamentar europeu aplicável à reparação automóvel.</p>',
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => '',
+                        'titulo_destaque' => 'Capacidades',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Diagnóstico', 'texto' => 'Ferramentas dedicadas, com diagnóstico completo independentemente da versão de firmware. Leitura de dados em tempo real (Live Data), auto-testes e acesso a bases de dados de avarias.'],
+                            ['numero' => '02', 'titulo' => 'Eletrónica e alta tensão', 'texto' => 'Reparação de componentes eletrónicos e de alta tensão, intervenção em baterias e em sistemas de carregamento.'],
+                            ['numero' => '03', 'titulo' => 'Configuração e calibração', 'texto' => 'Instalação e configuração de navegação, calibração de radar (AP2.5/AP3.0) e de outros sistemas, emparelhamento e adaptação de módulos, atualização de firmware.'],
+                            ['numero' => '04', 'titulo' => 'Reparação pós-colisão', 'texto' => 'Reposição de módulos de segurança após reparação — incluindo BMS, TAS e módulos de airbag — e reconfiguração de módulos eletrónicos substituídos.'],
+                        ],
+                        'nota' => 'As operações de reposição de módulos de segurança são executadas apenas em veículos reparados na nossa oficina ou com relatório de reparação validado, mediante comprovativo de propriedade.',
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'titulo' => 'Modelos abrangidos',
+                        'corpo' => '<div class="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">'
+                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/eva-car-profile.png" alt="Tesla Model S" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model S</p></div>'
+                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/eva-car-profile.png" alt="Tesla Model X" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model X</p></div>'
+                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/eva-car-profile.png" alt="Tesla Model 3" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model 3</p></div>'
+                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/eva-car-profile.png" alt="Tesla Model Y" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model Y</p></div>'
+                            .'</div>',
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => '',
+                        'titulo_destaque' => 'Diferenciação',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Alternativa técnica real', 'texto' => 'À rede oficial, com capacidade de diagnóstico equivalente nas áreas em que intervimos.'],
+                            ['numero' => '02', 'titulo' => 'Maior flexibilidade operacional', 'texto' => 'Marcação, prazos e âmbito de intervenção negociados diretamente consigo.'],
+                            ['numero' => '03', 'titulo' => 'Custos mais baixos', 'texto' => 'Redução significativa dos custos de reparação, sobretudo em eletrónica, onde a reparação substitui a troca de módulo.'],
+                            ['numero' => '04', 'titulo' => 'Menor dependência do fabricante', 'texto' => 'Para operações correntes de manutenção e reparação.'],
+                            ['numero' => '05', 'titulo' => 'Resposta mais rápida', 'texto' => 'Tempos de resposta mais curtos.'],
+                        ],
+                    ]],
+                    ['type' => 'porque_faq', 'data' => [
+                        'titulo' => 'Porquê o TIS?',
+                        'texto' => 'Ter um Tesla fora de garantia não deveria significar depender de um único ponto de serviço. Operamos ao abrigo do direito europeu à reparação independente.',
+                        'imagem' => 'images/eva-car-profile.png',
+                        'faq_titulo' => 'Perguntas frequentes',
+                        'faqs' => [
+                            ['pergunta' => 'Este serviço está afiliado à Tesla?', 'resposta' => 'Não. É um serviço independente, sem afiliação nem endosso da Tesla, Inc., prestado ao abrigo do quadro regulamentar europeu aplicável à reparação automóvel.'],
+                            ['pergunta' => 'Que modelos estão abrangidos?', 'resposta' => 'Tesla Model S, Model X, Model 3 e Model Y.'],
+                        ],
+                    ]],
+                    ['type' => 'cta_icone', 'data' => [
+                        'titulo' => 'Descreva-nos o problema e o modelo.',
+                        'texto' => 'Damos-lhe uma avaliação técnica e um orçamento antes de o carro entrar na oficina.',
+                        'icone' => 'bolt',
+                        'cor_icone' => 'lima',
+                        'botao_texto' => 'Pedir Orçamento',
+                        'botao_link' => '/marcacoes',
+                        'fundo' => 'carbono',
+                        'colar_ao_rodape' => true,
+                    ]],
+                ],
+            ],
+
+            'eva-powerlab/eva-collision' => [
+                'title' => 'EVA Collision',
+                'meta_title' => 'EVA Collision Center — Colisão de Veículos Elétricos | Gocarmat',
+                'meta_description' => 'Avaliação de baterias pós-colisão, desativação segura de alta tensão e reparação compatível com a arquitetura elétrica. Menos perdas totais.',
+                'content' => [
+                    ['type' => 'servico_hero', 'data' => [
+                        'fundo' => 'carbono',
+                        'breadcrumb_pai' => 'EVA Powerlab',
+                        'breadcrumb_link' => '/eva-powerlab',
+                        'breadcrumb_atual' => 'EVA Collision',
+                        'titulo' => 'Um elétrico sinistrado não é um carro sinistrado com um motor diferente.',
+                        'texto' => 'Centro de colisão para veículos elétricos e híbridos, com protocolos de alta tensão em todas as fases — da receção à entrega.',
+                        'imagem' => 'images/servico-colisao.jpg',
+                        'botoes' => [
+                            ['texto' => 'Encaminhar um Sinistro', 'link' => '/marcacoes'],
+                            ['texto' => 'Ver Protocolo de Receção', 'link' => '/marcacoes'],
+                        ],
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'corpo' => '<p class="text-2xl font-bold leading-[1.35] tracking-[-0.16px] text-carbono sm:text-[28px]">Depois de um embate, a bateria de alta tensão é <span class="text-energia">a primeira incógnita e a mais determinante</span>.</p>'
+                            .'<p>Se ninguém a avaliar tecnicamente, restam duas saídas más: reparar sem saber o que se passa lá dentro, ou abater o veículo por precaução. O EVA Collision Center resolve a incógnita. Avaliamos o estado real da bateria e dos sistemas de alta tensão antes de qualquer decisão de reparação — e reparamos com procedimentos compatíveis com a arquitetura elétrica do veículo.</p>',
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => 'Protocolo de receção de ',
+                        'titulo_destaque' => 'veículo sinistrado',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Verificação da bateria', 'texto' => 'Avaliação de deformação, perfuração e comprometimento do invólucro.'],
+                            ['numero' => '02', 'titulo' => 'Leitura térmica', 'texto' => 'Registo de picos de temperatura por infravermelhos — o primeiro indicador de um evento térmico em curso.'],
+                            ['numero' => '03', 'titulo' => 'Deteção de fugas', 'texto' => 'De gases associados ao início de um evento térmico.'],
+                            ['numero' => '04', 'titulo' => 'Registo antifraude', 'texto' => 'Cada leitura fica documentada e rastreável em sistema informático.'],
+                        ],
+                        'nota' => 'Este registo serve dois fins: proteger quem trabalha no veículo e dar ao perito e à seguradora uma base documental que sustente a decisão, seja ela reparar ou abater.',
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => 'Capacidades ',
+                        'titulo_destaque' => 'técnicas',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Avaliação de danos HV', 'texto' => 'Em baterias e componentes de alta tensão pós-colisão.'],
+                            ['numero' => '02', 'titulo' => 'Desativação segura', 'texto' => 'Protocolos de desativação segura de sistemas de alta tensão.'],
+                            ['numero' => '03', 'titulo' => 'Carroçaria compatível', 'texto' => 'Pontos de fixação, zonas de deformação programada e trajetos de cablagem de alta tensão condicionam a reparação de forma que uma oficina generalista não tem obrigação de conhecer.'],
+                            ['numero' => '04', 'titulo' => 'Imobilização segura', 'texto' => 'De acordo com as normas europeias aplicáveis.'],
+                        ],
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'titulo' => 'Segurança e imobilização de veículos eletrificados',
+                        'corpo' => '<p>Serviço autónomo, disponível também fora de contexto de colisão — em avaria ou em situação de risco elétrico.</p>'
+                            .'<div class="mt-8 grid gap-8 sm:grid-cols-2">'
+                            .'<div><p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] text-energia">Inclui</p>'
+                            .'<div class="mt-4 space-y-4">'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Desativação de sistemas de alta tensão (High Voltage Disable)</span></div>'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Procedimentos de isolamento elétrico</span></div>'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Verificação de ausência de tensão (VAT)</span></div>'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Imobilização segura para transporte ou intervenção</span></div>'
+                            .'</div></div>'
+                            .'<div><p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] text-energia">Aplicação</p>'
+                            .'<div class="mt-4 space-y-4">'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Assistência em estrada</span></div>'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Operações de recolha de veículos</span></div>'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Acondicionamento seguro</span></div>'
+                            .'<div class="flex items-start gap-4"><svg class="mt-0.5 size-6 shrink-0 text-energia" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="m6.6 10.2 2.3 2.3 4.5-4.8" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-base leading-[1.5] tracking-[-0.16px] text-carbono">Área segregada para veículos elétricos</span></div>'
+                            .'</div></div>'
+                            .'</div>',
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => 'Para seguradoras, peritos e ',
+                        'titulo_destaque' => 'gestores de frota',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Menos perdas totais', 'texto' => 'Muitos abates de veículos elétricos são decisões de precaução por falta de avaliação técnica da bateria. Com avaliação, a conta muda.'],
+                            ['numero' => '02', 'titulo' => 'Menos tempo de imobilização', 'texto' => 'E, com ele, menos custo de viatura de substituição.'],
+                            ['numero' => '03', 'titulo' => 'Conformidade OEM', 'texto' => 'Conformidade técnica OEM após reparação, documentada.'],
+                            ['numero' => '04', 'titulo' => 'Evidências rastreáveis', 'texto' => 'Desde a receção, em sistema antifraude.'],
+                        ],
+                    ]],
+                    ['type' => 'porque_faq', 'data' => [
+                        'titulo' => 'Porquê o EVA Collision?',
+                        'texto' => 'Um elétrico sinistrado exige avaliação técnica da bateria antes de qualquer decisão — reparar às cegas ou abater por precaução são as duas piores opções.',
+                        'imagem' => 'images/eva-car.png',
+                        'faq_titulo' => 'Perguntas frequentes',
+                        'faqs' => [
+                            ['pergunta' => 'Avaliam a bateria antes de decidir por perda total?', 'resposta' => 'Sim. Avaliamos o estado real da bateria e dos sistemas de alta tensão antes de qualquer decisão de reparação ou abate.'],
+                            ['pergunta' => 'O que verificam na receção de um veículo sinistrado?', 'resposta' => 'Integridade estrutural da bateria, picos de temperatura por infravermelhos, deteção de fugas de gases e registo das evidências em sistema informático antifraude.'],
+                        ],
+                    ]],
+                    ['type' => 'cta_icone', 'data' => [
+                        'titulo' => 'Tem um veículo eletrificado sinistrado à espera de decisão?',
+                        'texto' => 'Fazemos a avaliação da bateria antes de a perda total ser inevitável.',
+                        'icone' => 'car-burst',
+                        'cor_icone' => 'lima',
+                        'botao_texto' => 'Encaminhar Sinistro',
+                        'botao_link' => '/marcacoes',
+                        'fundo' => 'carbono',
+                        'colar_ao_rodape' => true,
+                    ]],
+                ],
+            ],
+
+            'eva-powerlab/battery-warranty' => [
+                'title' => 'EVA Battery Warranty',
+                'meta_title' => 'EVA Battery Warranty — Extensão de Garantia de Bateria | Gocarmat',
+                'meta_description' => 'Extensão de garantia até 5 anos para baterias de alta tensão de veículos elétricos e híbridos.',
+                'content' => [
+                    ['type' => 'servico_hero', 'data' => [
+                        'fundo' => 'carbono',
+                        'breadcrumb_pai' => 'EVA Powerlab',
+                        'breadcrumb_link' => '/eva-powerlab',
+                        'breadcrumb_atual' => 'EVA Battery Warranty',
+                        'titulo' => 'Cinco anos de tranquilidade sobre a peça mais cara do carro.',
+                        'texto' => 'Extensão de garantia até 5 anos para baterias de alta tensão de veículos elétricos e híbridos.',
+                        'imagem' => 'images/servico-oleo.jpg',
+                        'botoes' => [
+                            ['texto' => 'Verificar Elegibilidade', 'link' => '/marcacoes'],
+                        ],
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'corpo' => '<p class="text-2xl font-bold leading-[1.35] tracking-[-0.16px] text-carbono sm:text-[28px]">A bateria de alta tensão representa uma fatia substancial do valor de um veículo eletrificado.</p>'
+                            .'<p>Quando a garantia do fabricante termina, esse risco passa integralmente para o proprietário — e é essa transição que a <span class="font-bold">EVA Battery Warranty</span> cobre.</p>',
+                    ]],
+                    ['type' => 'cta_icone', 'data' => [
+                        'titulo' => 'Quer saber se o seu veículo é elegível?',
+                        'texto' => 'Fale connosco e verificamos as condições para o seu caso.',
+                        'icone' => 'shield',
+                        'cor_icone' => 'lima',
+                        'botao_texto' => 'Verificar Elegibilidade',
+                        'botao_link' => '/marcacoes',
+                        'fundo' => 'carbono',
+                        'colar_ao_rodape' => true,
+                    ]],
+                ],
+            ],
+
+            'eva-powerlab/certificacao-mv-ber' => [
+                'title' => 'Certificação MV-BER',
+                'meta_title' => 'Certificação MV-BER EBI/461 — Qualidade OEM | Gocarmat',
+                'meta_description' => 'Certificado de Qualidade, Livro de Manutenção Digital e selo MV-BER. Manutenção em oficina independente, documentada segundo os procedimentos do fabricante.',
+                'content' => [
+                    ['type' => 'servico_hero', 'data' => [
+                        'fundo' => 'carbono',
+                        'breadcrumb_pai' => 'EVA Powerlab',
+                        'breadcrumb_link' => '/eva-powerlab',
+                        'breadcrumb_atual' => 'Certificação MV-BER',
+                        'titulo' => 'Independente. E documentado como tal.',
+                        'texto' => 'Certificação EBI/461 MV-BER: processos de manutenção e reparação com qualidade equivalente à exigida pelos fabricantes, validados por entidade externa independente.',
+                        'imagem' => 'images/servico-climatizacao.jpg',
+                        'botoes' => [
+                            ['texto' => 'Marcar Intervenção Certificada', 'link' => '/marcacoes'],
+                            ['texto' => 'O Que Recebe no Fim', 'link' => '/marcacoes'],
+                        ],
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'corpo' => '<p class="text-2xl font-bold leading-[1.35] tracking-[-0.16px] text-carbono sm:text-[28px]">"Oficina independente" ainda soa, para muita gente, a menos garantias e a um livro de manutenção com um espaço em branco. A certificação MV-BER existe para <span class="text-energia">desfazer essa ideia</span> — e para o provar por escrito.</p>'
+                            .'<p>A Gocarmat assegura processos de manutenção e reparação com um nível de qualidade equivalente ao exigido pelos fabricantes automóveis (OEM), suportados por metodologias rigorosas, validação externa e controlo contínuo. A intervenção técnica assenta em procedimentos normalizados, o que garante consistência, segurança e conformidade com os requisitos técnicos dos veículos elétricos e híbridos.</p>',
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 3,
+                        'titulo' => 'Os três ',
+                        'titulo_destaque' => 'pilares',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Formação profissional certificada', 'texto' => 'Qualificação especializada e continuamente avaliada da equipa técnica. Em alta tensão, não é uma formalidade: é a condição de segurança da intervenção.'],
+                            ['numero' => '02', 'titulo' => 'Auditoria da dotação técnica', 'texto' => 'Verificação externa de que a oficina dispõe do equipamento exigido para as intervenções que realiza.'],
+                            ['numero' => '03', 'titulo' => 'SiGMA — gestão da qualidade', 'texto' => 'Digitalização integral dos processos, com rastreabilidade de cada intervenção e acesso a portais dos fabricantes.'],
+                        ],
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => 'Como isto se traduz na ',
+                        'titulo_destaque' => 'prática',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Avaliação contínua', 'texto' => 'De recursos técnicos e humanos.'],
+                            ['numero' => '02', 'titulo' => 'Formação certificada', 'texto' => 'Profissional e especializada.'],
+                            ['numero' => '03', 'titulo' => 'Software dedicado', 'texto' => 'Controlo de qualidade e acesso a portais OEM.'],
+                            ['numero' => '04', 'titulo' => 'Digitalização total', 'texto' => 'Processos digitalizados, com rastreabilidade das intervenções.'],
+                            ['numero' => '05', 'titulo' => 'Melhoria contínua', 'texto' => 'Metodologias Kaizen, JIT e EFQM.'],
+                        ],
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 3,
+                        'titulo' => 'O que recebe no fim da ',
+                        'titulo_destaque' => 'intervenção',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Certificado de Qualidade', 'texto' => 'Documento do Sistema Europeu de Assistência Especializada e Viaturas Elétricas, que atesta a intervenção realizada segundo procedimentos certificados.'],
+                            ['numero' => '02', 'titulo' => 'Livro de Manutenção Digital', 'texto' => 'Registo europeu de manutenção associado à matrícula do veículo — documentado, consultável e verificável por terceiros.'],
+                            ['numero' => '03', 'titulo' => 'Selo de Qualidade MV-BER', 'texto' => 'Com código QR, integrado no sistema europeu antifraude SAFE, que permite validar a autenticidade do registo.'],
+                        ],
+                        'nota' => 'Opcional: lançamento do registo da intervenção no portal do fabricante; averbamento retroativo de intervenções anteriores no Livro de Manutenção Digital.',
+                    ]],
+                    ['type' => 'texto', 'data' => [
+                        'titulo' => 'Porque é que isto interessa a quem vende o carro daqui a três anos',
+                        'corpo' => '<p>Um veículo com historial de manutenção completo, digital e verificável defende o seu valor na revenda melhor do que um dossiê de faturas soltas. O LMD e o selo MV-BER existem exatamente para isso: transformar manutenção feita em manutenção provada.</p>',
+                    ]],
+                    ['type' => 'porque_faq', 'data' => [
+                        'titulo' => 'Porquê a Certificação MV-BER?',
+                        'texto' => '"Oficina independente" não deveria significar menos garantias. A certificação MV-BER prova por escrito que seguimos procedimentos com qualidade equivalente à dos fabricantes.',
+                        'imagem' => 'images/eva-car.png',
+                        'faq_titulo' => 'Perguntas frequentes',
+                        'faqs' => [
+                            ['pergunta' => 'O que recebo no final de uma intervenção certificada?', 'resposta' => 'Certificado de Qualidade, Livro de Manutenção Digital (LMD) e Selo de Qualidade MV-BER.'],
+                            ['pergunta' => 'Posso registar intervenções antigas?', 'resposta' => 'Sim, através do averbamento retroativo no Livro de Manutenção Digital.'],
+                        ],
+                    ]],
+                    ['type' => 'cta_icone', 'data' => [
+                        'titulo' => 'Manutenção independente, com o mesmo peso documental da rede oficial.',
+                        'texto' => '',
+                        'icone' => 'certificate',
+                        'cor_icone' => 'lima',
+                        'botao_texto' => 'Marcar Intervenção',
                         'botao_link' => '/marcacoes',
                         'fundo' => 'carbono',
                         'colar_ao_rodape' => true,
