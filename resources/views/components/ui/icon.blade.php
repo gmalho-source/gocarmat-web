@@ -15,7 +15,19 @@
         'certificate' => 'M10 12.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 0v6l-2.5-1.7L5 18.5v-6m10 6v-6l-2.5 1.7L10 12.5m0-6.7v.01',
         'search' => 'M9 15.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Zm4.6-1.9 4 4',
     ];
+
+    // Ícones vetoriais sólidos (Font Awesome), diferentes dos de traço acima:
+    // preenchimento em vez de contorno, cada um com a sua grelha (viewBox) de origem.
+    $solidos = [
+        'car' => ['viewBox' => '0 0 64 64', 'path' => 'M14 4H52.125L52.875 6L58.875 24H64V60H58V52H6V60H0V24H5.125L11.125 6L11.875 4H14ZM52.5 24L47.875 10H16.125L11.5 24H52.5ZM6 30V46H58V30H6ZM14 42C11.75 42 10 40.25 10 38C10 35.75 11.75 34 14 34C16.25 34 18 35.75 18 38C18 40.25 16.25 42 14 42ZM54 38C54 40.25 52.25 42 50 42C47.75 42 46 40.25 46 38C46 35.75 47.75 34 50 34C52.25 34 54 35.75 54 38Z'],
+    ];
 @endphp
-<svg {{ $attributes->merge(['class' => 'size-5']) }} viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="{{ $paths[$name] ?? '' }}" />
-</svg>
+@if (isset($solidos[$name]))
+    <svg {{ $attributes->merge(['class' => 'size-5']) }} viewBox="{{ $solidos[$name]['viewBox'] }}" fill="currentColor" aria-hidden="true">
+        <path d="{{ $solidos[$name]['path'] }}" />
+    </svg>
+@else
+    <svg {{ $attributes->merge(['class' => 'size-5']) }} viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="{{ $paths[$name] ?? '' }}" />
+    </svg>
+@endif

@@ -19,7 +19,7 @@
 
         <div class="relative rounded-[32px] bg-lima px-8 py-12 sm:px-12 xl:-ml-10 xl:h-[473px] xl:px-16 xl:py-[54px]">
             <div class="absolute right-10 top-10 hidden size-[120px] items-center justify-center rounded-full bg-carbono text-lima xl:flex">
-                <x-ui.icon name="bolt" class="size-14" />
+                <x-ui.icon name="bolt" class="size-16" />
             </div>
             <h2 class="max-w-[480px] text-5xl font-bold leading-[1.2] tracking-[-0.03em] text-carbono xl:text-[62px]">{{ $data['titulo'] }}</h2>
             @if (filled($data['subtitulo'] ?? null))

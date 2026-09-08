@@ -130,7 +130,6 @@ class SeedPages extends Command
                         'texto' => 'A GOCARMAT é uma rede de oficinas multimarca com 16 anos de experiência, a operar na Grande Lisboa e a crescer para todo o país. Capitais 100% portugueses, uma equipa técnica de referência — e um laboratório próprio de mobilidade elétrica, o EVA Powerlab.',
                         'imagem' => 'images/servico-revisao.jpg',
                         'fundo' => 'carbono',
-                        'overlay_azul' => true,
                         'proporcao' => '50',
                         'py' => '70px',
                         'juntar_abaixo' => true,
@@ -169,7 +168,7 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Vamos buscar e entregar o seu carro',
                         'texto' => 'Recolhemos e entregamos a sua viatura em casa ou no local de trabalho — contacte-nos para saber mais.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'cor_titulo' => 'energia',
                         'botao_texto' => 'Marcar Serviço',
