@@ -259,7 +259,7 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Não sabe que revisão a sua viatura precisa?',
                         'texto' => 'Marque online e nós confirmamos o plano de revisão oficial do fabricante para o seu carro.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Serviço',
                         'botao_link' => '/marcacoes',
@@ -302,7 +302,7 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Precisa de trocar os pneus?',
                         'texto' => 'Marque online e ajudamo-lo a escolher os pneus certos para o seu carro.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Serviço',
                         'botao_link' => '/marcacoes',
@@ -345,7 +345,7 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Teve um acidente?',
                         'texto' => 'Marque uma avaliação presencial e cuidamos de todo o processo, incluindo com a sua seguradora.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Avaliação',
                         'botao_link' => '/marcacoes',
@@ -388,7 +388,7 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Falta pouco para a inspeção?',
                         'texto' => 'Marque o check-up prévio e evite surpresas no centro de inspeção.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Check-up',
                         'botao_link' => '/marcacoes',
@@ -431,7 +431,7 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Já sabe quando mudou o óleo?',
                         'texto' => 'Marque online a mudança de óleo e filtros — rápido, e com as marcas certas para o seu carro.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Serviço',
                         'botao_link' => '/marcacoes',
@@ -474,7 +474,7 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Quando foi a última higienização?',
                         'texto' => 'Marque online a manutenção do sistema de climatização e respire um ar mais saudável.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Serviço',
                         'botao_link' => '/marcacoes',
