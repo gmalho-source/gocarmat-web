@@ -38,7 +38,6 @@
 
             <div class="relative h-[280px] shrink-0 xl:h-[340px]">
                 <img src="{{ \App\Support\Blocos::imagem($item['imagem'] ?? null) }}" alt="{{ $item['titulo'] }}" class="absolute inset-0 size-full object-cover" loading="lazy">
-                <div class="absolute inset-0 bg-energia/35 mix-blend-screen"></div>
                 <div class="absolute bottom-0 right-0 flex size-[65px] items-center justify-center bg-white text-energia transition group-hover:bg-lima group-hover:text-carbono">
                     <x-ui.icon name="arrow-up-right" class="size-8" />
                 </div>
