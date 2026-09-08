@@ -1,5 +1,14 @@
-{{-- Grelha de vantagens numeradas (páginas de serviço individual) --}}
-<section class="mt-16 rounded-[32px] bg-gelo px-8 py-14 sm:px-12 xl:mt-24 xl:px-16 xl:py-20">
+{{-- Grelha de vantagens numeradas (páginas de serviço individual).
+     'compacto' reduz a margem superior — usar quando o bloco anterior já é um
+     'texto' simples (sem imagem), para não duplicar o espaço em branco.
+     'colunas' controla o nº de cartões por linha no ecrã grande (3, por omissão, ou 4). --}}
+@php
+    $compacto = $data['compacto'] ?? false;
+    $colunasMapa = ['3' => 'xl:grid-cols-3', '4' => 'xl:grid-cols-4'];
+    $colunas = $colunasMapa[(string) ($data['colunas'] ?? 3)] ?? 'xl:grid-cols-3';
+@endphp
+
+<section class="{{ $compacto ? 'mt-6 xl:mt-8' : 'mt-16 xl:mt-24' }} rounded-[32px] bg-gelo px-8 py-14 sm:px-12 xl:px-16 xl:py-20">
     <h2 class="font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] text-carbono sm:text-[52px]">
         {{ $data['titulo'] }}
         @if (filled($data['titulo_destaque'] ?? null))
@@ -7,7 +16,7 @@
         @endif
     </h2>
 
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 {{ $colunas }}">
         @foreach ($data['itens'] ?? [] as $item)
             <div class="rounded-2xl border border-carbono/10 bg-white px-7 py-6">
                 <div class="flex items-start justify-between gap-4">
@@ -18,4 +27,8 @@
             </div>
         @endforeach
     </div>
+
+    @if (filled($data['nota'] ?? null))
+        <p class="mt-8 text-xs font-light leading-[1.68] text-carbono/60">{{ $data['nota'] }}</p>
+    @endif
 </section>

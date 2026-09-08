@@ -1,17 +1,19 @@
 {{-- Hero de página de serviço individual: breadcrumb, 2 botões, imagem com faixa de destaque --}}
+@php $f = \App\Support\Blocos::fundo($data['fundo'] ?? 'energia'); @endphp
+
 <section class="mt-7 grid overflow-hidden rounded-[32px] lg:grid-cols-[minmax(0,33%)_minmax(0,67%)]">
-    <div class="bg-energia px-8 py-14 sm:px-12 xl:px-12 xl:py-20">
-        <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] text-gelo">
-            <a href="{{ route('services') }}" class="transition hover:text-white">{{ $data['breadcrumb_pai'] ?? 'Serviços' }}</a>
+    <div class="{{ $f['sec'] }} px-8 py-14 sm:px-12 xl:px-12 xl:py-20">
+        <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] {{ ($data['fundo'] ?? 'energia') === 'carbono' ? 'text-lima' : 'text-gelo' }}">
+            <a href="{{ $data['breadcrumb_link'] ?? route('services') }}" class="transition hover:text-white">{{ $data['breadcrumb_pai'] ?? 'Serviços' }}</a>
             / {{ $data['breadcrumb_atual'] ?? $data['titulo'] }}
         </p>
 
-        <h1 class="mt-6 max-w-[520px] text-4xl font-bold leading-[1.15] tracking-[-0.03em] text-white sm:text-5xl">
+        <h1 class="mt-6 max-w-[520px] text-4xl font-bold leading-[1.15] tracking-[-0.03em] {{ $f['titulo'] }} sm:text-5xl">
             {{ $data['titulo'] }}
         </h1>
 
         @if (filled($data['texto'] ?? null))
-            <p class="mt-6 max-w-[480px] text-base font-light leading-[1.68] tracking-[-0.16px] text-gelo">
+            <p class="mt-6 max-w-[480px] text-base font-light leading-[1.68] tracking-[-0.16px] {{ $f['texto'] }}">
                 {{ $data['texto'] }}
             </p>
         @endif
