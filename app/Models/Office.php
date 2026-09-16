@@ -13,6 +13,8 @@ class Office extends Model
     {
         return [
             'is_active' => 'boolean',
+            'latitude' => 'float',
+            'longitude' => 'float',
         ];
     }
 
