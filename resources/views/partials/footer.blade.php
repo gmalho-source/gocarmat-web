@@ -7,8 +7,22 @@
         ['label' => 'Oficinas', 'href' => url('/contactos')],
         ['label' => 'Contactos', 'href' => url('/contactos')],
     ];
-    $colServicos = ['Revisão Oficial', 'Pneus', 'Centro de Colisão e Pintura', 'Inspeção Automóvel', 'Mudança de Óleos e Filtros', 'Climatização Automóvel'];
-    $colEva = ['EVA Lab — diagnóstico de BMS', 'Rescue — desbloqueio EV', 'Tesla Independent Service', 'EVA Collision', 'Battery Warranty · até 5 anos', 'Certificação MV-BER'];
+    $colServicos = [
+        ['label' => 'Revisão Oficial', 'href' => url('/servicos/revisao-oficial')],
+        ['label' => 'Pneus', 'href' => url('/servicos/pneus')],
+        ['label' => 'Centro de Colisão e Pintura', 'href' => url('/servicos/colisao-e-pintura')],
+        ['label' => 'Inspeção Automóvel', 'href' => url('/servicos/inspecao')],
+        ['label' => 'Mudança de Óleos e Filtros', 'href' => url('/servicos/oleo-filtros-e-mecanica')],
+        ['label' => 'Climatização Automóvel', 'href' => url('/servicos/climatizacao')],
+    ];
+    $colEva = [
+        ['label' => 'EVA Lab — diagnóstico de BMS', 'href' => url('/eva-powerlab/eva-lab')],
+        ['label' => 'Rescue — desbloqueio EV', 'href' => url('/eva-powerlab/rescue')],
+        ['label' => 'Tesla Independent Service', 'href' => url('/eva-powerlab/tesla-independent-service')],
+        ['label' => 'EVA Collision', 'href' => url('/eva-powerlab/eva-collision')],
+        ['label' => 'Battery Warranty · até 5 anos', 'href' => url('/eva-powerlab/battery-warranty')],
+        ['label' => 'Certificação MV-BER', 'href' => url('/eva-powerlab/certificacao-mv-ber')],
+    ];
 @endphp
 <footer class="mx-auto w-full max-w-[1920px] px-4 pb-4 sm:px-8 xl:px-16">
     <div class="relative overflow-hidden rounded-b-2xl bg-energia px-8 pb-10 pt-16 text-white sm:px-12 xl:px-[98px] xl:pt-[91px]">
@@ -61,16 +75,16 @@
             <div class="xl:col-span-2">
                 <p class="font-mono text-2xl font-bold uppercase leading-[1.2]">Serviços</p>
                 <ul class="mt-4 space-y-0.5">
-                    @foreach ($colServicos as $label)
-                        <li><a href="{{ url('/servicos') }}" class="text-base font-light leading-[1.68] tracking-[-0.16px] transition hover:text-cristal">{{ $label }}</a></li>
+                    @foreach ($colServicos as $link)
+                        <li><a href="{{ $link['href'] }}" class="text-base font-light leading-[1.68] tracking-[-0.16px] transition hover:text-cristal">{{ $link['label'] }}</a></li>
                     @endforeach
                 </ul>
             </div>
             <div class="xl:col-span-2">
                 <p class="font-mono text-2xl font-bold uppercase leading-[1.2]">EVA Powerlab</p>
                 <ul class="mt-4 space-y-0.5">
-                    @foreach ($colEva as $label)
-                        <li><a href="{{ url('/eva-powerlab') }}" class="text-base font-light leading-[1.68] tracking-[-0.16px] transition hover:text-cristal">{{ $label }}</a></li>
+                    @foreach ($colEva as $link)
+                        <li><a href="{{ $link['href'] }}" class="text-base font-light leading-[1.68] tracking-[-0.16px] transition hover:text-cristal">{{ $link['label'] }}</a></li>
                     @endforeach
                 </ul>
             </div>

@@ -1,13 +1,20 @@
 {{-- Faixa de CTA com ícone circular (recolha/entrega, marcação EVA) --}}
 @php
     $f = \App\Support\Blocos::fundo($data['fundo'] ?? 'carbono');
-    $corIcone = ($data['cor_icone'] ?? 'energia') === 'lima' ? 'bg-lima text-carbono' : 'bg-energia text-white';
+    $corIconeMapa = [
+        'lima' => 'bg-lima text-carbono',
+        'energia' => 'bg-energia text-white',
+        'carbono' => 'bg-carbono text-lima',
+    ];
+    $corIcone = $corIconeMapa[$data['cor_icone'] ?? 'energia'] ?? $corIconeMapa['energia'];
     $colado = (bool) ($data['colar_ao_rodape'] ?? false);
 @endphp
 
 <section {{ ($data['ligar_barra_fixa'] ?? false) ? 'data-cta-scroll-target' : '' }} class="mt-16 flex flex-col items-start gap-8 px-8 py-12 sm:px-12 xl:mt-24 xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-14 {{ $f['sec'] }} {{ $colado ? 'rounded-t-[32px]' : 'rounded-[32px]' }}">
     <div class="flex items-center gap-8">
-        @if (filled($data['icone'] ?? null))
+        @if (filled($data['icone_imagem'] ?? null))
+            <img src="{{ \App\Support\Blocos::imagem($data['icone_imagem']) }}" alt="" class="size-[90px] shrink-0 rounded-full object-cover xl:size-[110px]">
+        @elseif (filled($data['icone'] ?? null))
             <div class="flex size-[90px] shrink-0 items-center justify-center rounded-full xl:size-[110px] {{ $corIcone }}">
                 <x-ui.icon :name="$data['icone']" class="size-12" />
             </div>

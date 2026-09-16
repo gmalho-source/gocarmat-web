@@ -49,6 +49,14 @@ class OfficeForm
                 TextInput::make('maps_url')
                     ->label('Link Google Maps')
                     ->url(),
+                TextInput::make('latitude')
+                    ->label('Latitude')
+                    ->numeric()
+                    ->placeholder('38.7434139'),
+                TextInput::make('longitude')
+                    ->label('Longitude')
+                    ->numeric()
+                    ->placeholder('-9.3870650'),
                 TextInput::make('sort_order')
                     ->label('Ordem')
                     ->required()

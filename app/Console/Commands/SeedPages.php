@@ -218,6 +218,7 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Tem um elétrico ou híbrido?',
                         'texto' => 'Conte com a assistência especializada da GOCARMAT.',
+                        'icone_imagem' => 'images/icone-raio.png',
                         'botao_texto' => 'Conhecer o EVA Powerlab',
                         'botao_link' => '/eva-powerlab',
                         'fundo' => 'lima',
@@ -238,7 +239,7 @@ class SeedPages extends Command
                         'texto' => 'Já é possível fazer as revisões oficiais em oficina multimarca — os construtores são obrigados a fornecer os planos de revisão oficial. Na GOCARMAT mantém a garantia de fábrica, com o rigor exigido pelo fabricante — a um preço muito mais vantajoso.',
                         'imagem' => 'images/servico-revisao.jpg',
                         'botoes' => [
-                            ['texto' => 'Marcar Revisão', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Revisão', 'link' => '/marcacoes?servico='.rawurlencode('Revisão Oficial')],
                             ['texto' => 'Ver outros Serviços', 'link' => '/servicos'],
                         ],
                         'faixa_numero' => '461/2010',
@@ -281,7 +282,7 @@ class SeedPages extends Command
                         'texto' => 'Os pneus são o único elemento em contacto direto com o piso — a sua condição influencia diretamente a segurança, o consumo e o comportamento do veículo. Ajudamo-lo a escolher, verificar e manter os pneus certos para si.',
                         'imagem' => 'images/servico-pneus.jpg',
                         'botoes' => [
-                            ['texto' => 'Marcar Pneus', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Pneus', 'link' => '/marcacoes?servico='.rawurlencode('Pneus')],
                             ['texto' => 'Ver outros Serviços', 'link' => '/servicos'],
                         ],
                         'faixa_numero' => '1,6mm',
@@ -324,7 +325,7 @@ class SeedPages extends Command
                         'texto' => 'O nosso Centro de Colisão e Pintura repara todo o tipo de danos de carroçaria, respeitando os critérios exigidos pelos fabricantes e pelas seguradoras — com acabamento de fábrica.',
                         'imagem' => 'images/servico-colisao.jpg',
                         'botoes' => [
-                            ['texto' => 'Marcar Avaliação', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Avaliação', 'link' => '/marcacoes?servico='.rawurlencode('Colisão e Pintura')],
                             ['texto' => 'Ver outros Serviços', 'link' => '/servicos'],
                         ],
                         'faixa_numero' => '100%',
@@ -367,7 +368,7 @@ class SeedPages extends Command
                         'texto' => 'Acompanhamos o seu carro ao centro de inspeção periódica obrigatória, com um check-up prévio que reduz o risco de reprovação — deixa o carro connosco e nós tratamos de tudo.',
                         'imagem' => 'images/servico-inspecao.jpg',
                         'botoes' => [
-                            ['texto' => 'Marcar Check-up', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Check-up', 'link' => '/marcacoes?servico='.rawurlencode('Inspeção Automóvel')],
                             ['texto' => 'Ver outros Serviços', 'link' => '/servicos'],
                         ],
                         'faixa_numero' => '5',
@@ -410,7 +411,7 @@ class SeedPages extends Command
                         'texto' => 'Substituímos sempre o óleo e todos os filtros em conjunto — óleo, combustível, ar e habitáculo — com marcas homologadas pelo fabricante, para o motor durar mais e consumir menos.',
                         'imagem' => 'images/servico-oleo.jpg',
                         'botoes' => [
-                            ['texto' => 'Marcar Serviço', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Serviço', 'link' => '/marcacoes?servico='.rawurlencode('Mudança de Óleos e Filtros')],
                             ['texto' => 'Ver outros Serviços', 'link' => '/servicos'],
                         ],
                         'faixa_numero' => '€199',
@@ -453,7 +454,7 @@ class SeedPages extends Command
                         'texto' => 'O ar dentro do habitáculo pode conter 10 vezes mais impurezas do que o ar respirável fora do veículo. Cuidamos do sistema de climatização e do filtro de habitáculo, para viajar com mais conforto e ar mais saudável.',
                         'imagem' => 'images/servico-climatizacao.jpg',
                         'botoes' => [
-                            ['texto' => 'Marcar Serviço', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Serviço', 'link' => '/marcacoes?servico='.rawurlencode('Climatização Automóvel')],
                             ['texto' => 'Ver outros Serviços', 'link' => '/servicos'],
                         ],
                         'faixa_numero' => '10x',
@@ -497,16 +498,16 @@ class SeedPages extends Command
                         'imagem' => 'images/eva-hero.jpg',
                         'fundo' => 'carbono',
                         'proporcao' => '58',
-                        'botoes' => [['texto' => 'Marcação EVA', 'link' => '/marcacoes']],
+                        'botoes' => [['texto' => 'Marcação EVA', 'link' => '/marcacoes?servico='.rawurlencode('EVA Powerlab')]],
                     ]],
                     ['type' => 'eva_servicos', 'data' => [
                         'itens' => [
-                            ['etiqueta' => 'lab', 'icone' => 'bolt', 'titulo' => 'EVA LAB', 'texto' => 'Diagnóstico e reparação de baterias e eletrónica de alta tensão.', 'link' => '/eva-powerlab/eva-lab'],
-                            ['etiqueta' => 'resgate', 'icone' => 'car-burst', 'titulo' => 'RESCUE', 'texto' => 'Desbloqueio de híbridos e elétricos imobilizados.', 'link' => '/eva-powerlab/rescue'],
-                            ['etiqueta' => 'segurança', 'icone' => 'car-burst', 'titulo' => 'EVA COLLISION', 'texto' => 'Colisão de veículos eletrificados, com protocolos de alta tensão.', 'link' => '/eva-powerlab/eva-collision'],
-                            ['etiqueta' => 'tis', 'icone' => 'bolt', 'titulo' => 'TESLA INDEPENDENT SERVICE', 'texto' => 'Serviço independente para Model S, X, 3 e Y.', 'link' => '/eva-powerlab/tesla-independent-service'],
-                            ['etiqueta' => 'garantia', 'icone' => 'shield', 'titulo' => 'EVA BATTERY WARRANTY', 'texto' => 'Extensão de garantia até 5 anos para baterias.', 'link' => '/eva-powerlab/battery-warranty'],
-                            ['etiqueta' => 'mv-ber', 'icone' => 'certificate', 'titulo' => 'CERTIFICAÇÃO MV-BER', 'texto' => 'Certificado, Livro de Manutenção Digital e selo de qualidade.', 'link' => '/eva-powerlab/certificacao-mv-ber'],
+                            ['etiqueta' => 'lab', 'icone_imagem' => 'images/icone-eva-lab.png', 'titulo' => 'EVA LAB', 'texto' => 'Diagnóstico e reparação de baterias e eletrónica de alta tensão.', 'link' => '/eva-powerlab/eva-lab'],
+                            ['etiqueta' => 'resgate', 'icone_imagem' => 'images/icone-rescue.png', 'titulo' => 'RESCUE', 'texto' => 'Desbloqueio de híbridos e elétricos imobilizados.', 'link' => '/eva-powerlab/rescue'],
+                            ['etiqueta' => 'segurança', 'icone_imagem' => 'images/icone-eva-collision.png', 'titulo' => 'EVA COLLISION', 'texto' => 'Colisão de veículos eletrificados, com protocolos de alta tensão.', 'link' => '/eva-powerlab/eva-collision'],
+                            ['etiqueta' => 'tis', 'icone_imagem' => 'images/icone-tis.png', 'titulo' => 'TESLA INDEPENDENT SERVICE', 'texto' => 'Serviço independente para Model S, X, 3 e Y.', 'link' => '/eva-powerlab/tesla-independent-service'],
+                            ['etiqueta' => 'garantia', 'icone_imagem' => 'images/icone-battery-warranty.png', 'titulo' => 'EVA BATTERY WARRANTY', 'texto' => 'Extensão de garantia até 5 anos para baterias.', 'link' => '/eva-powerlab/battery-warranty'],
+                            ['etiqueta' => 'mv-ber', 'icone_imagem' => 'images/icone-mv-ber.png', 'titulo' => 'CERTIFICAÇÃO MV-BER', 'texto' => 'Certificado, Livro de Manutenção Digital e selo de qualidade.', 'link' => '/eva-powerlab/certificacao-mv-ber'],
                         ],
                     ]],
                     ['type' => 'porque_faq', 'data' => [
@@ -524,10 +525,9 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Marcação EVA',
                         'texto' => 'Diagnóstico, reparação e certificação de baterias — marque já a sua avaliação.',
-                        'icone' => 'bolt',
-                        'cor_icone' => 'lima',
+                        'icone_imagem' => 'images/icone-raio-inverso.png',
                         'botao_texto' => 'Marcar agora',
-                        'botao_link' => '/marcacoes',
+                        'botao_link' => '/marcacoes?servico='.rawurlencode('EVA Powerlab'),
                         'fundo' => 'carbono',
                         'colar_ao_rodape' => true,
                     ]],
@@ -548,8 +548,7 @@ class SeedPages extends Command
                         'texto' => 'Laboratório de alta tensão para diagnóstico e recuperação de baterias e eletrónica de veículos elétricos e híbridos.',
                         'imagem' => 'images/servico-revisao.jpg',
                         'botoes' => [
-                            ['texto' => 'Enviar um Caso para Análise', 'link' => '/marcacoes'],
-                            ['texto' => 'Falar com um Técnico', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar diagnóstico', 'link' => '/marcacoes?servico='.rawurlencode('EVA Lab')],
                         ],
                     ]],
                     ['type' => 'texto', 'data' => [
@@ -597,13 +596,15 @@ class SeedPages extends Command
                         'faqs' => [
                             ['pergunta' => 'E se o pack não for recuperável?', 'resposta' => 'Dizemo-lo antes de avançar, com o relatório de diagnóstico e a fundamentação técnica. Não iniciamos reparações sem viabilidade confirmada.'],
                             ['pergunta' => 'Fica com garantia?', 'resposta' => 'Sim. As baterias reparadas no EVA Lab ficam cobertas pelas condições do EVA Battery Warranty.'],
+                            ['pergunta' => 'Que tipo de avarias tratam?', 'resposta' => 'Falhas de célula, erros de BMS e placas eletrónicas danificadas — sempre que o problema está ao nível do módulo, da célula ou da placa, e não do pack completo.'],
+                            ['pergunta' => 'A reparação é mais barata do que substituir o pack?', 'resposta' => 'Na generalidade dos casos, sim. Reparar ao nível do componente evita o custo de um pack novo completo, que costuma ser a maior fatia do orçamento.'],
+                            ['pergunta' => 'E se não houver documentação disponível para o sistema?', 'resposta' => 'Recorremos a engenharia inversa e validação funcional, para sistemas sem documentação do fabricante ou fora de suporte.'],
                         ],
                     ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Tem um pack com erro e um orçamento de substituição em cima da mesa?',
                         'texto' => 'Envie-nos os dados do veículo e o código de avaria. Dizemos-lhe se vale a pena reparar.',
-                        'icone' => 'bolt',
-                        'cor_icone' => 'lima',
+                        'icone_imagem' => 'images/icone-raio-inverso.png',
                         'botao_texto' => 'Enviar Caso',
                         'botao_link' => '/marcacoes',
                         'fundo' => 'carbono',
@@ -626,8 +627,7 @@ class SeedPages extends Command
                         'texto' => 'Serviço técnico para híbridos e elétricos imobilizados por bloqueio eletrónico, bateria de alta tensão em fim de carga ou falha de comunicação entre sistemas.',
                         'imagem' => 'images/servico-inspecao.jpg',
                         'botoes' => [
-                            ['texto' => 'Pedir Assistência', 'link' => '/marcacoes'],
-                            ['texto' => 'Como Funciona', 'link' => '/marcacoes'],
+                            ['texto' => 'Pedir Assistência', 'link' => '/marcacoes?servico='.rawurlencode('Rescue')],
                         ],
                     ]],
                     ['type' => 'texto', 'data' => [
@@ -676,13 +676,15 @@ class SeedPages extends Command
                         'faqs' => [
                             ['pergunta' => 'O Rescue substitui sempre o reboque?', 'resposta' => 'Não. Sempre que o quadro técnico o permite, reativamos o veículo no local. Quando não permite, preparamos e imobilizamos o veículo em segurança para transporte — com os procedimentos de alta tensão que um reboque convencional não executa.'],
                             ['pergunta' => 'Porque é que a rapidez importa tanto?', 'resposta' => 'Porque um pack que fica muito tempo com o estado de carga (SoC) muito baixo degrada-se quimicamente. Resolver depressa protege o ativo mais caro do veículo.'],
+                            ['pergunta' => 'Que situações resolve o Rescue?', 'resposta' => 'Veículos que não entram em modo READY, bloqueios eletrónicos, bateria de alta tensão abaixo do limite mínimo e falta de combustível em híbridos.'],
+                            ['pergunta' => 'Fazem diagnóstico no local?', 'resposta' => 'Sim. Avaliamos a causa da imobilização no local, antes de qualquer decisão de transporte.'],
+                            ['pergunta' => 'O Rescue é só para elétricos?', 'resposta' => 'Não — serve também híbridos, sobretudo em situações de bloqueio eletrónico ou bateria de alta tensão em fim de carga.'],
                         ],
                     ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Veículo imobilizado neste momento?',
                         'texto' => 'Descreva o que aparece no painel e dizemos-lhe o que fazer a seguir.',
-                        'icone' => 'car-burst',
-                        'cor_icone' => 'lima',
+                        'icone_imagem' => 'images/icone-raio-inverso.png',
                         'botao_texto' => 'Pedir Assistência',
                         'botao_link' => '/marcacoes',
                         'fundo' => 'carbono',
@@ -705,8 +707,7 @@ class SeedPages extends Command
                         'texto' => 'Diagnóstico, eletrónica, alta tensão e sistemas de carregamento para Model S, Model X, Model 3 e Model Y — fora da rede oficial.',
                         'imagem' => 'images/eva-bg.jpg',
                         'botoes' => [
-                            ['texto' => 'Pedir Orçamento', 'link' => '/marcacoes'],
-                            ['texto' => 'Ver Capacidades Técnicas', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar diagnóstico', 'link' => '/marcacoes?servico='.rawurlencode('Tesla Independent Service')],
                         ],
                     ]],
                     ['type' => 'texto', 'data' => [
@@ -730,10 +731,10 @@ class SeedPages extends Command
                     ['type' => 'texto', 'data' => [
                         'titulo' => 'Modelos abrangidos',
                         'corpo' => '<div class="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">'
-                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/eva-car-profile.png" alt="Tesla Model S" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model S</p></div>'
-                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/eva-car-profile.png" alt="Tesla Model X" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model X</p></div>'
-                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/eva-car-profile.png" alt="Tesla Model 3" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model 3</p></div>'
-                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/eva-car-profile.png" alt="Tesla Model Y" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model Y</p></div>'
+                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/tesla-model-s.png" alt="Tesla Model S" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model S</p></div>'
+                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/tesla-model-x.png" alt="Tesla Model X" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model X</p></div>'
+                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/tesla-model-3.png" alt="Tesla Model 3" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model 3</p></div>'
+                            .'<div class="rounded-2xl border border-carbono/10 bg-white px-6 py-6 text-center"><div class="flex h-32 items-center justify-center"><img src="/images/tesla-model-y.png" alt="Tesla Model Y" class="h-full w-auto object-contain"></div><p class="mt-3 font-mono text-sm font-bold uppercase tracking-[-0.16px] text-carbono">Tesla Model Y</p></div>'
                             .'</div>',
                     ]],
                     ['type' => 'servico_vantagens', 'data' => [
@@ -757,13 +758,15 @@ class SeedPages extends Command
                         'faqs' => [
                             ['pergunta' => 'Este serviço está afiliado à Tesla?', 'resposta' => 'Não. É um serviço independente, sem afiliação nem endosso da Tesla, Inc., prestado ao abrigo do quadro regulamentar europeu aplicável à reparação automóvel.'],
                             ['pergunta' => 'Que modelos estão abrangidos?', 'resposta' => 'Tesla Model S, Model X, Model 3 e Model Y.'],
+                            ['pergunta' => 'Que tipo de intervenções fazem?', 'resposta' => 'Diagnóstico, reparação de componentes eletrónicos e de alta tensão, e intervenção em baterias e sistemas de carregamento.'],
+                            ['pergunta' => 'Conseguem calibrar radares e sistemas de assistência à condução?', 'resposta' => 'Sim, incluindo calibração de radar (AP2.5/AP3.0) e de outros sistemas, além de configuração e atualização de firmware.'],
+                            ['pergunta' => 'Porque escolher um serviço independente?', 'resposta' => 'Maior flexibilidade operacional e custos de reparação significativamente mais baixos, sobretudo em eletrónica, sem depender exclusivamente da rede oficial.'],
                         ],
                     ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Descreva-nos o problema e o modelo.',
                         'texto' => 'Damos-lhe uma avaliação técnica e um orçamento antes de o carro entrar na oficina.',
-                        'icone' => 'bolt',
-                        'cor_icone' => 'lima',
+                        'icone_imagem' => 'images/icone-raio-inverso.png',
                         'botao_texto' => 'Pedir Orçamento',
                         'botao_link' => '/marcacoes',
                         'fundo' => 'carbono',
@@ -782,12 +785,11 @@ class SeedPages extends Command
                         'breadcrumb_pai' => 'EVA Powerlab',
                         'breadcrumb_link' => '/eva-powerlab',
                         'breadcrumb_atual' => 'EVA Collision',
-                        'titulo' => 'Um elétrico sinistrado não é um carro sinistrado com um motor diferente.',
+                        'titulo' => 'Um acidente com um carro elétrico não se resolve como um acidente comum.',
                         'texto' => 'Centro de colisão para veículos elétricos e híbridos, com protocolos de alta tensão em todas as fases — da receção à entrega.',
                         'imagem' => 'images/servico-colisao.jpg',
                         'botoes' => [
-                            ['texto' => 'Encaminhar um Sinistro', 'link' => '/marcacoes'],
-                            ['texto' => 'Ver Protocolo de Receção', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Avaliação', 'link' => '/marcacoes?servico='.rawurlencode('EVA Collision')],
                         ],
                     ]],
                     ['type' => 'texto', 'data' => [
@@ -859,13 +861,15 @@ class SeedPages extends Command
                         'faqs' => [
                             ['pergunta' => 'Avaliam a bateria antes de decidir por perda total?', 'resposta' => 'Sim. Avaliamos o estado real da bateria e dos sistemas de alta tensão antes de qualquer decisão de reparação ou abate.'],
                             ['pergunta' => 'O que verificam na receção de um veículo sinistrado?', 'resposta' => 'Integridade estrutural da bateria, picos de temperatura por infravermelhos, deteção de fugas de gases e registo das evidências em sistema informático antifraude.'],
+                            ['pergunta' => 'Fazem reparação de carroçaria compatível com veículos elétricos?', 'resposta' => 'Sim — a reparação respeita os pontos de fixação, zonas de deformação programada e trajetos de cablagem de alta tensão próprios da arquitetura elétrica.'],
+                            ['pergunta' => 'Prestam assistência fora de contexto de colisão?', 'resposta' => 'Sim. O serviço de segurança e imobilização está também disponível em avaria ou situação de risco elétrico, incluindo assistência em estrada.'],
+                            ['pergunta' => 'Garantem conformidade técnica após a reparação?', 'resposta' => 'Sim, seguimos conformidade técnica OEM após a reparação, sempre documentada.'],
                         ],
                     ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Tem um veículo eletrificado sinistrado à espera de decisão?',
                         'texto' => 'Fazemos a avaliação da bateria antes de a perda total ser inevitável.',
-                        'icone' => 'car-burst',
-                        'cor_icone' => 'lima',
+                        'icone_imagem' => 'images/icone-raio-inverso.png',
                         'botao_texto' => 'Encaminhar Sinistro',
                         'botao_link' => '/marcacoes',
                         'fundo' => 'carbono',
@@ -888,20 +892,55 @@ class SeedPages extends Command
                         'texto' => 'Extensão de garantia até 5 anos para baterias de alta tensão de veículos elétricos e híbridos.',
                         'imagem' => 'images/servico-oleo.jpg',
                         'botoes' => [
-                            ['texto' => 'Verificar Elegibilidade', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Verificação', 'link' => '/marcacoes?servico='.rawurlencode('EVA Battery Warranty')],
                         ],
                     ]],
                     ['type' => 'texto', 'data' => [
                         'corpo' => '<p class="text-2xl font-bold leading-[1.35] tracking-[-0.16px] text-carbono sm:text-[28px]">A bateria de alta tensão representa uma fatia substancial do valor de um veículo eletrificado.</p>'
                             .'<p>Quando a garantia do fabricante termina, esse risco passa integralmente para o proprietário — e é essa transição que a <span class="font-bold">EVA Battery Warranty</span> cobre.</p>',
                     ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 4,
+                        'titulo' => 'Porque vale a ',
+                        'titulo_destaque' => 'pena',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Protege o maior investimento', 'texto' => 'A bateria é o componente isolado mais caro de um elétrico ou híbrido — protegê-la é proteger o valor do carro.'],
+                            ['numero' => '02', 'titulo' => 'Sem surpresas no orçamento', 'texto' => 'Uma avaria fora de garantia pode custar mais do que muitos anos de manutenção normal. A extensão retira essa incerteza.'],
+                            ['numero' => '03', 'titulo' => 'Reparação certificada', 'texto' => 'Quando é preciso intervir, a reparação é feita no EVA Lab, com diagnóstico ao nível do módulo e da célula.'],
+                            ['numero' => '04', 'titulo' => 'Defende o valor de revenda', 'texto' => 'Um elétrico com a bateria coberta por garantia própria vende-se com mais confiança e a um preço mais justo.'],
+                        ],
+                    ]],
+                    ['type' => 'servico_vantagens', 'data' => [
+                        'compacto' => true,
+                        'colunas' => 3,
+                        'titulo' => 'Para ',
+                        'titulo_destaque' => 'quem é',
+                        'itens' => [
+                            ['numero' => '01', 'titulo' => 'Garantia de fábrica a terminar', 'texto' => 'Quem está prestes a ficar sem a cobertura original do fabricante.'],
+                            ['numero' => '02', 'titulo' => 'Elétricos e híbridos em segunda mão', 'texto' => 'Quem comprou um veículo usado sem garantia de bateria associada.'],
+                            ['numero' => '03', 'titulo' => 'Gestores de frota', 'texto' => 'Quem quer previsibilidade de custos numa frota eletrificada.'],
+                        ],
+                    ]],
+                    ['type' => 'porque_faq', 'data' => [
+                        'titulo' => 'Porquê a EVA Battery Warranty?',
+                        'texto' => 'A bateria é o componente isolado mais caro de um elétrico ou híbrido. Quando a garantia do fabricante termina, essa proteção não tem de terminar também.',
+                        'imagem' => 'images/eva-car.png',
+                        'faq_titulo' => 'Perguntas frequentes',
+                        'faqs' => [
+                            ['pergunta' => 'Porque é que a bateria precisa de uma garantia própria?', 'resposta' => 'Porque é o componente isolado mais caro de um elétrico ou híbrido — quando a garantia do fabricante termina, esse risco passa para o proprietário.'],
+                            ['pergunta' => 'A quem se destina esta extensão?', 'resposta' => 'A quem está a terminar a garantia de fábrica, a proprietários de elétricos ou híbridos em segunda mão, e a gestores de frota que querem previsibilidade de custos.'],
+                            ['pergunta' => 'Se a bateria precisar de reparação, onde é feita?', 'resposta' => 'No EVA Lab, com diagnóstico ao nível do módulo e da célula — a mesma unidade que dá origem a esta garantia.'],
+                            ['pergunta' => 'A garantia ajuda na revenda do carro?', 'resposta' => 'Sim. Um elétrico com a bateria coberta por garantia própria costuma vender-se com mais confiança e a um preço mais justo.'],
+                            ['pergunta' => 'Como sei se o meu veículo é elegível?', 'resposta' => 'Fale connosco — verificamos as condições para o seu caso.'],
+                        ],
+                    ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Quer saber se o seu veículo é elegível?',
                         'texto' => 'Fale connosco e verificamos as condições para o seu caso.',
-                        'icone' => 'shield',
-                        'cor_icone' => 'lima',
-                        'botao_texto' => 'Verificar Elegibilidade',
-                        'botao_link' => '/marcacoes',
+                        'icone_imagem' => 'images/icone-raio-inverso.png',
+                        'botao_texto' => 'Marcar Verificação',
+                        'botao_link' => '/marcacoes?servico='.rawurlencode('EVA Battery Warranty'),
                         'fundo' => 'carbono',
                         'colar_ao_rodape' => true,
                     ]],
@@ -922,8 +961,7 @@ class SeedPages extends Command
                         'texto' => 'Certificação EBI/461 MV-BER: processos de manutenção e reparação com qualidade equivalente à exigida pelos fabricantes, validados por entidade externa independente.',
                         'imagem' => 'images/servico-climatizacao.jpg',
                         'botoes' => [
-                            ['texto' => 'Marcar Intervenção Certificada', 'link' => '/marcacoes'],
-                            ['texto' => 'O Que Recebe no Fim', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Certificação', 'link' => '/marcacoes?servico='.rawurlencode('Certificação MV-BER')],
                         ],
                     ]],
                     ['type' => 'texto', 'data' => [
@@ -978,13 +1016,15 @@ class SeedPages extends Command
                         'faqs' => [
                             ['pergunta' => 'O que recebo no final de uma intervenção certificada?', 'resposta' => 'Certificado de Qualidade, Livro de Manutenção Digital (LMD) e Selo de Qualidade MV-BER.'],
                             ['pergunta' => 'Posso registar intervenções antigas?', 'resposta' => 'Sim, através do averbamento retroativo no Livro de Manutenção Digital.'],
+                            ['pergunta' => 'Em que assenta esta certificação?', 'resposta' => 'Em três pilares: formação profissional certificada, auditoria da dotação técnica e o software de gestão da qualidade SiGMA.'],
+                            ['pergunta' => 'O que é o Livro de Manutenção Digital?', 'resposta' => 'É o registo europeu de manutenção associado à matrícula do veículo, documentado digitalmente e verificável por terceiros.'],
+                            ['pergunta' => 'Para que serve o Selo de Qualidade MV-BER?', 'resposta' => 'Tem um código QR integrado no sistema europeu antifraude SAFE, que permite validar a autenticidade do registo.'],
                         ],
                     ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Manutenção independente, com o mesmo peso documental da rede oficial.',
                         'texto' => '',
-                        'icone' => 'certificate',
-                        'cor_icone' => 'lima',
+                        'icone_imagem' => 'images/icone-raio-inverso.png',
                         'botao_texto' => 'Marcar Intervenção',
                         'botao_link' => '/marcacoes',
                         'fundo' => 'carbono',
@@ -1011,6 +1051,9 @@ class SeedPages extends Command
                         'lado_subtitulo' => 'GOCARMAT® – Serviço de Apoio ao Cliente/360.',
                         'lado_texto' => 'Sempre que sente necessidade de consultar uma oficina, o nosso serviço de Apoio ao Cliente está à sua espera. Responde a dúvidas e preocupações que possam surgir no dia a dia do seu automóvel, ajudando na sua manutenção e assistência técnica. Seja na marcação de uma oficina Gocarmat ou na verificação de quais os pneus recomendados para a sua viatura, conte com o Suporte e Apoio ao Cliente da Gocarmat.',
                         'lado_texto_destaque' => 'Serviço de Apoio ao Cliente Gocarmat, existimos para o(a) ajudar na decisão da assistência e manutenção do seu automóvel.',
+                    ]],
+                    ['type' => 'mapa_oficinas', 'data' => [
+                        'titulo' => 'As nossas oficinas',
                     ]],
                     ['type' => 'contactos_lista', 'data' => [
                         'titulo' => 'Outros contactos',
@@ -1061,10 +1104,10 @@ class SeedPages extends Command
                     ['type' => 'campanha_cta_fixo', 'data' => [
                         'titulo' => 'Pronto para marcar?',
                         'texto' => 'Marque já a sua revisão oficial com este preço especial.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Agora',
-                        'botao_link' => '/marcacoes',
+                        'botao_link' => '/marcacoes?servico='.rawurlencode('Outro assunto').'&nota='.rawurlencode('Campanha: Revisão Oficial por 94,90€'),
                     ]],
                     ['type' => 'servico_hero', 'data' => [
                         'breadcrumb_pai' => 'Campanhas',
@@ -1073,7 +1116,7 @@ class SeedPages extends Command
                         'texto' => 'Substituição do óleo do motor, filtro de óleo e filtro de ar, com check-up completo à viatura — mão de obra incluída.',
                         'imagem' => 'images/campanha-revisao-oficial.jpg',
                         'botoes' => [
-                            ['texto' => 'Marcar Agora', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Agora', 'link' => '/marcacoes?servico='.rawurlencode('Outro assunto').'&nota='.rawurlencode('Campanha: Revisão Oficial por 94,90€')],
                             ['texto' => 'Ver outras Campanhas', 'link' => '/campanhas'],
                         ],
                         'faixa_numero' => '94,90€',
@@ -1113,10 +1156,10 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Pronto para marcar?',
                         'texto' => 'Marque já a sua revisão oficial com este preço especial.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Agora',
-                        'botao_link' => '/marcacoes',
+                        'botao_link' => '/marcacoes?servico='.rawurlencode('Outro assunto').'&nota='.rawurlencode('Campanha: Revisão Oficial por 94,90€'),
                         'fundo' => 'carbono',
                         'colar_ao_rodape' => true,
                         'ligar_barra_fixa' => true,
@@ -1132,10 +1175,10 @@ class SeedPages extends Command
                     ['type' => 'campanha_cta_fixo', 'data' => [
                         'titulo' => 'Precisa de trocar as pastilhas?',
                         'texto' => 'Marque já a substituição com este preço especial.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Agora',
-                        'botao_link' => '/marcacoes',
+                        'botao_link' => '/marcacoes?servico='.rawurlencode('Outro assunto').'&nota='.rawurlencode('Campanha: Pastilhas de Travão por 84,90€'),
                     ]],
                     ['type' => 'servico_hero', 'data' => [
                         'breadcrumb_pai' => 'Campanhas',
@@ -1144,7 +1187,7 @@ class SeedPages extends Command
                         'texto' => 'Substituição de um jogo de pastilhas de travão (eixo dianteiro ou traseiro), com check-up incluído.',
                         'imagem' => 'images/campanha-pastilhas-travao.jpg',
                         'botoes' => [
-                            ['texto' => 'Marcar Agora', 'link' => '/marcacoes'],
+                            ['texto' => 'Marcar Agora', 'link' => '/marcacoes?servico='.rawurlencode('Outro assunto').'&nota='.rawurlencode('Campanha: Pastilhas de Travão por 84,90€')],
                             ['texto' => 'Ver outras Campanhas', 'link' => '/campanhas'],
                         ],
                         'faixa_numero' => '84,90€',
@@ -1185,10 +1228,10 @@ class SeedPages extends Command
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Precisa de trocar as pastilhas?',
                         'texto' => 'Marque já a substituição com este preço especial.',
-                        'icone' => 'car-burst',
+                        'icone' => 'car',
                         'cor_icone' => 'energia',
                         'botao_texto' => 'Marcar Agora',
-                        'botao_link' => '/marcacoes',
+                        'botao_link' => '/marcacoes?servico='.rawurlencode('Outro assunto').'&nota='.rawurlencode('Campanha: Pastilhas de Travão por 84,90€'),
                         'fundo' => 'carbono',
                         'colar_ao_rodape' => true,
                         'ligar_barra_fixa' => true,
