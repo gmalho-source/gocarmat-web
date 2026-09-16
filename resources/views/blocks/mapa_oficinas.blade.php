@@ -43,6 +43,8 @@
                 maxZoom: 19,
             }).addTo(mapa);
 
+            var larguraPopup = Math.min(240, elemento.clientWidth - 40);
+
             var marcadores = [];
             var marcadorInicial = null;
             oficinas.forEach(function (oficina) {
@@ -50,7 +52,8 @@
                     .addTo(mapa)
                     .bindPopup(
                         '<strong>' + oficina.nome + '</strong><br>' + oficina.endereco +
-                        '<br><a href="' + oficina.googleMapsUrl + '" target="_blank" rel="noopener">Ver no Google Maps</a>'
+                        '<br><a href="' + oficina.googleMapsUrl + '" target="_blank" rel="noopener">Ver no Google Maps</a>',
+                        { maxWidth: larguraPopup, autoPanPadding: [16, 16] }
                     );
                 marcadores.push(marcador);
                 if (oficina.nome === 'Adroana') {
@@ -59,12 +62,29 @@
             });
 
             if (marcadores.length > 1) {
-                mapa.fitBounds(L.featureGroup(marcadores).getBounds(), { padding: [40, 40] });
+                mapa.fitBounds(L.featureGroup(marcadores).getBounds(), { padding: [40, 40], animate: false });
             } else if (marcadores.length === 1) {
-                mapa.setView([oficinas[0].lat, oficinas[0].lng], 14);
+                mapa.setView([oficinas[0].lat, oficinas[0].lng], 14, { animate: false });
             }
 
+            // O autoPan do Leaflet não é fiável nesta abertura inicial e
+            // programática do popup (só funciona bem num clique real do
+            // utilizador), por isso o ajuste é feito à mão: se o marcador
+            // ficar demasiado perto da margem esquerda/direita para caber o
+            // popup, desloca-se o mapa antes de o abrir.
             if (marcadorInicial) {
+                var ponto = mapa.latLngToContainerPoint(marcadorInicial.getLatLng());
+                var tamanhoMapa = mapa.getSize();
+                var margem = (larguraPopup / 2) + 24;
+                var dx = 0;
+                if (ponto.x < margem) {
+                    dx = ponto.x - margem;
+                } else if (ponto.x > tamanhoMapa.x - margem) {
+                    dx = ponto.x - (tamanhoMapa.x - margem);
+                }
+                if (dx !== 0) {
+                    mapa.panBy([dx, 0], { animate: false });
+                }
                 marcadorInicial.openPopup();
             }
         });
