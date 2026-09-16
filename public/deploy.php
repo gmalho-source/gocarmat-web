@@ -194,6 +194,20 @@ if ($acao === 'seed-pages') {
     }
 }
 
+if ($acao === 'seed-offices') {
+    echo "\n-- Popular oficinas na base de dados\n";
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\OfficeSeeder',
+            '--force' => true,
+        ]);
+        echo trim(\Illuminate\Support\Facades\Artisan::output())."\n";
+    } catch (\Throwable $e) {
+        $falhou = true;
+        echo 'ERRO: '.$e->getMessage()."\n";
+    }
+}
+
 // Apaga uma página pelo slug (ex: ?acao=delete-page&slug=teste). Usado quando
 // uma página deixa de existir no código e a linha correspondente na base de
 // dados também precisa de desaparecer — o deploy normal só copia código.
