@@ -16,16 +16,16 @@
                         <img src="{{ \App\Support\Blocos::imagem($item['imagem']) }}" alt="{{ $item['titulo'] }}" class="size-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
                     </div>
                 @endif
-                <div class="flex flex-1 flex-col px-8 py-8">
+                <div class="flex flex-1 flex-col px-8 py-8 transition-colors duration-300 group-hover:bg-energia">
                     @if (filled($item['preco'] ?? null))
-                        <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] text-energia">{{ $item['preco'] }}</p>
+                        <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] text-energia transition-colors duration-300 group-hover:text-lima">{{ $item['preco'] }}</p>
                     @endif
-                    <h2 class="mt-3 text-2xl font-bold leading-[1.2] tracking-[-0.03em]">{{ $item['titulo'] }}</h2>
+                    <h2 class="mt-3 text-2xl font-bold leading-[1.2] tracking-[-0.03em] transition-colors duration-300 group-hover:text-white">{{ $item['titulo'] }}</h2>
                     @if (filled($item['texto'] ?? null))
-                        <p class="mt-3 text-base font-light leading-[1.68] tracking-[-0.16px]">{{ $item['texto'] }}</p>
+                        <p class="mt-3 text-base font-light leading-[1.68] tracking-[-0.16px] transition-colors duration-300 group-hover:text-gelo">{{ $item['texto'] }}</p>
                     @endif
                     @if (filled($item['condicoes'] ?? null))
-                        <p class="mt-3 text-sm font-light leading-[1.5] text-carbono/60">{{ $item['condicoes'] }}</p>
+                        <p class="mt-3 text-sm font-light leading-[1.5] text-carbono/60 transition-colors duration-300 group-hover:text-gelo/70">{{ $item['condicoes'] }}</p>
                     @endif
                 </div>
             </a>
