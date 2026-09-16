@@ -21,7 +21,7 @@
                 {{ $item['label'] }}
             </a>
         @endforeach
-        <a href="#" class="flex items-center gap-2 whitespace-nowrap px-2.5 py-1 font-mono text-[14px] 2xl:text-base font-bold uppercase leading-[1.68] tracking-[-0.16px] text-carbono transition hover:text-energia">
+        <a href="{{ url('/loja-online') }}" class="flex items-center gap-2 whitespace-nowrap px-2.5 py-1 font-mono text-[14px] 2xl:text-base font-bold uppercase leading-[1.68] tracking-[-0.16px] text-carbono transition hover:text-energia">
             Loja online
             <x-ui.icon name="shopping-bag" class="size-5" />
         </a>
@@ -40,6 +40,9 @@
             @foreach ($menu as $item)
                 <a href="{{ $item['href'] }}" class="px-2 py-1.5 font-mono text-sm font-bold uppercase text-carbono transition hover:text-energia">{{ $item['label'] }}</a>
             @endforeach
+            <a href="{{ url('/loja-online') }}" class="flex items-center gap-2 px-2 py-1.5 font-mono text-sm font-bold uppercase text-carbono transition hover:text-energia">
+                Loja online
+            </a>
             <a href="{{ url('/marcacoes') }}" class="mt-2 rounded-full bg-energia px-4 py-2 text-center text-sm font-semibold text-precision transition hover:opacity-85">Marcações</a>
         </nav>
     </details>
