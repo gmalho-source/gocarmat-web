@@ -1067,6 +1067,19 @@ class SeedPages extends Command
                 ],
             ],
 
+            'loja-online' => [
+                'title' => 'Loja Online',
+                'meta_title' => 'Loja Online — GOCARMAT',
+                'meta_description' => 'A loja online da GOCARMAT está a caminho.',
+                'content' => [
+                    ['type' => 'pagina_brevemente', 'data' => [
+                        'titulo' => 'Loja Online',
+                        'mensagem_titulo' => 'Brevemente online.',
+                        'mensagem_texto' => 'Estamos a preparar a loja online da GOCARMAT. Volte a visitar esta página em breve.',
+                    ]],
+                ],
+            ],
+
             'campanhas' => [
                 'title' => 'Campanhas',
                 'meta_title' => 'Campanhas — GOCARMAT · Promoções ativas',
