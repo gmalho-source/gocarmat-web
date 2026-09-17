@@ -1,19 +1,15 @@
 @props(['url'])
-@php
-    // Logo embutido em base64 para o email mostrar sempre a imagem correta,
-    // independentemente do ambiente (localhost, staging protegido por
-    // password, etc.) conseguir servir um URL público ou não.
-    $logoPath = public_path('images/logo-email-white-small.png');
-    $logoBase64 = is_readable($logoPath) ? base64_encode(file_get_contents($logoPath)) : null;
-@endphp
+{{--
+    Imagem por URL, não em base64: o Gmail (sobretudo a app mobile) não
+    renderiza data URIs de forma fiável em imagens de email, mesmo quando
+    o resto do cliente as suporta. /images/ é servido publicamente mesmo
+    com o staging protegido por password (só as rotas da aplicação ficam
+    atrás da autenticação).
+--}}
 <tr>
 <td class="header">
 <a href="{{ $url }}" style="display: inline-block;">
-@if ($logoBase64)
-<img src="data:image/png;base64,{{ $logoBase64 }}" class="logo" alt="GOCARMAT">
-@else
-{!! $slot !!}
-@endif
+<img src="{{ asset('images/logo-email-white-small.png') }}" class="logo" alt="GOCARMAT">
 </a>
 </td>
 </tr>
