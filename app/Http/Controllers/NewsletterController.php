@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Mailchimp;
+use App\Services\Brevo;
 use Illuminate\Http\Request;
 
 class NewsletterController extends Controller
 {
-    public function store(Request $request, Mailchimp $mailchimp)
+    public function store(Request $request, Brevo $brevo)
     {
         // Honeypot: campo invisível que só os robôs preenchem
         if ($request->filled('website')) {
@@ -21,7 +21,7 @@ class NewsletterController extends Controller
             'email.email' => 'Indique um e-mail válido.',
         ]);
 
-        $mailchimp->subscrever($dados['email'], origem: 'footer');
+        $brevo->subscrever($dados['email'], origem: 'footer');
 
         return back()->with('newsletter', 'ok');
     }

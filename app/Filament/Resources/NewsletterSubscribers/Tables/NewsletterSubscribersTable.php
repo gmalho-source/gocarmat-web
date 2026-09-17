@@ -27,8 +27,8 @@ class NewsletterSubscribersTable
                     ->label('Origem')
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => $state === 'marcacoes' ? 'Marcações' : 'Rodapé'),
-                TextColumn::make('mailchimp_status')
-                    ->label('Mailchimp')
+                TextColumn::make('brevo_status')
+                    ->label('Brevo')
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'subscribed' => 'Sincronizado',
@@ -40,15 +40,15 @@ class NewsletterSubscribersTable
                         'failed' => 'danger',
                         default => 'gray',
                     })
-                    ->tooltip(fn ($record): ?string => $record->mailchimp_error),
+                    ->tooltip(fn ($record): ?string => $record->brevo_error),
                 TextColumn::make('created_at')
                     ->label('Subscreveu a')
                     ->dateTime('d/m/Y H:i')
                     ->sortable(),
             ])
             ->filters([
-                SelectFilter::make('mailchimp_status')
-                    ->label('Estado no Mailchimp')
+                SelectFilter::make('brevo_status')
+                    ->label('Estado no Brevo')
                     ->options([
                         'subscribed' => 'Sincronizado',
                         'pending' => 'Por sincronizar',
