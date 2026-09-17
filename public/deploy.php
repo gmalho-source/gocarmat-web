@@ -358,6 +358,17 @@ foreach ([
     }
 }
 
+// Sem isto, o OPcache do PHP continua a servir os ficheiros compilados
+// antigos (views, etc.) da memória mesmo depois de reescritos em disco —
+// só se nota da próxima vez que o processo PHP for reciclado, o que neste
+// alojamento partilhado pode demorar horas.
+echo "\n-- OPcache\n";
+if (function_exists('opcache_reset')) {
+    echo (opcache_reset() ? 'reiniciado.' : 'ERRO ao reiniciar.')."\n";
+} else {
+    echo "não disponível nesta instalação de PHP.\n";
+}
+
 if ($falhou) {
     http_response_code(500);
     echo "\n== TERMINOU COM ERROS ==\n";
