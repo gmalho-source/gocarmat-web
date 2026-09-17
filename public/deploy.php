@@ -319,6 +319,37 @@ if ($acao === 'import-recent-blog-posts') {
     }
 }
 
+// Esvazia STAGING_PASSWORD no .env do servidor — usado para abrir o acesso
+// ao staging sem precisar de editar o ficheiro à mão (evita repetir o
+// incidente de segredos apagados numa colagem manual). Só mexe nesta linha;
+// o resto do .env fica intacto. Para voltar a fechar o site basta pôr lá
+// de novo o valor da password (guardado à parte, fora do repositório).
+if ($acao === 'desativar-staging') {
+    echo "\n-- Desativar proteção de staging\n";
+    $ficheiroEnv = $raiz.'/.env';
+
+    if (! is_writable($ficheiroEnv)) {
+        $falhou = true;
+        echo "ERRO: .env não é escrevível.\n";
+    } else {
+        $linhas = file($ficheiroEnv, FILE_IGNORE_NEW_LINES);
+        $alterado = false;
+        foreach ($linhas as $i => $linha) {
+            if (str_starts_with(trim($linha), 'STAGING_PASSWORD=')) {
+                $linhas[$i] = 'STAGING_PASSWORD=';
+                $alterado = true;
+            }
+        }
+
+        if ($alterado) {
+            file_put_contents($ficheiroEnv, implode("\n", $linhas)."\n");
+            echo "STAGING_PASSWORD esvaziado — o site fica acessível sem autenticação.\n";
+        } else {
+            echo "STAGING_PASSWORD não encontrado no .env (pode já estar desativado).\n";
+        }
+    }
+}
+
 // Apaga uma página pelo slug (ex: ?acao=delete-page&slug=teste). Usado quando
 // uma página deixa de existir no código e a linha correspondente na base de
 // dados também precisa de desaparecer — o deploy normal só copia código.
