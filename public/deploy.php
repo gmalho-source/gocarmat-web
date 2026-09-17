@@ -165,6 +165,106 @@ if ($acao === 'log') {
     exit;
 }
 
+// Diagnóstico pontual: existência/tamanho de um ficheiro em storage/app/public
+// e estado do symlink public/storage. Usado para investigar imagens em falta.
+if ($acao === 'check-storage') {
+    $caminho = $_GET['path'] ?? 'blog';
+    echo "\n-- Diagnóstico de storage: {$caminho}\n";
+
+    $linkPublico = $raiz.'/public/storage';
+    echo 'public/storage é link: '.(is_link($linkPublico) ? 'sim' : 'não')."\n";
+    if (is_link($linkPublico)) {
+        echo 'aponta para: '.readlink($linkPublico)."\n";
+    }
+    echo 'destino esperado: '.$raiz.'/storage/app/public'."\n";
+    echo 'destino existe: '.(is_dir($raiz.'/storage/app/public') ? 'sim' : 'não')."\n";
+
+    echo "\nStorage::disk('public')->exists('{$caminho}'): ".(\Illuminate\Support\Facades\Storage::disk('public')->exists($caminho) ? 'sim' : 'não')."\n";
+
+    $realPath = $raiz.'/storage/app/public/'.$caminho;
+    echo "caminho real: {$realPath}\n";
+    echo 'existe no disco: '.(file_exists($realPath) ? 'sim (tamanho: '.filesize($realPath).' bytes)' : 'não')."\n";
+
+    $dirPai = dirname($realPath);
+    echo "\nconteúdo de {$dirPai}:\n";
+    foreach ((is_dir($dirPai) ? scandir($dirPai) : []) as $f) {
+        if ($f === '.' || $f === '..') {
+            continue;
+        }
+        echo "  {$f}\n";
+    }
+
+    exit;
+}
+
+// Corrige public/storage quando é uma pasta real (não um symlink) — resquício
+// da instalação manual inicial por zip. Mescla o conteúdo para
+// storage/app/public (sem apagar nada), move a pasta antiga para uma cópia
+// de segurança e cria o symlink correto.
+if ($acao === 'fix-storage-link') {
+    $link = $raiz.'/public/storage';
+    $destino = $raiz.'/storage/app/public';
+    echo "\n-- Corrigir public/storage\n";
+
+    if (is_link($link)) {
+        echo "public/storage já é um symlink. Nada a fazer.\n";
+        exit;
+    }
+
+    if (! is_dir($link)) {
+        echo "public/storage não existe; a criar o symlink diretamente.\n";
+        echo symlink($destino, $link) ? "symlink criado.\n" : "ERRO ao criar symlink.\n";
+        exit;
+    }
+
+    echo "public/storage é uma pasta real — a mesclar para storage/app/public...\n";
+    $copiados = 0;
+    $existentes = 0;
+
+    $it = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($link, FilesystemIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+
+    foreach ($it as $item) {
+        $relativo = ltrim(str_replace($link, '', $item->getPathname()), '/\\');
+        $alvo = $destino.'/'.$relativo;
+
+        if ($item->isDir()) {
+            if (! is_dir($alvo)) {
+                @mkdir($alvo, 0755, true);
+            }
+
+            continue;
+        }
+
+        if (! is_dir(dirname($alvo))) {
+            @mkdir(dirname($alvo), 0755, true);
+        }
+
+        if (file_exists($alvo)) {
+            $existentes++;
+
+            continue;
+        }
+
+        @copy($item->getPathname(), $alvo) ? $copiados++ : null;
+    }
+
+    echo "Ficheiros copiados: {$copiados}. Já existiam em storage/app/public: {$existentes}.\n";
+
+    $backup = $raiz.'/public/storage_antigo_'.date('YmdHis');
+    if (! @rename($link, $backup)) {
+        echo "ERRO: não foi possível mover a pasta antiga para {$backup}.\n";
+        exit;
+    }
+    echo "Pasta antiga movida para: {$backup}\n";
+
+    echo symlink($destino, $link) ? "Novo symlink criado com sucesso.\n" : "ERRO ao criar o novo symlink.\n";
+
+    exit;
+}
+
 // Ações pontuais, pedidas explicitamente por ?acao=
 if ($acao === 'criar-admin') {
     echo "\n-- Criar/repor utilizador do backoffice\n";
