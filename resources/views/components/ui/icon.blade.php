@@ -14,6 +14,7 @@
         'shield' => 'M10 1.8 3.5 4.3v5.2c0 4.1 2.8 6.9 6.5 8.7 3.7-1.8 6.5-4.6 6.5-8.7V4.3L10 1.8Zm-2.5 8 1.8 1.8 3.2-3.4',
         'certificate' => 'M10 12.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 0v6l-2.5-1.7L5 18.5v-6m10 6v-6l-2.5 1.7L10 12.5m0-6.7v.01',
         'search' => 'M9 15.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Zm4.6-1.9 4 4',
+        'chevron-down' => 'M5 7.5 10 12.5 15 7.5',
     ];
 
     // Ícones vetoriais sólidos (Font Awesome), diferentes dos de traço acima:
