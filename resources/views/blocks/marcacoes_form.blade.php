@@ -58,7 +58,8 @@
             </div>
             <div>
                 <label for="phone" class="{{ $labelClass }}">Telefone *</label>
-                <input id="phone" name="phone" type="tel" required maxlength="30" value="{{ old('phone') }}" placeholder="ex: +351 987 654 321" class="{{ $inputClass }}">
+                <input id="phone" name="phone" type="tel" inputmode="tel" required maxlength="20" pattern="\+?[0-9]+" title="Apenas números e o símbolo + para indicativos" value="{{ old('phone') }}" placeholder="ex: +351912345678" class="{{ $inputClass }}"
+                       oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
             </div>
             @php $servicoPreSelecionado = old('service') ?: request('servico'); @endphp
             <div class="sm:col-span-2">

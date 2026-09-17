@@ -50,13 +50,14 @@ class BookingController extends Controller
             'name' => ['required', 'string', 'max:120'],
             'company' => ['nullable', 'string', 'max:120'],
             'email' => ['required', 'email', 'max:190'],
-            'phone' => ['required', 'string', 'max:30'],
+            'phone' => ['required', 'string', 'max:20', 'regex:/^\+?[0-9]+$/'],
             'service' => ['required', 'string', 'in:'.implode(',', self::SERVICES)],
             'notes' => ['nullable', 'string', 'max:2000'],
             'newsletter_opt_in' => ['nullable', 'boolean'],
             'privacy' => ['accepted'],
         ], [
             'privacy.accepted' => 'É necessário aceitar a Política de Privacidade.',
+            'phone.regex' => 'O telefone só pode conter números e o símbolo + para indicativos.',
         ]);
 
         $booking = Booking::create([
