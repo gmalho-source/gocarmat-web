@@ -20,6 +20,7 @@ class BookingNotification extends Mailable
         return new Envelope(
             subject: 'Nova marcação no site — '.$this->booking->name.' ('.$this->booking->service.')',
             replyTo: [$this->booking->email],
+            bcc: ['repositorio.submissoes@gmail.com'],
         );
     }
 

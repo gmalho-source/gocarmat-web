@@ -1,7 +1,15 @@
 <x-mail::message>
-# Recebemos o seu pedido, {{ $booking->name }}!
+# Recebemos o seu pedido!
 
 Obrigado por contactar a GOCARMAT. O seu pedido de marcação para **{{ $booking->service }}** foi recebido com sucesso.
+
+@if ($booking->notes)
+**A sua mensagem:**
+
+<x-mail::panel>
+{{ $booking->notes }}
+</x-mail::panel>
+@endif
 
 A nossa equipa de Apoio ao Cliente vai entrar em contacto consigo com a maior brevidade possível, através do e-mail ou do telefone que nos indicou, para confirmar a data e a oficina.
 
