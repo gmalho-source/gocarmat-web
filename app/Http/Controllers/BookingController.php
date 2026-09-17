@@ -72,7 +72,7 @@ class BookingController extends Controller
         ]);
 
         if ($booking->newsletter_opt_in) {
-            app(\App\Services\Mailchimp::class)->subscrever($booking->email, $booking->name, 'marcacoes');
+            app(\App\Services\Brevo::class)->subscrever($booking->email, $booking->name, 'marcacoes');
         }
 
         $adminEmail = Setting::get('notification_email', 'apoiocliente@gocarmat.pt');

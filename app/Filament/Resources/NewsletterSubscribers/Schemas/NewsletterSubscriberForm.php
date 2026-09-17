@@ -21,10 +21,10 @@ class NewsletterSubscriberForm
                 TextInput::make('source')
                     ->required()
                     ->default('footer'),
-                TextInput::make('mailchimp_status')
+                TextInput::make('brevo_status')
                     ->required()
                     ->default('pending'),
-                Textarea::make('mailchimp_error')
+                Textarea::make('brevo_error')
                     ->columnSpanFull(),
                 DateTimePicker::make('synced_at'),
             ]);

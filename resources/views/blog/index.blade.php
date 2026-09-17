@@ -32,6 +32,7 @@
             var input = wrapper.querySelector('[data-pesquisa-input]');
             var caixa = wrapper.querySelector('[data-pesquisa-sugestoes]');
             var temporizador = null;
+            var ultimoPedido = 0;
 
             function esconder() {
                 caixa.classList.add('hidden');
@@ -39,9 +40,16 @@
             }
 
             function pesquisar(termo) {
+                var pedidoAtual = ++ultimoPedido;
+
                 fetch('{{ route('blog.suggest') }}?q=' + encodeURIComponent(termo))
                     .then(function (resposta) { return resposta.json(); })
                     .then(function (sugestoes) {
+                        // Ignora respostas de pedidos anteriores que cheguem
+                        // fora de ordem (ex: pesquisa mais lenta a resolver
+                        // depois de uma pesquisa mais recente e mais rápida).
+                        if (pedidoAtual !== ultimoPedido) return;
+
                         if (!sugestoes.length) {
                             esconder();
                             return;

@@ -80,7 +80,7 @@ return array(
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\Filament\\AdminPanelProvider' => $baseDir . '/app/Providers/Filament/AdminPanelProvider.php',
-    'App\\Services\\Mailchimp' => $baseDir . '/app/Services/Mailchimp.php',
+    'App\\Services\\Brevo' => $baseDir . '/app/Services/Brevo.php',
     'App\\Support\\Blocos' => $baseDir . '/app/Support/Blocos.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'BladeUI\\Heroicons\\BladeHeroiconsServiceProvider' => $vendorDir . '/blade-ui-kit/blade-heroicons/src/BladeHeroiconsServiceProvider.php',

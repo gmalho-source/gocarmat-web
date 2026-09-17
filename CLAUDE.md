@@ -30,7 +30,7 @@ Mockup Figma: fileKey `YyW4CEWQ5n46oteChtccZh` (Home 2:18788, Sobre Nós 23-557,
 - **Posts** (blog): 140 artigos migrados do WordPress, com categorias, tags, SEO (meta title/description/OG) e imagens em `storage/app/public/blog`. Route key = slug. Quando o cliente publica artigos novos no WordPress sem gerar um export XML atualizado, `php artisan gocarmat:import-recent-blog-posts` importa os que foram recolhidos manualmente por scraping (ver docblock do comando); idempotente por `wp_id`, tal como o `gocarmat:import-wordpress`.
 - **Offices**: as 4 oficinas, geríveis no backoffice, mostradas via `partials/offices-grid` (view composer injeta `$offices`).
 - **Bookings**: pedidos do formulário `/marcacoes` (validação + honeypot + emails admin/cliente via Mailables markdown).
-- **Settings**: key-value (GA4, Pixel, email de notificação, Mailchimp) — `Setting::get()/set()` com cache.
+- **Settings**: key-value (GA4, Pixel, email de notificação, Brevo) — `Setting::get()/set()` com cache.
 - **Redirects**: 301 dos URLs antigos do WordPress (raiz → `/blog/slug`), servidos por `Route::fallback`.
 
 ## Deploy

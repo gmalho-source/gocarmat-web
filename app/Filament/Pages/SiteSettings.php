@@ -29,8 +29,8 @@ class SiteSettings extends Page
         'ga4_id',
         'meta_pixel_id',
         'notification_email',
-        'mailchimp_api_key',
-        'mailchimp_list_id',
+        'brevo_api_key',
+        'brevo_list_id',
     ];
 
     public function mount(): void
@@ -63,14 +63,15 @@ class SiteSettings extends Page
                             ->email()
                             ->placeholder('apoiocliente@gocarmat.pt'),
                     ]),
-                Section::make('Newsletter (Mailchimp)')
+                Section::make('Newsletter (Brevo)')
                     ->schema([
-                        TextInput::make('mailchimp_api_key')
+                        TextInput::make('brevo_api_key')
                             ->label('API Key')
                             ->password()
                             ->revealable(),
-                        TextInput::make('mailchimp_list_id')
-                            ->label('Audience ID'),
+                        TextInput::make('brevo_list_id')
+                            ->label('List ID')
+                            ->numeric(),
                     ]),
             ])
             ->statePath('data');
