@@ -45,7 +45,8 @@ Definir `STAGING_PASSWORD` no `.env` fecha **todo** o site (incluindo `/admin`) 
 ## Por fazer
 
 - Migrar staging/produção para MySQL (hoje SQLite)
-- Produção: SMTP real no `.env`, remover utilizador dev do backoffice, DNS final
+- Produção: remover utilizador dev do backoffice, DNS final
+- **SMTP temporário**: enquanto não há password do SMTP oficial (`apoiocliente@gocarmat.pt` em `mail.gocarmat.pt`, porta 587, sem encriptação), o `.env` do servidor (staging e produção) usa uma app password Gmail de `dsi@jelly.pt` como remetente temporário (`MAIL_HOST=smtp.gmail.com`). Trocar para o SMTP definitivo da GOCARMAT assim que a password chegar — ver `MAIL_FROM_ADDRESS`/`MAIL_USERNAME` no `.env` do servidor.
 - Validar com o cliente: textos das FAQs do EVA (3 respostas escritas por nós), horário alargado (9h-19h+sáb vs 08:30-18:00 das oficinas), texto do card Climatização
 - **Iubenda (RGPD)**: integração completa com os scripts fornecidos pelo cliente — Cookie Solution (`partials/cookie-consent.blade.php`, siteId `2498738`, cookiePolicyId `35917140`, locale `pt`), Política de Privacidade (`resources/views/privacy.blade.php`, rota `/politica-de-privacidade`), Política de Cookies (`resources/views/cookies.blade.php`, rota `/politica-de-cookies`) e Termos e Condições (`resources/views/terms.blade.php`, rota `/termos-e-condicoes`), todas ligadas no footer. Falta apenas:
   - IDs de "purpose" (Privacy Controls → Purposes no painel Iubenda) para Analytics e Marketing, para religar o GA4/Meta Pixel ao consentimento (ficou desligado quando o banner caseiro foi substituído — ver `App\Models\Setting::get('ga4_id'/'meta_pixel_id')`)
