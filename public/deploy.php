@@ -208,6 +208,17 @@ if ($acao === 'seed-offices') {
     }
 }
 
+if ($acao === 'import-recent-blog-posts') {
+    echo "\n-- Importar artigos recentes do blog\n";
+    try {
+        \Illuminate\Support\Facades\Artisan::call('gocarmat:import-recent-blog-posts');
+        echo trim(\Illuminate\Support\Facades\Artisan::output())."\n";
+    } catch (\Throwable $e) {
+        $falhou = true;
+        echo 'ERRO: '.$e->getMessage()."\n";
+    }
+}
+
 // Apaga uma página pelo slug (ex: ?acao=delete-page&slug=teste). Usado quando
 // uma página deixa de existir no código e a linha correspondente na base de
 // dados também precisa de desaparecer — o deploy normal só copia código.
