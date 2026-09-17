@@ -99,6 +99,7 @@
             <a href="{{ url('/politica-de-cookies') }}" class="transition hover:text-white">Política de Cookies</a>
             <a href="{{ url('/termos-e-condicoes') }}" class="transition hover:text-white">Termos &amp; Condições</a>
             <a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener" class="transition hover:text-white">Livro de Reclamações</a>
+            <a href="https://gocarmat.integrityline.com/" target="_blank" rel="noopener" class="transition hover:text-white">Canal de Denúncia</a>
         </div>
 
         <a href="https://jelly.pt" target="_blank" rel="noopener" title="Jelly - Digital Marketing &amp; AI" class="absolute bottom-7 right-8 hidden transition hover:opacity-80 lg:block xl:right-16">
