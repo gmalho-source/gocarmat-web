@@ -13,6 +13,7 @@ return array(
     'AnourValar\\EloquentSerialize\\Package' => $vendorDir . '/anourvalar/eloquent-serialize/src/Package.php',
     'AnourValar\\EloquentSerialize\\Service' => $vendorDir . '/anourvalar/eloquent-serialize/src/Service.php',
     'App\\Console\\Commands\\CriarAdmin' => $baseDir . '/app/Console/Commands/CriarAdmin.php',
+    'App\\Console\\Commands\\ImportRecentBlogPosts' => $baseDir . '/app/Console/Commands/ImportRecentBlogPosts.php',
     'App\\Console\\Commands\\ImportWordpress' => $baseDir . '/app/Console/Commands/ImportWordpress.php',
     'App\\Console\\Commands\\SeedPages' => $baseDir . '/app/Console/Commands/SeedPages.php',
     'App\\Filament\\Pages\\SiteSettings' => $baseDir . '/app/Filament/Pages/SiteSettings.php',

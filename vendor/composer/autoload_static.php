@@ -679,6 +679,7 @@ class ComposerStaticInita8c5c3bb3085badf795fc87f4830adb9
         'AnourValar\\EloquentSerialize\\Package' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Package.php',
         'AnourValar\\EloquentSerialize\\Service' => __DIR__ . '/..' . '/anourvalar/eloquent-serialize/src/Service.php',
         'App\\Console\\Commands\\CriarAdmin' => __DIR__ . '/../..' . '/app/Console/Commands/CriarAdmin.php',
+        'App\\Console\\Commands\\ImportRecentBlogPosts' => __DIR__ . '/../..' . '/app/Console/Commands/ImportRecentBlogPosts.php',
         'App\\Console\\Commands\\ImportWordpress' => __DIR__ . '/../..' . '/app/Console/Commands/ImportWordpress.php',
         'App\\Console\\Commands\\SeedPages' => __DIR__ . '/../..' . '/app/Console/Commands/SeedPages.php',
         'App\\Filament\\Pages\\SiteSettings' => __DIR__ . '/../..' . '/app/Filament/Pages/SiteSettings.php',

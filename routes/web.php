@@ -23,6 +23,8 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog-sugestoes', [BlogController::class, 'suggest'])->name('blog.suggest');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::view('/politica-de-privacidade', 'privacy')->name('privacy');
+Route::view('/politica-de-cookies', 'cookies')->name('cookies');
+Route::view('/termos-e-condicoes', 'terms')->name('terms');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
