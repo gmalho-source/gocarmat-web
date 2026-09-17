@@ -286,14 +286,24 @@ As férias de verão são, para muitas famílias, o momento de realizar viagens 
             $resposta = Http::timeout(60)->retry(2, 1000)->get($url);
             if (! $resposta->successful()) {
                 $this->warn("    imagem falhou ({$resposta->status()}): {$url}");
+                \Illuminate\Support\Facades\Log::warning("import-recent-blog-posts: imagem falhou ({$resposta->status()}): {$url}");
 
                 return null;
             }
-            Storage::disk('public')->put($path, $resposta->body());
+
+            $gravado = Storage::disk('public')->put($path, $resposta->body());
+
+            if (! $gravado) {
+                $this->warn("    falhou a gravar a imagem em disco: {$path}");
+                \Illuminate\Support\Facades\Log::warning("import-recent-blog-posts: falhou a gravar a imagem em disco: {$path}");
+
+                return null;
+            }
 
             return $path;
         } catch (\Throwable $e) {
             $this->warn("    imagem falhou: {$url} - {$e->getMessage()}");
+            \Illuminate\Support\Facades\Log::warning("import-recent-blog-posts: imagem falhou: {$url} - {$e->getMessage()}");
 
             return null;
         }
