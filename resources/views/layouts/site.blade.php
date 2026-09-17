@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+    {{-- Tem de ser o primeiro script do <head>, antes de qualquer outro
+         script de terceiros, para o bloqueio de cookies do Iubenda funcionar. --}}
+    @include('partials.cookie-consent')
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'GOCARMAT — A sua oficina multimarca · Grande Lisboa')</title>
@@ -25,7 +29,5 @@
     </main>
 
     @include('partials.footer')
-
-    @include('partials.cookie-consent')
 </body>
 </html>

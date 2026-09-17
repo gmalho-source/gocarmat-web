@@ -1,15 +1,15 @@
 @extends('layouts.site')
 
-@section('title', 'Política de Privacidade — GOCARMAT')
+@section('title', 'Política de Cookies — GOCARMAT')
 
 @section('content')
 <div class="mx-auto w-full max-w-[1920px] px-4 sm:px-8 xl:px-16">
     <article class="mx-auto mt-10 max-w-[860px]">
-        <h1 class="text-4xl font-bold leading-[1.15] tracking-[-0.03em] sm:text-5xl">Política de Privacidade</h1>
+        <h1 class="text-4xl font-bold leading-[1.15] tracking-[-0.03em] sm:text-5xl">Política de Cookies</h1>
 
         {{-- Embed do Iubenda: não remover/alterar as classes, são usadas pelo script deles. --}}
         <p class="mt-10">
-            <a href="https://www.iubenda.com/privacy-policy/35917140" class="iubenda-white no-brand iubenda-noiframe iubenda-embed iub-body-embed" title="Política de Privacidade">Política de Privacidade</a>
+            <a href="https://www.iubenda.com/privacy-policy/35917140/cookie-policy" class="iubenda-white no-brand iubenda-noiframe iubenda-embed iub-body-embed" title="Política de Cookies">Política de Cookies</a>
         </p>
     </article>
     <div class="h-24 xl:h-[128px]"></div>

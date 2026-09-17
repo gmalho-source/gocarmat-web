@@ -27,7 +27,7 @@ Mockup Figma: fileKey `YyW4CEWQ5n46oteChtccZh` (Home 2:18788, Sobre Nós 23-557,
 
 ## Estrutura de conteúdos
 
-- **Posts** (blog): 140 artigos migrados do WordPress, com categorias, tags, SEO (meta title/description/OG) e imagens em `storage/app/public/blog`. Route key = slug.
+- **Posts** (blog): 140 artigos migrados do WordPress, com categorias, tags, SEO (meta title/description/OG) e imagens em `storage/app/public/blog`. Route key = slug. Quando o cliente publica artigos novos no WordPress sem gerar um export XML atualizado, `php artisan gocarmat:import-recent-blog-posts` importa os que foram recolhidos manualmente por scraping (ver docblock do comando); idempotente por `wp_id`, tal como o `gocarmat:import-wordpress`.
 - **Offices**: as 4 oficinas, geríveis no backoffice, mostradas via `partials/offices-grid` (view composer injeta `$offices`).
 - **Bookings**: pedidos do formulário `/marcacoes` (validação + honeypot + emails admin/cliente via Mailables markdown).
 - **Settings**: key-value (GA4, Pixel, email de notificação, Mailchimp) — `Setting::get()/set()` com cache.
@@ -47,10 +47,11 @@ Definir `STAGING_PASSWORD` no `.env` fecha **todo** o site (incluindo `/admin`) 
 - Migrar staging/produção para MySQL (hoje SQLite)
 - Produção: SMTP real no `.env`, remover utilizador dev do backoffice, DNS final
 - Validar com o cliente: textos das FAQs do EVA (3 respostas escritas por nós), horário alargado (9h-19h+sáb vs 08:30-18:00 das oficinas), texto do card Climatização
+- **Iubenda (RGPD)**: integração completa com os scripts fornecidos pelo cliente — Cookie Solution (`partials/cookie-consent.blade.php`, siteId `2498738`, cookiePolicyId `35917140`, locale `pt`), Política de Privacidade (`resources/views/privacy.blade.php`, rota `/politica-de-privacidade`), Política de Cookies (`resources/views/cookies.blade.php`, rota `/politica-de-cookies`) e Termos e Condições (`resources/views/terms.blade.php`, rota `/termos-e-condicoes`), todas ligadas no footer. Falta apenas:
+  - IDs de "purpose" (Privacy Controls → Purposes no painel Iubenda) para Analytics e Marketing, para religar o GA4/Meta Pixel ao consentimento (ficou desligado quando o banner caseiro foi substituído — ver `App\Models\Setting::get('ga4_id'/'meta_pixel_id')`)
 
 ## Notas
 
-- Loja Online e Campanhas: fase futura — só links no menu.
 - `/contactos` → 301 → `/marcacoes` (mesma página no design).
 - Emails em dev vão para `storage/logs/laravel.log` (`MAIL_MAILER=log`).
 - ⚠️ **`QUEUE_CONNECTION` tem de ser `sync`**. As notificações do Filament (ex: recuperação de password) implementam `ShouldQueue`; com `database` ficam presas na tabela `jobs` e o email nunca sai, porque não há queue worker no alojamento partilhado.

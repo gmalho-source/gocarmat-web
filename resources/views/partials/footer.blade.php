@@ -96,6 +96,7 @@
         <div class="mt-16 flex flex-wrap items-center gap-x-6 gap-y-2 text-base font-light leading-[1.68] tracking-[-0.16px] text-cristal">
             <span>Gocarmat © {{ date('Y') }} - Todos os Direitos Reservados&nbsp;&nbsp;&nbsp;/</span>
             <a href="{{ url('/politica-de-privacidade') }}" class="transition hover:text-white">Política de Privacidade</a>
+            <a href="{{ url('/politica-de-cookies') }}" class="transition hover:text-white">Política de Cookies</a>
             <a href="{{ url('/termos-e-condicoes') }}" class="transition hover:text-white">Termos &amp; Condições</a>
             <a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener" class="transition hover:text-white">Livro de Reclamações</a>
         </div>
