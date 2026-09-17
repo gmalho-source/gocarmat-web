@@ -10,15 +10,74 @@
         <h1 class="font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] sm:text-[52px]">
             Gocarmat Blog
         </h1>
-        <form method="GET" action="{{ route('blog.index') }}" class="flex w-full max-w-[420px] items-center gap-2 rounded-full border-2 border-carbono bg-white py-1 pl-6 pr-1 focus-within:border-energia">
-            <x-ui.icon name="search" class="size-5 shrink-0 text-carbono/60" />
-            <input type="search" name="q" value="{{ $search ?? '' }}" placeholder="Pesquisar artigos..."
-                   class="w-full bg-transparent py-2.5 text-[15px] tracking-[-0.15px] outline-none placeholder:text-carbono/40">
-            <button type="submit" class="shrink-0 rounded-full bg-energia px-6 py-2.5 text-[14px] font-semibold text-precision transition hover:opacity-85">
-                Pesquisar
-            </button>
-        </form>
+        <div class="relative w-full max-w-[420px]" data-pesquisa-blog>
+            <form method="GET" action="{{ route('blog.index') }}" class="flex w-full items-center gap-2 rounded-full border-2 border-carbono bg-white py-1 pl-6 pr-1 focus-within:border-energia" autocomplete="off">
+                <x-ui.icon name="search" class="size-5 shrink-0 text-carbono/60" />
+                <input type="search" name="q" value="{{ $search ?? '' }}" placeholder="Pesquisar artigos..." data-pesquisa-input
+                       class="w-full bg-transparent py-2.5 text-[15px] tracking-[-0.15px] outline-none placeholder:text-carbono/40">
+                <button type="submit" class="shrink-0 rounded-full bg-energia px-6 py-2.5 text-[14px] font-semibold text-precision transition hover:opacity-85">
+                    Pesquisar
+                </button>
+            </form>
+
+            <div data-pesquisa-sugestoes class="absolute inset-x-0 top-full z-50 mt-2 hidden rounded-2xl bg-white p-2 shadow-xl"></div>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var wrapper = document.querySelector('[data-pesquisa-blog]');
+            if (!wrapper) return;
+
+            var input = wrapper.querySelector('[data-pesquisa-input]');
+            var caixa = wrapper.querySelector('[data-pesquisa-sugestoes]');
+            var temporizador = null;
+
+            function esconder() {
+                caixa.classList.add('hidden');
+                caixa.innerHTML = '';
+            }
+
+            function pesquisar(termo) {
+                fetch('{{ route('blog.suggest') }}?q=' + encodeURIComponent(termo))
+                    .then(function (resposta) { return resposta.json(); })
+                    .then(function (sugestoes) {
+                        if (!sugestoes.length) {
+                            esconder();
+                            return;
+                        }
+                        caixa.innerHTML = sugestoes.map(function (s) {
+                            return '<a href="' + s.url + '" class="block truncate rounded-lg px-4 py-2.5 text-[15px] text-carbono transition hover:bg-cloud hover:text-energia">' + s.title + '</a>';
+                        }).join('');
+                        caixa.classList.remove('hidden');
+                    });
+            }
+
+            input.addEventListener('input', function () {
+                var termo = input.value.trim();
+                clearTimeout(temporizador);
+
+                if (termo.length < 2) {
+                    esconder();
+                    return;
+                }
+
+                temporizador = setTimeout(function () { pesquisar(termo); }, 250);
+            });
+
+            document.addEventListener('click', function (evento) {
+                if (!wrapper.contains(evento.target)) {
+                    esconder();
+                }
+            });
+
+            input.addEventListener('keydown', function (evento) {
+                if (evento.key === 'Escape') {
+                    esconder();
+                }
+            });
+        });
+    </script>
 
     @if (($search ?? '') !== '')
         <p class="mt-8 text-base font-light leading-[1.68] tracking-[-0.16px]">

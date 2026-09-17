@@ -27,6 +27,28 @@ class BlogController extends Controller
         return view('blog.index', compact('posts', 'search'));
     }
 
+    /** Sugestões de pesquisa para o autocomplete do campo de pesquisa do blog. */
+    public function suggest(Request $request)
+    {
+        $search = trim((string) $request->query('q', ''));
+
+        if (mb_strlen($search) < 2) {
+            return response()->json([]);
+        }
+
+        $sugestoes = Post::published()
+            ->where('title', 'like', "%{$search}%")
+            ->orderByDesc('published_at')
+            ->take(6)
+            ->get(['title', 'slug'])
+            ->map(fn (Post $post) => [
+                'title' => $post->title,
+                'url' => route('blog.show', $post->slug),
+            ]);
+
+        return response()->json($sugestoes);
+    }
+
     public function show(string $slug)
     {
         $post = Post::published()->where('slug', $slug)->firstOrFail();

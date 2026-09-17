@@ -20,6 +20,7 @@ Route::redirect('/contactos', '/marcacoes', 301);
 Route::post('/marcacoes', [BookingController::class, 'store'])->name('marcacoes.store');
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog-sugestoes', [BlogController::class, 'suggest'])->name('blog.suggest');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::view('/politica-de-privacidade', 'privacy')->name('privacy');
 
