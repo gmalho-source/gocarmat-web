@@ -107,6 +107,7 @@
             left: 0;
             right: 0;
             z-index: 50;
+            padding-bottom: 1rem;
             background-color: #f7fafe;
             box-shadow: 0 1px 3px 0 rgba(3, 9, 25, 0.08);
         }
@@ -121,6 +122,7 @@
     (function () {
         var cabecalho = document.getElementById('cabecalho');
         var alturaCabecalho = cabecalho.offsetHeight;
+        var espacoExtraFixo = 16; // = padding-bottom de 1rem em .cabecalho-fixo
         var ultimoScroll = window.scrollY;
 
         function aoScroll() {
@@ -130,7 +132,7 @@
 
             if (atual > alturaCabecalho) {
                 cabecalho.classList.add('cabecalho-fixo');
-                document.body.style.paddingTop = alturaCabecalho + 'px';
+                document.body.style.paddingTop = (alturaCabecalho + espacoExtraFixo) + 'px';
                 cabecalho.classList.toggle('cabecalho-escondido', atual > ultimoScroll);
             } else {
                 cabecalho.classList.remove('cabecalho-fixo', 'cabecalho-escondido');
