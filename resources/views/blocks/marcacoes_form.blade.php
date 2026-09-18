@@ -10,7 +10,7 @@
 @endphp
 
 <section class="mt-7 grid lg:grid-cols-2 lg:items-stretch">
-<div class="overflow-hidden rounded-l-[32px] bg-energia px-8 py-6 sm:px-12 xl:px-24 xl:py-7">
+<div class="overflow-hidden max-lg:rounded-t-[32px] bg-energia px-8 py-6 sm:px-12 xl:px-24 xl:py-7 lg:rounded-l-[32px]">
     @if (filled($data['eyebrow'] ?? null))
         <p class="font-mono text-[13px] font-extrabold uppercase leading-[1.68] tracking-[0.39px] text-gelo">{{ $data['eyebrow'] }}</p>
     @endif
@@ -97,7 +97,7 @@
 
 @if (filled($data['imagem'] ?? null))
     <div class="flex flex-col">
-        <div class="relative h-[220px] overflow-hidden rounded-r-[32px] lg:h-1/2">
+        <div class="relative h-[220px] overflow-hidden max-lg:rounded-b-[32px] lg:h-1/2 lg:rounded-r-[32px]">
             <img src="{{ \App\Support\Blocos::imagem($data['imagem']) }}" alt="" class="absolute inset-0 size-full object-cover">
         </div>
 
