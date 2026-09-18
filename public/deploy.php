@@ -85,7 +85,15 @@ $falhou = false;
 if ($acao === 'instalar') {
     echo "\n-- Instalar ficheiros a partir do repositório\n";
 
-    $origem = $_GET['origem'] ?? '/home/gocarmat/repositories/gocarmat-web';
+    // Deteta o clone certo pela pasta onde este próprio site vive — evita
+    // apanhar por engano o clone do staging ao correr na produção (já
+    // aconteceu: sem "origem" explícito, ficava sempre a apontar para o
+    // staging, e um deploy só à produção não copiava nada de novo).
+    $origemPorOmissao = basename($raiz) === 'producao'
+        ? '/home/gocarmat/repositories/gocarmat-web-producao'
+        : '/home/gocarmat/repositories/gocarmat-web';
+
+    $origem = $_GET['origem'] ?? $origemPorOmissao;
 
     if (! is_dir($origem) || ! is_file($origem.'/artisan')) {
         http_response_code(500);
