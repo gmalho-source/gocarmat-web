@@ -99,10 +99,21 @@ php artisan config:cache && php artisan route:cache && php artisan view:cache
 
 ## Alternativa sem docroot configurável
 
-Colocar o projeto em `~/gocarmat` e criar `~/public_html/.htaccess`:
+Usada em produção (`gocarmat.pt`): o domínio principal desta conta cPanel não permite mudar o document root, por isso `public_html` fica com um symlink `gocarmat-public -> ~/<pasta-do-site>/public` e um `.htaccess` a encaminhar tudo para lá.
+
+⚠️ A regra ingénua (`RewriteRule ^(.*)$ gocarmat-public/$1 [L]`, sem mais nada) tem um bug real: em qualquer URL com barra final, entra em conflito com a própria regra do Laravel que remove barras finais (dentro do `.htaccess` do `public/` original, agora dentro da pasta symlinked) — o resultado é um redirecionamento público que expõe o caminho interno `/gocarmat-public/...` em vez do URL limpo. Descoberto com os links antigos de `/produto/...` do WooCommerce (que têm sempre barra final). A versão correta remove a barra final **antes** de entrar na pasta interna:
+
 ```apache
-RewriteEngine on
+RewriteEngine On
+
+# Remove a barra final antes de mais nada, para nunca acionar a mesma regra
+# dentro do gocarmat-public/.htaccess do próprio Laravel — essa expunha o
+# prefixo "gocarmat-public/" num redirecionamento público.
 RewriteCond %{REQUEST_URI} !^/gocarmat-public/
-RewriteRule ^(.*)$ /gocarmat-public/$1 [L]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
+RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+RewriteCond %{REQUEST_URI} !^/gocarmat-public/
+RewriteRule ^(.*)$ gocarmat-public/$1 [L]
 ```
-com um symlink `~/public_html/gocarmat-public -> ~/gocarmat/public`. (Menos limpo; preferir docroot.)
+(Menos limpo que um docroot dedicado, mas é a única opção nesta conta.)
