@@ -14,7 +14,7 @@ class RedirectForm
                 TextInput::make('from_path')
                     ->label('Caminho antigo')
                     ->placeholder('/caminho-antigo')
-                    ->helperText('O URL antigo que deixou de existir, sem o domínio — tem de começar com "/".')
+                    ->helperText('O URL antigo que deixou de existir, sem o domínio — tem de começar com "/". Para apanhar todos os links a seguir a um caminho, termina em "/*" (ex: /produto/* apanha /produto/o-que-for).')
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->rules(['regex:/^\/\S*$/'])
