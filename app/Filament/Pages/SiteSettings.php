@@ -28,6 +28,7 @@ class SiteSettings extends Page
     protected const KEYS = [
         'ga4_id',
         'meta_pixel_id',
+        'google_site_verification',
         'notification_email',
         'brevo_api_key',
         'brevo_list_id',
@@ -55,6 +56,13 @@ class SiteSettings extends Page
                         TextInput::make('meta_pixel_id')
                             ->label('Meta Pixel ID')
                             ->placeholder('123456789012345'),
+                    ]),
+                Section::make('Google Search Console')
+                    ->description('Cola aqui só o valor "content" da tag META que o Search Console mostra ao escolher o método de verificação "Etiqueta HTML" — não é preciso mais nenhum ficheiro nem alteração de DNS.')
+                    ->schema([
+                        TextInput::make('google_site_verification')
+                            ->label('Código de verificação')
+                            ->placeholder('ex: AbCdEfGhIjKlMnOpQrStUvWxYz0123456789AbCdEfGhIjk'),
                     ]),
                 Section::make('Notificações')
                     ->schema([

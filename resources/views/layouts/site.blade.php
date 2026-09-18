@@ -9,6 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'GOCARMAT — A sua oficina multimarca · Grande Lisboa')</title>
     <meta name="description" content="@yield('meta_description', 'Rede de oficinas multimarca na Grande Lisboa: revisão oficial, pneus, colisão, climatização e assistência a elétricos com o EVA Powerlab.')">
+    @if (filled(\App\Models\Setting::get('google_site_verification')))
+        <meta name="google-site-verification" content="{{ \App\Models\Setting::get('google_site_verification') }}">
+    @endif
     @stack('meta')
 
     <link rel="icon" href="{{ asset('icons/favicon-32.png') }}" sizes="32x32" type="image/png">
