@@ -48,7 +48,22 @@ Route::fallback(function (string $any = '') {
         return response()->view('pages.show', ['page' => $page]);
     }
 
-    $redirect = Redirect::where('from_path', '/'.$path)->first();
+    $atual = '/'.$path;
+
+    $redirect = Redirect::where('from_path', $atual)->first();
+
+    // Sem correspondência exata, tenta um redirecionamento "prefixo/*" (ex:
+    // /produto/* apanha /produto/qualquer-coisa e tudo o que vier a seguir).
+    // A correspondência exata ganha sempre a um prefixo, se ambos existirem.
+    if (! $redirect) {
+        $redirect = Redirect::where('from_path', 'like', '%/*')
+            ->get()
+            ->first(function ($r) use ($atual) {
+                $prefixo = substr($r->from_path, 0, -2);
+
+                return $atual === $prefixo || str_starts_with($atual, $prefixo.'/');
+            });
+    }
 
     if ($redirect) {
         $redirect->increment('hits');
