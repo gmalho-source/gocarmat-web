@@ -35,8 +35,16 @@ Mockup Figma: fileKey `YyW4CEWQ5n46oteChtccZh` (Home 2:18788, Sobre Nós 23-557,
 
 ## Deploy
 
-**Automático:** push para `main` → GitHub Actions compila (composer + vite), envia por FTPS e chama `public/deploy.php` (migrações + caches). O servidor não tem Composer nem Node, por isso a compilação é feita no CI. `.env`, `storage/**` e a base de dados nunca são sobrepostos. Guia completo em `DEPLOY.md`. Estado atual: **staging deployado** em `/home/gocarmat/gocarmat` no servidor 185.31.158.162 (cPanel, SSH porta 45693, user `gocarmat`), docroot `staging.gocarmat.pt` → symlink para `gocarmat/public`, PHP 8.4 (`/opt/cpanel/ea-php84/root/usr/bin/php`), SQLite. **DNS de staging.gocarmat.pt pendente** — a zona autoritativa está nos ns1-4.webhs.org e o registo A ainda não propagou. SSH por chave ainda não funciona (suporte a investigar); deploys feitos por zip + Terminal do cPanel.
-⚠️ O staging está na versão do commit `f9fca00` — falta atualizar com tags/pesquisa/Ken Burns/footer.
+**GitHub Actions compila** (composer + vite) a cada push para `main` e publica no branch `deploy` (inclui `vendor/` e `public/build`, porque o servidor não tem Composer nem Node). O deploy em si **não é automático**: o pipeline por FTPS (`deploy-staging.yml`) existe mas mostrava sucesso sem realmente atualizar ficheiros — não usar. O caminho que funciona:
+1. cPanel → Git Version Control → "Update from Remote" no repositório certo (clone só do código, não o site ao vivo)
+2. Chamar `public/deploy.php?acao=instalar` (com `X-Deploy-Secret`) — copia do clone para a pasta do site (preserva `.env`, `storage/`, BD) e corre migrações/caches
+
+Guia completo em `DEPLOY.md`.
+
+**Ambientes**, todos no servidor 185.31.158.162 (cPanel, PHP 8.4 em `/opt/cpanel/ea-php84/root/usr/bin/php`, SQLite, Terminal do cPanel disponível para comandos):
+- **Staging** (`staging.gocarmat.pt`, protegido por `STAGING_PASSWORD`) — pasta `/home/gocarmat/gocarmat`, clone em `/home/gocarmat/repositories/gocarmat-web` (branch `deploy`).
+- **Produção** (`gocarmat.pt` / `www.gocarmat.pt`, ao vivo, sem password) — pasta `/home/gocarmat/producao`, clone em `/home/gocarmat/repositories/gocarmat-web-producao`. O domínio principal desta conta cPanel não permite mudar o document root — `public_html` é o WordPress antigo (guardado em `public_html_wordpress_backup`), e a produção liga-se por um symlink + `.htaccess` dentro de `public_html` (ver `DEPLOY.md`).
+- `deploy.php` deteta sozinho qual clone usar consoante a pasta onde corre, mas é sempre excluído da cópia automática (evita autodestruir-se a meio) — qualquer alteração a esse ficheiro tem de ser colada à mão via File Manager nos dois ambientes.
 
 ## Proteção de pré-produção
 
@@ -45,14 +53,17 @@ Definir `STAGING_PASSWORD` no `.env` fecha **todo** o site (incluindo `/admin`) 
 ## Por fazer
 
 - Migrar staging/produção para MySQL (hoje SQLite)
-- Produção: remover utilizador dev do backoffice, DNS final
-- **SMTP temporário**: enquanto não há password do SMTP oficial (`apoiocliente@gocarmat.pt` em `mail.gocarmat.pt`, porta 587, sem encriptação), o `.env` do servidor (staging e produção) usa uma app password Gmail de `dsi@jelly.pt` como remetente temporário (`MAIL_HOST=smtp.gmail.com`). Trocar para o SMTP definitivo da GOCARMAT assim que a password chegar — ver `MAIL_FROM_ADDRESS`/`MAIL_USERNAME` no `.env` do servidor.
+- DNS final: `gocarmat.pt`/`www.gocarmat.pt` já apontam para este servidor — nada a fazer aí. Falta só emitir/confirmar SSL (AutoSSL) para o domínio principal, já que o certificado até agora servia o WordPress.
+- Utilizadores de backoffice da Jelly mantidos em produção de propósito (acesso de suporte), a pedido do cliente.
 - Validar com o cliente: textos das FAQs do EVA (3 respostas escritas por nós), horário alargado (9h-19h+sáb vs 08:30-18:00 das oficinas), texto do card Climatização
 - **Iubenda (RGPD)**: integração completa com os scripts fornecidos pelo cliente — Cookie Solution (`partials/cookie-consent.blade.php`, siteId `2498738`, cookiePolicyId `35917140`, locale `pt`), Política de Privacidade (`resources/views/privacy.blade.php`, rota `/politica-de-privacidade`), Política de Cookies (`resources/views/cookies.blade.php`, rota `/politica-de-cookies`) e Termos e Condições (`resources/views/terms.blade.php`, rota `/termos-e-condicoes`), todas ligadas no footer. Falta apenas:
   - IDs de "purpose" (Privacy Controls → Purposes no painel Iubenda) para Analytics e Marketing, para religar o GA4/Meta Pixel ao consentimento (ficou desligado quando o banner caseiro foi substituído — ver `App\Models\Setting::get('ga4_id'/'meta_pixel_id')`)
 
 ## Notas
 
+- **SMTP oficial ativo** (local, staging e produção): Microsoft 365, `MAIL_HOST=smtp.office365.com`, porta 587, `MAIL_USERNAME=MAIL_FROM_ADDRESS=apoiocliente@gocarmat.pt`. Password só no `.env` de cada ambiente (nunca no repositório).
+- **Redirecionamentos** (`App\Models\Redirect`, `Route::fallback`) já são editáveis no backoffice em `/admin` → Redirecionamentos — antes só existiam via os comandos de importação do WordPress.
+- **Google Search Console**: propriedade `www.gocarmat.pt` verificada por ficheiro (`public/google154ffd39c2849e87.html` — não apagar, o Google reconfirma a verificação de vez em quando) e sitemap (`/sitemap.xml`) submetido. Há também um campo alternativo em Definições (`google_site_verification`, método "etiqueta HTML") para se um dia for preciso reverificar.
 - `/contactos` → 301 → `/marcacoes` (mesma página no design).
 - Emails em dev vão para `storage/logs/laravel.log` (`MAIL_MAILER=log`).
 - ⚠️ **`QUEUE_CONNECTION` tem de ser `sync`**. As notificações do Filament (ex: recuperação de password) implementam `ShouldQueue`; com `database` ficam presas na tabela `jobs` e o email nunca sai, porque não há queue worker no alojamento partilhado.
