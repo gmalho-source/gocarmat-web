@@ -11,10 +11,10 @@
                 <x-pill variant="outline-dark" :href="($data['botao_link'] ?? null) ?: '#'">{{ $data['botao_texto'] }}</x-pill>
             @endif
             <div class="hidden shrink-0 items-center gap-2 sm:flex">
-                <button type="button" data-carousel-prev class="flex size-11 items-center justify-center rounded-full border-2 border-carbono text-carbono transition hover:bg-carbono hover:text-white disabled:opacity-30 disabled:pointer-events-none">
+                <button type="button" data-carousel-prev aria-label="Serviço anterior" class="flex size-11 items-center justify-center rounded-full border-2 border-carbono text-carbono transition hover:bg-carbono hover:text-white disabled:opacity-30 disabled:pointer-events-none">
                     <x-ui.icon name="arrow-right" class="size-5 rotate-180" />
                 </button>
-                <button type="button" data-carousel-next class="flex size-11 items-center justify-center rounded-full border-2 border-carbono text-carbono transition hover:bg-carbono hover:text-white disabled:opacity-30 disabled:pointer-events-none">
+                <button type="button" data-carousel-next aria-label="Serviço seguinte" class="flex size-11 items-center justify-center rounded-full border-2 border-carbono text-carbono transition hover:bg-carbono hover:text-white disabled:opacity-30 disabled:pointer-events-none">
                     <x-ui.icon name="arrow-right" class="size-5" />
                 </button>
             </div>
