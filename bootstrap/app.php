@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Protege ambientes de pré-produção (ativa-se via STAGING_PASSWORD).
         $middleware->prepend(App\Http\Middleware\ProtegerStaging::class);
+        // Redireciona HTTP para HTTPS antes de mais nada — corre primeiro
+        // porque cada prepend() entra à cabeça da fila, à frente do anterior.
+        $middleware->prepend(App\Http\Middleware\ForcarHttps::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

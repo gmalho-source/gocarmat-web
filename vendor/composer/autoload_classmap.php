@@ -71,6 +71,7 @@ return array(
     'App\\Http\\Controllers\\NewsletterController' => $baseDir . '/app/Http/Controllers/NewsletterController.php',
     'App\\Http\\Controllers\\PageController' => $baseDir . '/app/Http/Controllers/PageController.php',
     'App\\Http\\Controllers\\SitemapController' => $baseDir . '/app/Http/Controllers/SitemapController.php',
+    'App\\Http\\Middleware\\ForcarHttps' => $baseDir . '/app/Http/Middleware/ForcarHttps.php',
     'App\\Http\\Middleware\\ProtegerStaging' => $baseDir . '/app/Http/Middleware/ProtegerStaging.php',
     'App\\Mail\\BookingConfirmation' => $baseDir . '/app/Mail/BookingConfirmation.php',
     'App\\Mail\\BookingNotification' => $baseDir . '/app/Mail/BookingNotification.php',

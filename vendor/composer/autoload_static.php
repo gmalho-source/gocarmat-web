@@ -737,6 +737,7 @@ class ComposerStaticInita8c5c3bb3085badf795fc87f4830adb9
         'App\\Http\\Controllers\\NewsletterController' => __DIR__ . '/../..' . '/app/Http/Controllers/NewsletterController.php',
         'App\\Http\\Controllers\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/PageController.php',
         'App\\Http\\Controllers\\SitemapController' => __DIR__ . '/../..' . '/app/Http/Controllers/SitemapController.php',
+        'App\\Http\\Middleware\\ForcarHttps' => __DIR__ . '/../..' . '/app/Http/Middleware/ForcarHttps.php',
         'App\\Http\\Middleware\\ProtegerStaging' => __DIR__ . '/../..' . '/app/Http/Middleware/ProtegerStaging.php',
         'App\\Mail\\BookingConfirmation' => __DIR__ . '/../..' . '/app/Mail/BookingConfirmation.php',
         'App\\Mail\\BookingNotification' => __DIR__ . '/../..' . '/app/Mail/BookingNotification.php',
