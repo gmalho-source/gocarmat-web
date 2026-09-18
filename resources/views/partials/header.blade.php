@@ -26,7 +26,7 @@
         ],
     ];
 @endphp
-<header class="mx-auto flex w-full max-w-[1920px] items-center justify-between gap-6 px-4 pt-8 sm:px-8 xl:px-16">
+<header id="cabecalho" class="mx-auto flex w-full max-w-[1920px] items-center justify-between gap-6 px-4 pt-8 sm:px-8 xl:px-16 max-lg:transition-transform max-lg:duration-300">
     <a href="{{ url('/') }}" class="shrink-0 transition hover:opacity-80">
         <img src="{{ asset('images/logo.svg') }}" alt="GOCARMAT — A sua oficina multimarca" class="h-11 w-auto 2xl:h-[62px]">
     </a>
@@ -94,3 +94,59 @@
         </nav>
     </details>
 </header>
+
+{{-- No mobile/tablet (abaixo do breakpoint lg), o cabeçalho fica fixo e
+     esconde-se a descer / reaparece a subir, para o menu estar sempre
+     acessível sem ter de voltar ao topo da página. No desktop não é
+     tocado — fica sempre na disposição normal. --}}
+<style>
+    @media (max-width: 1023px) {
+        #cabecalho.cabecalho-fixo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background-color: #f7fafe;
+            box-shadow: 0 1px 3px 0 rgba(3, 9, 25, 0.08);
+        }
+
+        #cabecalho.cabecalho-escondido {
+            transform: translateY(-100%);
+        }
+    }
+</style>
+
+<script>
+    (function () {
+        var cabecalho = document.getElementById('cabecalho');
+        var alturaCabecalho = cabecalho.offsetHeight;
+        var ultimoScroll = window.scrollY;
+
+        function aoScroll() {
+            if (window.innerWidth >= 1024) return;
+
+            var atual = window.scrollY;
+
+            if (atual > alturaCabecalho) {
+                cabecalho.classList.add('cabecalho-fixo');
+                document.body.style.paddingTop = alturaCabecalho + 'px';
+                cabecalho.classList.toggle('cabecalho-escondido', atual > ultimoScroll);
+            } else {
+                cabecalho.classList.remove('cabecalho-fixo', 'cabecalho-escondido');
+                document.body.style.paddingTop = '';
+            }
+
+            ultimoScroll = atual;
+        }
+
+        window.addEventListener('scroll', aoScroll, { passive: true });
+
+        window.addEventListener('resize', function () {
+            if (window.innerWidth >= 1024) {
+                cabecalho.classList.remove('cabecalho-fixo', 'cabecalho-escondido');
+                document.body.style.paddingTop = '';
+            }
+        });
+    })();
+</script>
