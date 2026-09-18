@@ -27,6 +27,7 @@ class SiteSettings extends Page
     /** Chaves geridas nesta página. */
     protected const KEYS = [
         'ga4_id',
+        'gtm_id',
         'meta_pixel_id',
         'google_site_verification',
         'notification_email',
@@ -53,6 +54,9 @@ class SiteSettings extends Page
                         TextInput::make('ga4_id')
                             ->label('Google Analytics 4 — Measurement ID')
                             ->placeholder('G-XXXXXXXXXX'),
+                        TextInput::make('gtm_id')
+                            ->label('Google Tag Manager — Container ID')
+                            ->placeholder('GTM-XXXXXXX'),
                         TextInput::make('meta_pixel_id')
                             ->label('Meta Pixel ID')
                             ->placeholder('123456789012345'),
