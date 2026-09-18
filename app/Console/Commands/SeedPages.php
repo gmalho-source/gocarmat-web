@@ -257,6 +257,15 @@ class SeedPages extends Command
                             ['numero' => '07.', 'titulo' => 'Transparência', 'texto' => 'Competência e honestidade — sabe sempre o que paga e porquê.'],
                         ],
                     ]],
+                    ['type' => 'faq', 'data' => [
+                        'titulo' => 'Perguntas frequentes',
+                        'itens' => [
+                            ['pergunta' => 'Perco a garantia do fabricante se fizer a revisão fora da marca?', 'resposta' => 'Não. O Regulamento Europeu n.º 461/2010 garante o direito de escolher a oficina para a revisão da sua viatura, mesmo durante o período de garantia, desde que sejam seguidos os planos de manutenção do fabricante — como acontece na GOCARMAT.'],
+                            ['pergunta' => 'Quanto posso poupar em relação à oficina da marca?', 'resposta' => 'Até 60% face ao valor habitualmente cobrado nas oficinas do construtor, sem abdicar do rigor exigido pelo fabricante.'],
+                            ['pergunta' => 'As peças substituídas têm garantia?', 'resposta' => 'Sim. Todas as peças substituídas têm garantia ao abrigo do Decreto-Lei 84/2008 (lei do consumidor).'],
+                            ['pergunta' => 'Posso assistir à revisão do meu carro?', 'resposta' => 'Sim, se quiser pode acompanhar a revisão da sua viatura na oficina — trabalhamos com total transparência.'],
+                        ],
+                    ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Não sabe que revisão a sua viatura precisa?',
                         'texto' => 'Marque online e nós confirmamos o plano de revisão oficial do fabricante para o seu carro.',
@@ -298,6 +307,15 @@ class SeedPages extends Command
                             ['numero' => '04.', 'titulo' => 'Deteção de desgaste', 'texto' => 'Identificamos desgaste irregular, cortes ou danos, substituindo a tempo qualquer pneu comprometido.'],
                             ['numero' => '05.', 'titulo' => 'Rotação periódica', 'texto' => 'Recomendamos a rotação dos pneus a cada 10.000–12.000 km, para um desgaste uniforme e maior durabilidade.'],
                             ['numero' => '06.', 'titulo' => 'Orçamento gratuito', 'texto' => 'Avaliação e orçamento sem compromisso, com as melhores marcas ao melhor preço.'],
+                        ],
+                    ]],
+                    ['type' => 'faq', 'data' => [
+                        'titulo' => 'Perguntas frequentes',
+                        'itens' => [
+                            ['pergunta' => 'Qual a profundidade mínima legal dos pneus?', 'resposta' => '1,6 mm. Abaixo deste valor o pneu deixa de ser seguro e a viatura reprova na inspeção periódica.'],
+                            ['pergunta' => 'De quanto em quanto tempo devo rodar os pneus?', 'resposta' => 'Recomendamos a rotação a cada 10.000–12.000 km, para um desgaste uniforme e maior durabilidade.'],
+                            ['pergunta' => 'Como escolho o pneu certo para o meu carro?', 'resposta' => 'Com base na etiqueta europeia — eficiência energética, aderência em piso húmido e ruído — e no seu estilo de condução, ajudamo-lo a escolher a opção mais adequada.'],
+                            ['pergunta' => 'A avaliação e o orçamento têm custo?', 'resposta' => 'Não, a avaliação e o orçamento são gratuitos e sem compromisso.'],
                         ],
                     ]],
                     ['type' => 'cta_icone', 'data' => [
@@ -343,6 +361,15 @@ class SeedPages extends Command
                             ['numero' => '06.', 'titulo' => 'Orçamento presencial', 'texto' => 'Orçamento sem compromisso, feito após avaliação da viatura na nossa oficina de Carnaxide.'],
                         ],
                     ]],
+                    ['type' => 'faq', 'data' => [
+                        'titulo' => 'Perguntas frequentes',
+                        'itens' => [
+                            ['pergunta' => 'Tratam do processo com a minha seguradora?', 'resposta' => 'Sim, tratamos de todo o processo junto da sua seguradora, para que não tenha de se preocupar com nada.'],
+                            ['pergunta' => 'A reparação fica com o acabamento original?', 'resposta' => 'Sim. A pintura é feita com acabamento de fábrica, incluindo polimento e envernizamento de faróis quando necessário.'],
+                            ['pergunta' => 'Onde é feita a avaliação da viatura?', 'resposta' => 'A avaliação e o orçamento são feitos presencialmente na nossa oficina de Carnaxide, sem compromisso.'],
+                            ['pergunta' => 'Pequenas amolgadelas precisam sempre de repintura?', 'resposta' => 'Nem sempre. Sempre que possível, removemos pequenas amolgadelas e mossas sem necessidade de repintura.'],
+                        ],
+                    ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Teve um acidente?',
                         'texto' => 'Marque uma avaliação presencial e cuidamos de todo o processo, incluindo com a sua seguradora.',
@@ -384,6 +411,15 @@ class SeedPages extends Command
                             ['numero' => '04.', 'titulo' => 'Resolução no próprio dia', 'texto' => 'Sempre que possível, resolvemos qualquer anomalia detetada no mesmo dia, antes da inspeção.'],
                             ['numero' => '05.', 'titulo' => 'Prazos e imobilizações', 'texto' => 'Alertamos para os prazos — deficiências Tipo 2 dão 30 dias para resolver, Tipo 3 imobilizam o veículo.'],
                             ['numero' => '06.', 'titulo' => 'Motivos de reprovação', 'texto' => 'Corrigimos as causas mais comuns de reprovação: luzes, bateria, direção, chapa de matrícula, pneus e mais.'],
+                        ],
+                    ]],
+                    ['type' => 'faq', 'data' => [
+                        'titulo' => 'Perguntas frequentes',
+                        'itens' => [
+                            ['pergunta' => 'Quantas deficiências Tipo 1 posso ter sem reprovar?', 'resposta' => 'Até 5. Mais do que isso, ou qualquer deficiência Tipo 2 ou Tipo 3, reprova o veículo na inspeção.'],
+                            ['pergunta' => 'O que acontece se detetarem uma deficiência Tipo 2 ou Tipo 3?', 'resposta' => 'Uma deficiência Tipo 2 dá 30 dias para ser corrigida; uma deficiência Tipo 3 imobiliza o veículo até estar resolvida.'],
+                            ['pergunta' => 'Resolvem os problemas no mesmo dia?', 'resposta' => 'Sempre que possível, sim — resolvemos qualquer anomalia detetada no check-up prévio antes da própria inspeção.'],
+                            ['pergunta' => 'Preciso de levar o carro ao centro de inspeção?', 'resposta' => 'Não. Nós acompanhamos o seu carro ao centro de inspeção — deixa o carro connosco e nós tratamos de tudo.'],
                         ],
                     ]],
                     ['type' => 'cta_icone', 'data' => [
@@ -429,6 +465,15 @@ class SeedPages extends Command
                             ['numero' => '06.', 'titulo' => 'Revisão Oficial PLUS', 'texto' => 'Combine a revisão oficial com a troca completa de filtros por um preço promocional.'],
                         ],
                     ]],
+                    ['type' => 'faq', 'data' => [
+                        'titulo' => 'Perguntas frequentes',
+                        'itens' => [
+                            ['pergunta' => 'Porque trocam sempre o óleo e o filtro em conjunto?', 'resposta' => 'Porque o óleo usado deixa partículas no filtro antigo — trocar os dois em conjunto evita desgaste desnecessário do motor.'],
+                            ['pergunta' => 'Que filtros são substituídos?', 'resposta' => 'Sempre que necessário, substituímos o filtro de óleo, combustível, ar e habitáculo — nunca só um deles isoladamente.'],
+                            ['pergunta' => 'O que é a Revisão Oficial PLUS?', 'resposta' => 'É a revisão oficial combinada com a troca completa de filtros, por um preço promocional de €199 (em vez dos habituais €385).'],
+                            ['pergunta' => 'Usam sempre óleos recomendados pelo fabricante?', 'resposta' => 'Sim, usamos sempre óleos e filtros das marcas homologadas pelo fabricante do seu carro.'],
+                        ],
+                    ]],
                     ['type' => 'cta_icone', 'data' => [
                         'titulo' => 'Já sabe quando mudou o óleo?',
                         'texto' => 'Marque online a mudança de óleo e filtros — rápido, e com as marcas certas para o seu carro.',
@@ -470,6 +515,15 @@ class SeedPages extends Command
                             ['numero' => '04.', 'titulo' => 'Proteção em zonas urbanas', 'texto' => 'Especialmente importante em ambientes urbanos, onde contaminantes invisíveis se acumulam sem sinais visíveis no filtro.'],
                             ['numero' => '05.', 'titulo' => 'Deteção de fugas', 'texto' => 'Verificamos e corrigimos fugas de gás, mantendo o sistema eficiente.'],
                             ['numero' => '06.', 'titulo' => 'Inspeção de condutas', 'texto' => 'Recomendada para viaturas mais antigas sem filtro de habitáculo, garantindo a higiene do circuito de ar.'],
+                        ],
+                    ]],
+                    ['type' => 'faq', 'data' => [
+                        'titulo' => 'Perguntas frequentes',
+                        'itens' => [
+                            ['pergunta' => 'Com que frequência devo trocar o filtro de habitáculo?', 'resposta' => 'A cada 15.000 km ou uma vez por ano, mesmo que o filtro pareça limpo à vista.'],
+                            ['pergunta' => 'A higienização remove que tipo de impurezas?', 'resposta' => 'Remove vírus, bactérias e fungos do habitáculo e das condutas do ar condicionado.'],
+                            ['pergunta' => 'Com que frequência devo verificar o sistema de ar condicionado?', 'resposta' => 'Recomendamos uma verificação a cada 20.000 km, o que prolonga a vida dos componentes e deteta fugas de gás a tempo.'],
+                            ['pergunta' => 'O meu carro não tem filtro de habitáculo — há alguma solução?', 'resposta' => 'Sim, nesses casos recomendamos a inspeção das condutas de ar, garantindo a higiene do circuito mesmo sem filtro.'],
                         ],
                     ]],
                     ['type' => 'cta_icone', 'data' => [
