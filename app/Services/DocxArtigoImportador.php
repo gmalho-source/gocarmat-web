@@ -62,6 +62,8 @@ class DocxArtigoImportador
 
             $titulo = null;
             $imagemPreambulo = null;
+            $imagemDestaqueFinal = null;
+            $proximaImagemEhDestaque = false;
             $blocosHtml = [];
             $metadados = [];
             $contadorImagens = 0;
@@ -75,12 +77,26 @@ class DocxArtigoImportador
                 // Metadados no fim do documento (Categorias/Tags/Palavras-chave/Slug),
                 // no mesmo formato que já usamos nos artigos: "Rótulo: valor".
                 if ($chave = $this->chaveDeMetadado($textoSimples)) {
-                    $metadados[$chave] = trim(Str::after($textoSimples, ':'));
+                    if ($chave === 'imagem_destaque_marcador') {
+                        $proximaImagemEhDestaque = true;
+                    } else {
+                        $metadados[$chave] = trim(Str::after($textoSimples, ':'));
+                    }
 
                     continue;
                 }
 
                 $imagens = $this->imagensDoParagrafo($p, $slug, $contadorImagens);
+
+                // A imagem logo a seguir a um rótulo "Imagem de topo/destaque:"
+                // (normalmente no fim do artigo) é a imagem de destaque, não
+                // uma imagem do corpo do artigo.
+                if ($imagens && $proximaImagemEhDestaque) {
+                    $imagemDestaqueFinal ??= $imagens[0];
+                    $proximaImagemEhDestaque = false;
+
+                    continue;
+                }
 
                 if ($ehTitulo) {
                     $titulo = $textoSimples ?: null;
@@ -142,7 +158,7 @@ class DocxArtigoImportador
             return [
                 'titulo' => $titulo,
                 'body' => implode("\n", $blocosHtml),
-                'imagem_preambulo' => $imagemPreambulo,
+                'imagem_preambulo' => $imagemDestaqueFinal ?? $imagemPreambulo,
                 'categoria' => $metadados['categoria'] ?? null,
                 'tags' => filled($metadados['tags'] ?? null)
                     ? array_values(array_filter(array_map(fn ($t) => trim($t, " \t\n\r\0\x0B."), explode(',', $metadados['tags']))))
@@ -322,6 +338,9 @@ class DocxArtigoImportador
             (bool) preg_match('/^categorias?\s+do\s+artigo\s*:/i', $texto) => 'categoria',
             (bool) preg_match('/^tags?\s*:/i', $texto) => 'tags',
             (bool) preg_match('/^slug\s*:/i', $texto) => 'slug',
+            // Rótulo (sem valor a seguir) que marca a imagem seguinte como a
+            // imagem de destaque do artigo, não uma imagem do corpo.
+            (bool) preg_match('/^imagem\s+de\s+(topo|destaque)\b\s*:?\s*$/i', $texto) => 'imagem_destaque_marcador',
             // Reconhecida para não ficar publicada no corpo, mas sem campo
             // próprio no formulário — é só uma lista de palavras-chave SEO.
             (bool) preg_match('/^palavras[\s-]?chave\b.*:/i', $texto) => 'palavras_chave',
