@@ -40,17 +40,7 @@ class DocxArtigoImportador
      *     slug_sugerido: ?string,
      * }
      */
-    /**
-     * Só o título e os metadados (categoria/tags/slug), sem tocar em
-     * imagens nem montar o corpo — para pré-preencher o formulário sem
-     * gravar nada em disco antes de o artigo ser mesmo criado.
-     */
-    public function metadados(string $caminhoDocx): array
-    {
-        return $this->processar($caminhoDocx, '', comImagens: false);
-    }
-
-    public function processar(string $caminhoDocx, string $slug, bool $comImagens = true): array
+    public function processar(string $caminhoDocx, string $slug): array
     {
         $this->zip = new \ZipArchive();
 
@@ -90,7 +80,7 @@ class DocxArtigoImportador
                     continue;
                 }
 
-                $imagens = $comImagens ? $this->imagensDoParagrafo($p, $slug, $contadorImagens) : [];
+                $imagens = $this->imagensDoParagrafo($p, $slug, $contadorImagens);
 
                 if ($ehTitulo) {
                     $titulo = $textoSimples ?: null;

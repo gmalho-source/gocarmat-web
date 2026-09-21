@@ -16,7 +16,7 @@ class ListPosts extends ListRecords
     {
         return [
             Action::make('importar-markdown')
-                ->label('Importar de Markdown ou Word')
+                ->label('Importar de Word (.docx)')
                 ->icon(Heroicon::OutlinedDocumentArrowUp)
                 ->color('gray')
                 ->url(fn (): string => PostResource::getUrl('importar-markdown')),
