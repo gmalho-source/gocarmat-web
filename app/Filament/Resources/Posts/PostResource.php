@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Posts;
 
 use App\Filament\Resources\Posts\Pages\CreatePost;
 use App\Filament\Resources\Posts\Pages\EditPost;
+use App\Filament\Resources\Posts\Pages\ImportarArtigoMarkdown;
 use App\Filament\Resources\Posts\Pages\ListPosts;
 use App\Filament\Resources\Posts\Schemas\PostForm;
 use App\Filament\Resources\Posts\Tables\PostsTable;
@@ -48,6 +49,7 @@ class PostResource extends Resource
         return [
             'index' => ListPosts::route('/'),
             'create' => CreatePost::route('/create'),
+            'importar-markdown' => ImportarArtigoMarkdown::route('/importar-markdown'),
             'edit' => EditPost::route('/{record}/edit'),
         ];
     }
