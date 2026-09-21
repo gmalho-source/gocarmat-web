@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use App\Services\ArtigoMarkdownImportador;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -9,6 +10,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ImportMarkdownForm
@@ -22,16 +24,21 @@ class ImportMarkdownForm
                     ->schema([
                         FileUpload::make('markdown_file')
                             ->label('Ficheiro Markdown (.md)')
-                            ->helperText('O conteúdo do ficheiro vira o corpo do artigo. Imagens referenciadas por URL são descarregadas automaticamente.')
+                            ->helperText('A primeira linha do ficheiro dá o título (e o slug) do artigo — não a incluas depois na página de conteúdo, aqui já preenche sozinha. Imagens referenciadas por URL são descarregadas automaticamente.')
                             ->disk('local')
                             ->directory('markdown-imports')
                             ->acceptedFileTypes(['text/markdown', 'text/plain', 'text/x-markdown', '.md'])
                             ->required()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (?string $state, callable $get, callable $set) {
-                                if (filled($state) && blank($get('title'))) {
-                                    $nome = pathinfo($state, PATHINFO_FILENAME);
-                                    $titulo = Str::headline(preg_replace('/^\d+[-_]/', '', $nome));
+                            ->afterStateUpdated(function (?string $state, callable $set) {
+                                if (blank($state)) {
+                                    return;
+                                }
+
+                                $conteudo = Storage::disk('local')->get($state);
+                                $titulo = filled($conteudo) ? app(ArtigoMarkdownImportador::class)->extrairTitulo($conteudo) : null;
+
+                                if (filled($titulo)) {
                                     $set('title', $titulo);
                                     $set('slug', Str::slug($titulo));
                                 }
