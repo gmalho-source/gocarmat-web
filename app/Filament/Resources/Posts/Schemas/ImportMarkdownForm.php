@@ -32,10 +32,14 @@ class ImportMarkdownForm
                             ->directory('markdown-imports')
                             ->acceptedFileTypes([
                                 'text/markdown', 'text/plain', 'text/x-markdown', '.md',
-                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', '.docx',
+                                // .docx é tecnicamente um ZIP — o servidor deteta-o pelo
+                                // conteúdo real, e consoante a instalação de PHP pode sair
+                                // como application/zip em vez do MIME "correto" do OOXML.
+                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                'application/zip', 'application/octet-stream', '.docx',
                             ])
                             ->required()
-                            ->live(onBlur: true)
+                            ->live()
                             ->afterStateUpdated(function (?string $state, callable $set) {
                                 if (blank($state)) {
                                     return;
