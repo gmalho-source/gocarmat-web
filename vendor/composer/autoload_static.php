@@ -755,7 +755,6 @@ class ComposerStaticInita8c5c3bb3085badf795fc87f4830adb9
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\Filament\\AdminPanelProvider' => __DIR__ . '/../..' . '/app/Providers/Filament/AdminPanelProvider.php',
-        'App\\Services\\ArtigoMarkdownImportador' => __DIR__ . '/../..' . '/app/Services/ArtigoMarkdownImportador.php',
         'App\\Services\\Brevo' => __DIR__ . '/../..' . '/app/Services/Brevo.php',
         'App\\Services\\DocxArtigoImportador' => __DIR__ . '/../..' . '/app/Services/DocxArtigoImportador.php',
         'App\\Support\\Blocos' => __DIR__ . '/../..' . '/app/Support/Blocos.php',

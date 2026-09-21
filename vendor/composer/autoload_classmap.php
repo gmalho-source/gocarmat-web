@@ -89,7 +89,6 @@ return array(
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\Filament\\AdminPanelProvider' => $baseDir . '/app/Providers/Filament/AdminPanelProvider.php',
-    'App\\Services\\ArtigoMarkdownImportador' => $baseDir . '/app/Services/ArtigoMarkdownImportador.php',
     'App\\Services\\Brevo' => $baseDir . '/app/Services/Brevo.php',
     'App\\Services\\DocxArtigoImportador' => $baseDir . '/app/Services/DocxArtigoImportador.php',
     'App\\Support\\Blocos' => $baseDir . '/app/Support/Blocos.php',
