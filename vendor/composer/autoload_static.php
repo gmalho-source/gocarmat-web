@@ -757,6 +757,7 @@ class ComposerStaticInita8c5c3bb3085badf795fc87f4830adb9
         'App\\Providers\\Filament\\AdminPanelProvider' => __DIR__ . '/../..' . '/app/Providers/Filament/AdminPanelProvider.php',
         'App\\Services\\ArtigoMarkdownImportador' => __DIR__ . '/../..' . '/app/Services/ArtigoMarkdownImportador.php',
         'App\\Services\\Brevo' => __DIR__ . '/../..' . '/app/Services/Brevo.php',
+        'App\\Services\\DocxArtigoImportador' => __DIR__ . '/../..' . '/app/Services/DocxArtigoImportador.php',
         'App\\Support\\Blocos' => __DIR__ . '/../..' . '/app/Support/Blocos.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'BladeUI\\Heroicons\\BladeHeroiconsServiceProvider' => __DIR__ . '/..' . '/blade-ui-kit/blade-heroicons/src/BladeHeroiconsServiceProvider.php',

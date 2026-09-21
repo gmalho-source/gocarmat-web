@@ -91,6 +91,7 @@ return array(
     'App\\Providers\\Filament\\AdminPanelProvider' => $baseDir . '/app/Providers/Filament/AdminPanelProvider.php',
     'App\\Services\\ArtigoMarkdownImportador' => $baseDir . '/app/Services/ArtigoMarkdownImportador.php',
     'App\\Services\\Brevo' => $baseDir . '/app/Services/Brevo.php',
+    'App\\Services\\DocxArtigoImportador' => $baseDir . '/app/Services/DocxArtigoImportador.php',
     'App\\Support\\Blocos' => $baseDir . '/app/Support/Blocos.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'BladeUI\\Heroicons\\BladeHeroiconsServiceProvider' => $vendorDir . '/blade-ui-kit/blade-heroicons/src/BladeHeroiconsServiceProvider.php',
