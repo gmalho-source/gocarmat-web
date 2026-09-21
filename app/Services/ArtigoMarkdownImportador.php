@@ -18,15 +18,54 @@ class ArtigoMarkdownImportador
 {
     public function paraHtml(string $markdown, string $slug): string
     {
-        $html = (new CommonMarkConverter())->convert($this->removerFrontMatter($markdown))->getContent();
+        $markdown = $this->removerFrontMatter($markdown);
+        $markdown = $this->removerPrimeiraLinha($markdown);
+
+        $html = (new CommonMarkConverter())->convert($markdown)->getContent();
 
         return $this->descarregarImagensInline($html, $slug);
+    }
+
+    /**
+     * A primeira linha do ficheiro (normalmente um título "# ...") dá o
+     * título do artigo — não faz parte do corpo, para não ficar duplicado
+     * (a página já mostra o título sozinha, por cima do corpo).
+     */
+    public function extrairTitulo(string $markdown): ?string
+    {
+        foreach (preg_split('/\R/', $this->removerFrontMatter($markdown)) as $linha) {
+            $linha = trim($linha);
+
+            if ($linha !== '') {
+                return trim(preg_replace('/^#{1,6}\s*/', '', $linha));
+            }
+        }
+
+        return null;
     }
 
     /** Remove um bloco de "front matter" (--- ... ---) no topo, se existir. */
     private function removerFrontMatter(string $markdown): string
     {
         return preg_replace('/^---\s*\n.*?\n---\s*\n/s', '', $markdown, 1) ?? $markdown;
+    }
+
+    /** Remove a primeira linha não vazia (o título, já extraído à parte). */
+    private function removerPrimeiraLinha(string $markdown): string
+    {
+        $linhas = preg_split('/\R/', $markdown);
+
+        foreach ($linhas as $i => $linha) {
+            if (trim($linha) === '') {
+                continue;
+            }
+
+            unset($linhas[$i]);
+
+            return implode("\n", $linhas);
+        }
+
+        return $markdown;
     }
 
     private function descarregarImagensInline(string $html, string $slug): string
