@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use App\Models\Category;
+use App\Models\Tag;
 use App\Services\ArtigoMarkdownImportador;
+use App\Services\DocxArtigoImportador;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -23,15 +26,26 @@ class ImportMarkdownForm
                     ->columnSpanFull()
                     ->schema([
                         FileUpload::make('markdown_file')
-                            ->label('Ficheiro Markdown (.md)')
-                            ->helperText('A primeira linha do ficheiro dá o título (e o slug) do artigo — não a incluas depois na página de conteúdo, aqui já preenche sozinha. Imagens referenciadas por URL são descarregadas automaticamente.')
+                            ->label('Ficheiro Markdown (.md) ou Word (.docx)')
+                            ->helperText('O título, o slug e (num .docx) a categoria/tags preenchem-se sozinhos a partir do ficheiro. Num .docx as imagens embutidas são guardadas automaticamente; num .md só imagens já publicadas num URL são descarregadas.')
                             ->disk('local')
                             ->directory('markdown-imports')
-                            ->acceptedFileTypes(['text/markdown', 'text/plain', 'text/x-markdown', '.md'])
+                            ->acceptedFileTypes([
+                                'text/markdown', 'text/plain', 'text/x-markdown', '.md',
+                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', '.docx',
+                            ])
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(function (?string $state, callable $set) {
                                 if (blank($state)) {
+                                    return;
+                                }
+
+                                $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
+
+                                if ($ext === 'docx') {
+                                    self::preencherDoDocx($state, $set);
+
                                     return;
                                 }
 
@@ -100,6 +114,7 @@ class ImportMarkdownForm
                             ]),
                         FileUpload::make('featured_image')
                             ->label('Imagem de destaque')
+                            ->helperText('Num .docx, se houver uma imagem antes do título, é sugerida aqui automaticamente ao criar o artigo.')
                             ->image()
                             ->disk('public')
                             ->directory('blog')
@@ -147,5 +162,39 @@ class ImportMarkdownForm
                             ->columnSpanFull(),
                     ]),
             ]);
+    }
+
+    /**
+     * Só o título/categoria/tags (sem imagens nem corpo — isso fica para o
+     * momento de criar o artigo, em ImportarArtigoMarkdown, para não
+     * processar o ficheiro duas vezes).
+     */
+    private static function preencherDoDocx(string $caminhoRelativo, callable $set): void
+    {
+        $caminhoAbsoluto = Storage::disk('local')->path($caminhoRelativo);
+        $meta = app(DocxArtigoImportador::class)->metadados($caminhoAbsoluto);
+
+        if (filled($meta['titulo'])) {
+            $set('title', $meta['titulo']);
+            $set('slug', $meta['slug_sugerido'] ?: Str::slug($meta['titulo']));
+        }
+
+        if (filled($meta['categoria'])) {
+            $categoria = Category::firstOrCreate(
+                ['slug' => Str::slug($meta['categoria'])],
+                ['name' => $meta['categoria']],
+            );
+            $set('categories', [$categoria->id]);
+        }
+
+        if (filled($meta['tags'])) {
+            $tagIds = collect($meta['tags'])
+                ->map(fn (string $nome) => Tag::firstOrCreate(
+                    ['slug' => Str::slug($nome)],
+                    ['name' => $nome],
+                )->id)
+                ->all();
+            $set('tags', $tagIds);
+        }
     }
 }
