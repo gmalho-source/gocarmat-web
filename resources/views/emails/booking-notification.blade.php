@@ -8,6 +8,7 @@
 **E-mail:** {{ $booking->email }}
 **Telefone:** {{ $booking->phone }}
 **Serviço:** {{ $booking->service }}
+**Oficina:** {{ $booking->office->name ?? '—' }}
 @if ($booking->notes)
 
 **Notas:**

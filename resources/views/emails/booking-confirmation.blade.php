@@ -1,7 +1,7 @@
 <x-mail::message>
 # Recebemos o seu pedido!
 
-Obrigado por contactar a GOCARMAT. O seu pedido de marcação para **{{ $booking->service }}** foi recebido com sucesso.
+Obrigado por contactar a GOCARMAT. O seu pedido de marcação para **{{ $booking->service }}** na oficina **{{ $booking->office->name ?? '' }}** foi recebido com sucesso.
 
 @if ($booking->notes)
 **A sua mensagem:**
@@ -11,7 +11,7 @@ Obrigado por contactar a GOCARMAT. O seu pedido de marcação para **{{ $booking
 </x-mail::panel>
 @endif
 
-A nossa equipa de Apoio ao Cliente vai entrar em contacto consigo com a maior brevidade possível, através do e-mail ou do telefone que nos indicou, para confirmar a data e a oficina.
+A nossa equipa de Apoio ao Cliente vai entrar em contacto consigo com a maior brevidade possível, através do e-mail ou do telefone que nos indicou, para confirmar a data.
 
 Se precisar de falar connosco entretanto:
 

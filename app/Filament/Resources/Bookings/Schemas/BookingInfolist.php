@@ -25,6 +25,9 @@ class BookingInfolist
                 TextEntry::make('service')
                     ->label('Serviço')
                     ->placeholder('—'),
+                TextEntry::make('office.name')
+                    ->label('Oficina')
+                    ->placeholder('—'),
                 TextEntry::make('notes')
                     ->label('Notas')
                     ->placeholder('—')
