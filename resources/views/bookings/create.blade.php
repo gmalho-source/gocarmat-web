@@ -62,7 +62,7 @@
                     <label for="phone" class="{{ $labelClass }}">Telefone *</label>
                     <input id="phone" name="phone" type="tel" required maxlength="30" value="{{ old('phone') }}" placeholder="ex: +351 987 654 321" class="{{ $inputClass }}">
                 </div>
-                <div class="sm:col-span-2">
+                <div>
                     <label for="service" class="{{ $labelClass }}">Serviço *</label>
                     <select id="service" name="service" required class="{{ $inputClass }}">
                         <option value="" disabled {{ old('service') ? '' : 'selected' }}>Escolha o serviço pretendido</option>
@@ -71,9 +71,18 @@
                         @endforeach
                     </select>
                 </div>
+                <div>
+                    <label for="office_id" class="{{ $labelClass }}">Oficina *</label>
+                    <select id="office_id" name="office_id" required class="{{ $inputClass }}">
+                        <option value="" disabled {{ old('office_id') ? '' : 'selected' }}>Escolha a oficina pretendida</option>
+                        @foreach ($offices as $office)
+                            <option value="{{ $office->id }}" {{ (int) old('office_id') === $office->id ? 'selected' : '' }}>{{ $office->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="sm:col-span-2">
                     <label for="notes" class="{{ $labelClass }}">Notas</label>
-                    <textarea id="notes" name="notes" rows="4" maxlength="2000" placeholder="Marca e modelo do carro, matrícula, oficina preferida, disponibilidade..." class="{{ $inputClass }}">{{ old('notes') }}</textarea>
+                    <textarea id="notes" name="notes" rows="4" maxlength="2000" placeholder="Marca e modelo do carro, matrícula, disponibilidade..." class="{{ $inputClass }}">{{ old('notes') }}</textarea>
                 </div>
             </div>
 

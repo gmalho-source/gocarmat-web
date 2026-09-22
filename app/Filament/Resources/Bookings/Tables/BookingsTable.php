@@ -33,6 +33,9 @@ class BookingsTable
                 TextColumn::make('service')
                     ->label('Serviço')
                     ->badge(),
+                TextColumn::make('office.name')
+                    ->label('Oficina')
+                    ->sortable(),
                 IconColumn::make('newsletter_opt_in')
                     ->label('Newsletter')
                     ->boolean(),

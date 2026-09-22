@@ -62,7 +62,7 @@
                        oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
             </div>
             @php $servicoPreSelecionado = old('service') ?: request('servico'); @endphp
-            <div class="sm:col-span-2">
+            <div>
                 <label for="service" class="{{ $labelClass }}">Serviço *</label>
                 <select id="service" name="service" required class="{{ $inputClass }}">
                     <option value="" disabled {{ $servicoPreSelecionado ? '' : 'selected' }}>Escolha o serviço pretendido</option>
@@ -71,9 +71,18 @@
                     @endforeach
                 </select>
             </div>
+            <div>
+                <label for="office_id" class="{{ $labelClass }}">Oficina *</label>
+                <select id="office_id" name="office_id" required class="{{ $inputClass }}">
+                    <option value="" disabled {{ old('office_id') ? '' : 'selected' }}>Escolha a oficina pretendida</option>
+                    @foreach ($offices as $office)
+                        <option value="{{ $office->id }}" {{ (int) old('office_id') === $office->id ? 'selected' : '' }}>{{ $office->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="sm:col-span-2">
                 <label for="notes" class="{{ $labelClass }}">Notas</label>
-                <textarea id="notes" name="notes" rows="4" maxlength="2000" placeholder="Marca e modelo do carro, matrícula, oficina preferida, disponibilidade..." class="{{ $inputClass }}">{{ old('notes') ?: request('nota') }}</textarea>
+                <textarea id="notes" name="notes" rows="4" maxlength="2000" placeholder="Marca e modelo do carro, matrícula, disponibilidade..." class="{{ $inputClass }}">{{ old('notes') ?: request('nota') }}</textarea>
             </div>
         </div>
 
