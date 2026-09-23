@@ -46,6 +46,10 @@ class OfficeForm
                     ->label('E-mail')
                     ->email()
                     ->required(),
+                TextInput::make('notification_email')
+                    ->label('E-mail extra para notificações de marcações')
+                    ->helperText('Opcional. Quando alguém marca nesta oficina, a notificação vai sempre para o e-mail acima e para o e-mail de notificação das Definições — este campo acrescenta mais um destinatário, se for preciso.')
+                    ->email(),
                 TextInput::make('maps_url')
                     ->label('Link Google Maps')
                     ->url(),

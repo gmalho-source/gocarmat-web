@@ -77,10 +77,14 @@ class BookingController extends Controller
             app(\App\Services\Brevo::class)->subscrever($booking->email, $booking->name, 'marcacoes');
         }
 
-        $adminEmail = Setting::get('notification_email', 'apoiocliente@gocarmat.pt');
+        $destinatarios = collect([
+            Setting::get('notification_email', 'apoiocliente@gocarmat.pt'),
+            $booking->office->email,
+            $booking->office->notification_email,
+        ])->filter()->unique()->values()->all();
 
         try {
-            Mail::to($adminEmail)->send(new BookingNotification($booking));
+            Mail::to($destinatarios)->send(new BookingNotification($booking));
             Mail::to($booking->email)->send(new BookingConfirmation($booking));
         } catch (\Throwable $e) {
             report($e); // o pedido fica sempre guardado em BD, mesmo que o email falhe
