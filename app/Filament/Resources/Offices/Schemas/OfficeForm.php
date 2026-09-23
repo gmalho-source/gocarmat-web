@@ -47,9 +47,19 @@ class OfficeForm
                     ->email()
                     ->required(),
                 TextInput::make('notification_email')
-                    ->label('E-mail extra para notificações de marcações')
-                    ->helperText('Opcional. Quando alguém marca nesta oficina, a notificação vai sempre para o e-mail acima e para o e-mail de notificação das Definições — este campo acrescenta mais um destinatário, se for preciso.')
-                    ->email(),
+                    ->label('E-mail(s) extra para notificações de marcações')
+                    ->helperText('Opcional. Quando alguém marca nesta oficina, a notificação vai sempre para o e-mail acima e para o e-mail de notificação das Definições — este campo acrescenta mais destinatários, se for preciso. Para mais do que um, separe por vírgulas (ex: nome1@gocarmat.pt, nome2@gocarmat.pt).')
+                    ->rule(function () {
+                        return function (string $attribute, mixed $value, \Closure $fail) {
+                            foreach (explode(',', (string) $value) as $email) {
+                                $email = trim($email);
+
+                                if ($email !== '' && ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                                    $fail("\"{$email}\" não é um e-mail válido.");
+                                }
+                            }
+                        };
+                    }),
                 TextInput::make('maps_url')
                     ->label('Link Google Maps')
                     ->url(),

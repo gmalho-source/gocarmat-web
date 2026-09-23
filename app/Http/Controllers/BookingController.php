@@ -80,8 +80,13 @@ class BookingController extends Controller
         $destinatarios = collect([
             Setting::get('notification_email', 'apoiocliente@gocarmat.pt'),
             $booking->office->email,
-            $booking->office->notification_email,
-        ])->filter()->unique()->values()->all();
+            ...explode(',', (string) $booking->office->notification_email),
+        ])
+            ->map(fn (?string $email) => trim((string) $email))
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
 
         try {
             Mail::to($destinatarios)->send(new BookingNotification($booking));
