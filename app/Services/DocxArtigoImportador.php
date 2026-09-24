@@ -31,6 +31,156 @@ class DocxArtigoImportador
     private array $relacoes = [];
 
     /**
+     * Título (primeiro parágrafo com estilo Título/Heading1), excerto (o
+     * texto do primeiro parágrafo a seguir ao título) e metadados
+     * (categoria/tags/meta title/meta description), sem tocar em imagens
+     * nem montar o corpo — para pré-preencher o formulário assim que o
+     * ficheiro é carregado, sem gravar nada em disco.
+     *
+     * @return array{
+     *     titulo: ?string,
+     *     excerto: ?string,
+     *     categoria: ?string,
+     *     tags: array<int, string>,
+     *     meta_title: ?string,
+     *     meta_description: ?string,
+     * }
+     */
+    public function previa(string $caminhoDocx): array
+    {
+        $this->zip = new \ZipArchive();
+
+        if ($this->zip->open($caminhoDocx) !== true) {
+            throw new \RuntimeException('Não foi possível abrir o ficheiro .docx.');
+        }
+
+        try {
+            $dom = new \DOMDocument();
+            $dom->loadXML($this->zip->getFromName('word/document.xml'));
+
+            $xpath = new \DOMXPath($dom);
+            $xpath->registerNamespace('w', self::NS_W);
+            $this->xpath = $xpath;
+
+            $titulo = null;
+            $excerto = null;
+            $metadados = [];
+
+            foreach ($xpath->query('//w:body/w:p') as $p) {
+                $metadadosDoParagrafo = $this->metadadosDoParagrafo($p);
+
+                if ($metadadosDoParagrafo) {
+                    foreach ($metadadosDoParagrafo as $chave => $valor) {
+                        if ($chave !== 'imagem_destaque_marcador') {
+                            $metadados[$chave] = $valor;
+                        }
+                    }
+
+                    continue;
+                }
+
+                $texto = str_replace("\n", ' ', $this->textoSemFormatacao($p));
+
+                if ($titulo === null) {
+                    if ($texto !== '' && $this->ehEstiloDeTitulo($this->estiloDoParagrafo($p))) {
+                        $titulo = $texto;
+                    }
+
+                    continue;
+                }
+
+                if ($excerto === null && $texto !== '') {
+                    $excerto = Str::limit($texto, 300);
+                }
+            }
+
+            return [
+                'titulo' => $titulo,
+                'excerto' => $excerto,
+                'categoria' => $metadados['categoria'] ?? null,
+                'tags' => $this->parseTags($metadados['tags'] ?? null),
+                'meta_title' => $metadados['meta_title'] ?? null,
+                'meta_description' => $metadados['meta_description'] ?? null,
+            ];
+        } finally {
+            $this->zip->close();
+        }
+    }
+
+    /**
+     * Guarda no disco 'public' a imagem marcada com "Imagem de topo/destaque:"
+     * (a última, se houver mais do que uma) e devolve o caminho — para
+     * pré-preencher o campo Imagem de destaque assim que o ficheiro é
+     * carregado, sem esperar pela submissão do formulário.
+     */
+    public function imagemDestaque(string $caminhoDocx): ?string
+    {
+        $this->zip = new \ZipArchive();
+
+        if ($this->zip->open($caminhoDocx) !== true) {
+            throw new \RuntimeException('Não foi possível abrir o ficheiro .docx.');
+        }
+
+        try {
+            $this->carregarRelacoes();
+
+            $dom = new \DOMDocument();
+            $dom->loadXML($this->zip->getFromName('word/document.xml'));
+
+            $xpath = new \DOMXPath($dom);
+            $xpath->registerNamespace('w', self::NS_W);
+            $this->xpath = $xpath;
+
+            $proximaImagemEhDestaque = false;
+            $caminhoGuardado = null;
+
+            foreach ($xpath->query('//w:body/w:p') as $p) {
+                if (array_key_exists('imagem_destaque_marcador', $this->metadadosDoParagrafo($p))) {
+                    $proximaImagemEhDestaque = true;
+
+                    continue;
+                }
+
+                if (! $proximaImagemEhDestaque) {
+                    continue;
+                }
+
+                $blip = $xpath->query('.//w:drawing//*[local-name()="blip"]', $p)->item(0);
+
+                if (! $blip) {
+                    continue;
+                }
+
+                $rId = $blip->getAttributeNS(self::NS_R, 'embed');
+                $relacao = $this->relacoes[$rId] ?? null;
+
+                if (! $relacao || $relacao['tipo'] !== 'imagem') {
+                    continue;
+                }
+
+                $dadosImagem = $this->zip->getFromName('word/'.$relacao['alvo']);
+
+                if ($dadosImagem === false) {
+                    continue;
+                }
+
+                $ext = strtolower(pathinfo($relacao['alvo'], PATHINFO_EXTENSION)) ?: 'jpg';
+                $caminho = 'blog/'.Str::uuid().'.'.$ext;
+
+                if (Storage::disk('public')->put($caminho, $dadosImagem)) {
+                    $caminhoGuardado = $caminho;
+                }
+
+                $proximaImagemEhDestaque = false;
+            }
+
+            return $caminhoGuardado;
+        } finally {
+            $this->zip->close();
+        }
+    }
+
+    /**
      * @return array{
      *     titulo: ?string,
      *     body: string,
@@ -76,11 +226,17 @@ class DocxArtigoImportador
 
                 // Metadados no fim do documento (Categorias/Tags/Palavras-chave/Slug),
                 // no mesmo formato que já usamos nos artigos: "Rótulo: valor".
-                if ($chave = $this->chaveDeMetadado($textoSimples)) {
-                    if ($chave === 'imagem_destaque_marcador') {
-                        $proximaImagemEhDestaque = true;
-                    } else {
-                        $metadados[$chave] = trim(Str::after($textoSimples, ':'));
+                // Podem vir mais do que um por parágrafo, separados por
+                // Shift+Enter em vez de um parágrafo novo.
+                $metadadosDoParagrafo = $this->metadadosDoParagrafo($p);
+
+                if ($metadadosDoParagrafo) {
+                    foreach ($metadadosDoParagrafo as $chave => $valor) {
+                        if ($chave === 'imagem_destaque_marcador') {
+                            $proximaImagemEhDestaque = true;
+                        } else {
+                            $metadados[$chave] = $valor;
+                        }
                     }
 
                     continue;
@@ -92,14 +248,16 @@ class DocxArtigoImportador
                 // (normalmente no fim do artigo) é a imagem de destaque, não
                 // uma imagem do corpo do artigo.
                 if ($imagens && $proximaImagemEhDestaque) {
-                    $imagemDestaqueFinal ??= $imagens[0];
+                    // Se houver mais do que um marcador, a última imagem
+                    // marcada é que vence.
+                    $imagemDestaqueFinal = $imagens[0];
                     $proximaImagemEhDestaque = false;
 
                     continue;
                 }
 
                 if ($ehTitulo) {
-                    $titulo = $textoSimples ?: null;
+                    $titulo = $textoSimples !== '' ? str_replace("\n", ' ', $textoSimples) : null;
 
                     continue;
                 }
@@ -160,10 +318,10 @@ class DocxArtigoImportador
                 'body' => implode("\n", $blocosHtml),
                 'imagem_preambulo' => $imagemDestaqueFinal ?? $imagemPreambulo,
                 'categoria' => $metadados['categoria'] ?? null,
-                'tags' => filled($metadados['tags'] ?? null)
-                    ? array_values(array_filter(array_map(fn ($t) => trim($t, " \t\n\r\0\x0B."), explode(',', $metadados['tags']))))
-                    : [],
+                'tags' => $this->parseTags($metadados['tags'] ?? null),
                 'slug_sugerido' => filled($metadados['slug'] ?? null) ? Str::slug($metadados['slug']) : null,
+                'meta_title' => $metadados['meta_title'] ?? null,
+                'meta_description' => $metadados['meta_description'] ?? null,
             ];
         } finally {
             $this->zip->close();
@@ -209,14 +367,46 @@ class DocxArtigoImportador
         return $this->xpath->query('.//w:pPr/w:numPr', $p)->length > 0;
     }
 
+    /** Texto do parágrafo, com uma quebra de linha (\n) onde houver um Shift+Enter manual. */
     private function textoSemFormatacao(\DOMElement $p): string
     {
         $texto = '';
-        foreach ($this->xpath->query('.//w:t', $p) as $t) {
-            $texto .= $t->nodeValue;
+        foreach ($this->xpath->query('.//w:t | .//w:br', $p) as $no) {
+            $texto .= $no->localName === 'br' ? "\n" : $no->nodeValue;
         }
 
         return trim($texto);
+    }
+
+    /**
+     * Um parágrafo do Word pode conter mais do que uma linha "Rótulo: valor"
+     * separadas por Shift+Enter em vez de um parágrafo novo (ex: "Meta
+     * title: ..." seguido logo de "Meta description: ...") — sem isto, as
+     * duas ficavam misturadas numa só linha e nenhuma era reconhecida.
+     *
+     * @return array<string, string> chave (de chaveDeMetadado) => valor
+     */
+    private function metadadosDoParagrafo(\DOMElement $p): array
+    {
+        $encontrados = [];
+
+        foreach (explode("\n", $this->textoSemFormatacao($p)) as $linha) {
+            $linha = trim($linha);
+
+            if ($linha !== '' && ($chave = $this->chaveDeMetadado($linha))) {
+                $encontrados[$chave] = trim(Str::after($linha, ':'));
+            }
+        }
+
+        return $encontrados;
+    }
+
+    /** @return array<int, string> */
+    private function parseTags(?string $tagsCru): array
+    {
+        return filled($tagsCru)
+            ? array_values(array_filter(array_map(fn ($t) => trim($t, " \t\n\r\0\x0B."), explode(',', $tagsCru))))
+            : [];
     }
 
     /** @return array<int, string> caminhos no disco 'public' das imagens guardadas */
@@ -338,6 +528,8 @@ class DocxArtigoImportador
             (bool) preg_match('/^categorias?\s+do\s+artigo\s*:/i', $texto) => 'categoria',
             (bool) preg_match('/^tags?\s*:/i', $texto) => 'tags',
             (bool) preg_match('/^slug\s*:/i', $texto) => 'slug',
+            (bool) preg_match('/^meta\s*title\s*:/i', $texto) => 'meta_title',
+            (bool) preg_match('/^meta\s*description\s*:/i', $texto) => 'meta_description',
             // Rótulo (sem valor a seguir) que marca a imagem seguinte como a
             // imagem de destaque do artigo, não uma imagem do corpo.
             (bool) preg_match('/^imagem\s+de\s+(topo|destaque)\b\s*:?\s*$/i', $texto) => 'imagem_destaque_marcador',
