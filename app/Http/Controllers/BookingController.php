@@ -41,7 +41,9 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
-        // Honeypot anti-spam: campo invisível que humanos não preenchem
+        // Honeypot anti-spam: campo invisível que humanos não preenchem.
+        // Não usa redirect_to aqui (o pedido nunca chega a ser validado) para
+        // não abrir um redirecionamento não verificado a um bot.
         if ($request->filled('website')) {
             return redirect()->route('marcacoes')->with('success', true);
         }
@@ -56,6 +58,9 @@ class BookingController extends Controller
             'notes' => ['nullable', 'string', 'max:2000'],
             'newsletter_opt_in' => ['nullable', 'boolean'],
             'privacy' => ['accepted'],
+            // Só um caminho interno (ex: "/campanhas/revisao-oficial"), nunca
+            // um URL completo — evita que este campo sirva de redireccionamento aberto.
+            'redirect_to' => ['nullable', 'string', 'max:255', 'regex:/^\/[^\/].*$|^\/$/'],
         ], [
             'privacy.accepted' => 'É necessário aceitar a Política de Privacidade.',
             'phone.regex' => 'O telefone só pode conter números e o símbolo + para indicativos.',
@@ -95,6 +100,6 @@ class BookingController extends Controller
             report($e); // o pedido fica sempre guardado em BD, mesmo que o email falhe
         }
 
-        return redirect()->route('marcacoes')->with('success', true);
+        return redirect($data['redirect_to'] ?? route('marcacoes'))->with('success', true);
     }
 }
