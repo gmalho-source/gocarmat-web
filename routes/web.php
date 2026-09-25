@@ -22,6 +22,13 @@ Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsle
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog-sugestoes', [BlogController::class, 'suggest'])->name('blog.suggest');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+// Landing pages de campanha, fora do backoffice de propósito (não geridas
+// pela Page nem editáveis no composer) — ver resources/views/campanhas/.
+// Isto tem de vir antes do Route::fallback para ganhar à Page da BD com o
+// mesmo slug (campanhas/revisao-oficial já lá existia).
+Route::view('/campanhas/revisao-oficial', 'campanhas.revisao-oficial')->name('campanhas.revisao-oficial');
+Route::view('/campanhas/pastilhas-travao', 'campanhas.pastilhas-travao')->name('campanhas.pastilhas-travao');
+
 Route::view('/politica-de-privacidade', 'privacy')->name('privacy');
 Route::view('/politica-de-cookies', 'cookies')->name('cookies');
 Route::view('/termos-e-condicoes', 'terms')->name('terms');
