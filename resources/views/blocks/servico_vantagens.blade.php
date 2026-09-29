@@ -1,14 +1,18 @@
 {{-- Grelha de vantagens numeradas (páginas de serviço individual).
      'compacto' reduz a margem superior — usar quando o bloco anterior já é um
      'texto' simples (sem imagem), para não duplicar o espaço em branco.
-     'colunas' controla o nº de cartões por linha no ecrã grande (3, por omissão, ou 4). --}}
+     'colunas' controla o nº de cartões por linha no ecrã grande (3, por omissão, ou 4).
+     'margem' substitui por completo as classes de margem superior — usar
+     quando o bloco anterior é um elemento flutuante (ex: cartão de formulário
+     sobreposto ao hero) e é preciso um valor específico, incluindo negativo. --}}
 @php
     $compacto = $data['compacto'] ?? false;
     $colunasMapa = ['3' => 'xl:grid-cols-3', '4' => 'xl:grid-cols-4'];
     $colunas = $colunasMapa[(string) ($data['colunas'] ?? 3)] ?? 'xl:grid-cols-3';
+    $margem = $data['margem'] ?? ($compacto ? 'mt-6 xl:mt-8' : 'mt-16 xl:mt-24');
 @endphp
 
-<section class="{{ $compacto ? 'mt-6 xl:mt-8' : 'mt-16 xl:mt-24' }} rounded-[32px] bg-gelo px-8 py-14 sm:px-12 xl:px-16 xl:py-20">
+<section class="{{ $margem }} rounded-[32px] bg-gelo px-8 py-14 sm:px-12 xl:px-16 xl:py-20">
     <h2 class="font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] text-carbono sm:text-[52px]">
         {{ $data['titulo'] }}
         @if (filled($data['titulo_destaque'] ?? null))
