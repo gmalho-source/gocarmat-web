@@ -8,6 +8,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      deploy_branch:
+        description: 'Branch de deploy de destino (ex: deploy-producao, para publicar sem afetar o "deploy" do staging)'
+        required: false
+        default: 'deploy'
 
 concurrency:
   group: build-deploy-branch
@@ -45,6 +50,8 @@ jobs:
           npm run build
 
       - name: Publicar no branch deploy
+        env:
+          DEPLOY_BRANCH: ${{ github.event.inputs.deploy_branch || 'deploy' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -69,20 +76,20 @@ jobs:
           !.env.production.example
           FIM
 
-          # A história do branch deploy tem de ser contínua: se cada build criar
+          # A história do branch de deploy tem de ser contínua: se cada build criar
           # um commit sem relação com o anterior, o "Update from Remote" do
           # cPanel não consegue avançar e falha. Por isso o novo commit é sempre
           # filho do anterior.
-          git fetch origin deploy 2>/dev/null && existe=1 || existe=0
+          git fetch origin "$DEPLOY_BRANCH" 2>/dev/null && existe=1 || existe=0
 
           if [ "$existe" = "1" ]; then
-            git branch -f deploy origin/deploy
+            git branch -f "$DEPLOY_BRANCH" "origin/$DEPLOY_BRANCH"
           else
-            git branch -f deploy
+            git branch -f "$DEPLOY_BRANCH"
           fi
 
           # Muda de branch sem tocar nos ficheiros já compilados
-          git symbolic-ref HEAD refs/heads/deploy
+          git symbolic-ref HEAD "refs/heads/$DEPLOY_BRANCH"
           git reset
 
           git add -A
@@ -90,6 +97,6 @@ jobs:
             echo "Sem alterações para publicar."
           else
             git commit -q -m "build: $GITHUB_SHA"
-            git push -q origin deploy
-            echo "Branch deploy atualizado a partir de $GITHUB_SHA"
+            git push -q origin "$DEPLOY_BRANCH"
+            echo "Branch $DEPLOY_BRANCH atualizado a partir de $GITHUB_SHA"
           fi
