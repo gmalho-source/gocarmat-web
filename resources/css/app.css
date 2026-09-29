@@ -102,8 +102,12 @@ body {
 }
 
 .prose-post img {
+    display: block;
     margin-block: 1.5em;
+    margin-inline: auto;
     border-radius: 16px;
+    max-width: 100%;
+    height: auto;
 }
 
 .prose-post blockquote {
