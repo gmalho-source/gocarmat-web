@@ -86,6 +86,7 @@
         'titulo_destaque' => 'Nós levamo-lo até si.',
         'texto' => 'Escolha a sua bilha Repsol e peça a entrega em qualquer localidade do concelho de Oeiras.',
         'texto_max' => 'max-w-none',
+        'botao_centrado' => true,
         'margem' => 'mt-8 xl:mt-12',
         'icone_imagem' => 'images/repsol-icone-gas.png',
         'botao_texto' => 'Encomendar Agora',
