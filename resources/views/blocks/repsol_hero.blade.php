@@ -64,6 +64,10 @@
 
             <div class="relative min-h-[300px] lg:col-start-2 lg:row-start-1">
                 <img src="{{ \App\Support\Blocos::imagem($data['imagem'] ?? null) }}" alt="" class="absolute inset-0 size-full object-cover">
+                {{-- No mobile (empilhado) as garrafas ficam por cima da fotografia, a assentar na faixa lima. --}}
+                @if (filled($data['imagem_garrafas'] ?? null))
+                    <img src="{{ \App\Support\Blocos::imagem($data['imagem_garrafas']) }}" alt="" class="pointer-events-none absolute bottom-0 left-1/2 h-auto w-[78%] max-w-[360px] -translate-x-1/2 lg:hidden">
+                @endif
             </div>
 
             {{-- Garrafas: ocupam a linha de cima e ficam centradas na fronteira

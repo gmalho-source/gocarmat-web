@@ -33,6 +33,6 @@
     </div>
 
     @if (filled($data['botao_texto'] ?? null))
-        <x-pill :variant="\App\Support\Blocos::escuro($data['fundo'] ?? 'carbono') ? 'lima' : 'dark'" :href="($data['botao_link'] ?? null) ?: route('marcacoes')">{{ $data['botao_texto'] }}</x-pill>
+        <x-pill :variant="\App\Support\Blocos::escuro($data['fundo'] ?? 'carbono') ? 'lima' : 'dark'" :href="($data['botao_link'] ?? null) ?: route('marcacoes')" :class="($data['botao_centrado'] ?? false) ? 'max-xl:self-center' : ''">{{ $data['botao_texto'] }}</x-pill>
     @endif
 </section>

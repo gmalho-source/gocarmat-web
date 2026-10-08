@@ -9,14 +9,15 @@
         </span>
     </a>
 
-    <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+    <div class="flex w-full flex-col items-start gap-y-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
         @if (filled($data['telefones'] ?? null))
             <div class="flex items-center gap-3">
-                <span class="flex size-10 shrink-0 items-center justify-center bg-carbono">
+                <span class="flex size-9 shrink-0 items-center justify-center bg-carbono sm:size-10">
                     <x-ui.icon name="phone" class="size-4 text-lima" />
                 </span>
-                <div class="flex flex-col leading-tight">
+                <div class="flex flex-wrap items-center gap-x-1.5 leading-tight sm:flex-col sm:items-start sm:gap-x-0">
                     @foreach ($data['telefones'] as $telefone)
+                        @if (! $loop->first)<span class="font-bold text-energia sm:hidden" aria-hidden="true">/</span>@endif
                         <a href="tel:{{ preg_replace('/\s+/', '', $telefone) }}" class="whitespace-nowrap text-sm font-bold tracking-[-0.16px] text-energia hover:underline sm:text-base">{{ $telefone }}</a>
                     @endforeach
                 </div>
@@ -25,10 +26,10 @@
 
         @if (filled($data['email'] ?? null))
             <a href="mailto:{{ $data['email'] }}" class="flex items-center gap-3">
-                <span class="flex size-10 shrink-0 items-center justify-center bg-carbono">
+                <span class="flex size-9 shrink-0 items-center justify-center bg-carbono sm:size-10">
                     <x-ui.icon name="envelope" class="size-4 text-lima" />
                 </span>
-                <span class="break-all text-sm font-bold uppercase tracking-[-0.16px] text-energia hover:underline">{{ $data['email'] }}</span>
+                <span class="text-[13px] font-bold uppercase leading-tight tracking-[-0.16px] text-energia hover:underline sm:text-sm">{{ $data['email'] }}</span>
             </a>
         @endif
     </div>
