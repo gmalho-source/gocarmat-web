@@ -12,12 +12,12 @@
                 <x-ui.icon :name="$data['icone']" class="size-6" />
             </div>
         @endif
-        <div class="min-w-0">
+        <div class="hidden min-w-0 sm:block">
             <p class="truncate font-mono text-sm font-bold uppercase tracking-[-0.16px] text-lima sm:text-base">{{ $data['titulo'] ?? '' }}</p>
             @if (filled($data['texto'] ?? null))
                 <p class="mt-0.5 hidden truncate text-sm text-gelo sm:block">{{ $data['texto'] }}</p>
             @endif
         </div>
     </div>
-    <x-pill variant="lima" :href="($data['botao_link'] ?? null) ?: route('marcacoes')" class="shrink-0">{{ $data['botao_texto'] ?? 'Marcar Agora' }}</x-pill>
+    <x-pill variant="lima" :href="($data['botao_link'] ?? null) ?: route('marcacoes')" class="shrink-0 max-sm:flex-1 max-sm:justify-center">{{ $data['botao_texto'] ?? 'Marcar Agora' }}</x-pill>
 </div>

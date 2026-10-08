@@ -1,8 +1,12 @@
-<x-mail::layout>
+@php
+    // Permite a um email usar outra marca no cabeçalho/rodapé: <x-mail::message marca="QSCMC">
+    $marca = $attributes->get('marca') ?? config('app.name');
+@endphp
+<x-mail::layout :marca="$marca">
 {{-- Header --}}
 <x-slot:header>
-<x-mail::header :url="config('app.url')">
-{{ config('app.name') }}
+<x-mail::header :url="config('app.url')" :marca="$attributes->get('marca')">
+{{ $marca }}
 </x-mail::header>
 </x-slot:header>
 
@@ -21,7 +25,7 @@
 {{-- Footer --}}
 <x-slot:footer>
 <x-mail::footer>
-© {{ date('Y') }} {{ config('app.name') }}. {{ __('All rights reserved.') }}
+© {{ date('Y') }} {{ $marca }}. {{ __('All rights reserved.') }}
 </x-mail::footer>
 </x-slot:footer>
 </x-mail::layout>
