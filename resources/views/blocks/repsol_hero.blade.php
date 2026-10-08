@@ -95,16 +95,12 @@
              só flutua sobre a imagem em ecrãs largos, onde há espaço de sobra.
              O id é o alvo do botão da barra de CTA fixa (campanha_cta_fixo). --}}
         <div id="form-marcacao" class="relative z-10 mt-6 scroll-mt-24 px-4 sm:px-8 lg:absolute lg:z-20 lg:mt-0 lg:right-0 lg:bottom-0 lg:w-[520px] lg:px-0 xl:w-[600px]">
-            <div class="rounded-[24px] bg-carbono p-7 shadow-2xl lg:rounded-br-[32px] xl:p-8">
+            <div class="relative rounded-[24px] bg-carbono p-7 shadow-2xl lg:rounded-br-[32px] xl:p-8">
+                {{-- Depois de enviar, o formulário continua no layout (invisível) para o cartão
+                     manter exatamente o mesmo tamanho, e a mensagem de sucesso aparece por cima. --}}
+                <div @class(['invisible' => session('success')]) @if (session('success')) aria-hidden="true" inert @endif>
                 <h2 class="text-2xl font-bold leading-[1.2] tracking-[-0.03em] text-white">{{ $data['formulario_titulo'] ?? 'Encomende a sua bilha de gás' }}</h2>
 
-                @if (session('success'))
-                    <div class="mt-6 rounded-2xl bg-lima px-6 py-5">
-                        <p class="text-base font-bold text-carbono">Obrigado pela sua encomenda.</p>
-                        <p class="mt-3 text-sm text-carbono">Recebemos o seu pedido com sucesso. Brevemente entraremos em contacto para confirmar a hora de entrega.</p>
-                        <p class="mt-3 text-sm text-carbono">Até breve!</p>
-                    </div>
-                @else
                     @if (filled($data['formulario_texto'] ?? null))
                         <p class="mt-3 text-sm font-light leading-[1.5] text-gelo">{{ $data['formulario_texto'] }}</p>
                     @endif
@@ -172,6 +168,16 @@
                         Encomendar Agora
                         <x-ui.icon name="arrow-right" class="size-4" />
                     </button>
+                </div>
+
+                @if (session('success'))
+                    <div class="absolute inset-0 flex items-center p-7 xl:p-8">
+                        <div class="w-full rounded-2xl bg-lima px-6 py-6">
+                            <p class="text-xl font-bold text-carbono">Obrigado pela sua encomenda.</p>
+                            <p class="mt-3 text-base text-carbono">Recebemos o seu pedido com sucesso. Brevemente entraremos em contacto para confirmar a hora de entrega.</p>
+                            <p class="mt-3 text-base text-carbono">Até breve!</p>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>
