@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\GasOrderController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SitemapController;
@@ -28,6 +29,11 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 // mesmo slug (campanhas/revisao-oficial já lá existia).
 Route::view('/campanhas/revisao-oficial', 'campanhas.revisao-oficial')->name('campanhas.revisao-oficial');
 Route::view('/campanhas/pastilhas-travao', 'campanhas.pastilhas-travao')->name('campanhas.pastilhas-travao');
+
+// Landing page da parceria Repsol Gás — entrega de bilhas de gás ao domicílio.
+// Pedidos ficam guardados à parte (GasOrder), não são marcações de oficina.
+Route::view('/repsol-gas', 'repsol-gas')->name('repsol-gas');
+Route::post('/repsol-gas', [GasOrderController::class, 'store'])->name('gas-orders.store');
 
 Route::view('/politica-de-privacidade', 'privacy')->name('privacy');
 Route::view('/politica-de-cookies', 'cookies')->name('cookies');
