@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\GasOrderController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SitemapController;
@@ -36,6 +37,11 @@ Route::get('/robots.txt', function () {
 
     return response($conteudo, 200, ['Content-Type' => 'text/plain']);
 });
+
+// Landing page da parceria Repsol Gás — entrega de bilhas de gás ao domicílio.
+// Pedidos ficam guardados à parte (GasOrder), não são marcações de oficina.
+Route::view('/repsol-gas', 'repsol-gas')->name('repsol-gas');
+Route::post('/repsol-gas', [GasOrderController::class, 'store'])->name('gas-orders.store');
 
 // Páginas criadas no backoffice e, em último caso, os redirects 301 dos URLs
 // antigos do WordPress (ex: /inspecao-automovel -> /blog/inspecao-automovel).

@@ -15,6 +15,7 @@
         'certificate' => 'M10 12.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 0v6l-2.5-1.7L5 18.5v-6m10 6v-6l-2.5 1.7L10 12.5m0-6.7v.01',
         'search' => 'M9 15.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Zm4.6-1.9 4 4',
         'chevron-down' => 'M5 7.5 10 12.5 15 7.5',
+        'droplet' => 'M10 2.3s5.8 6.9 5.8 11a5.8 5.8 0 1 1-11.6 0c0-4.1 5.8-11 5.8-11Z',
     ];
 
     // Ícones vetoriais sólidos (Font Awesome), diferentes dos de traço acima:

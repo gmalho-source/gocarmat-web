@@ -30,12 +30,10 @@
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     @endif
 
-    @include('partials.header')
-
+    {{-- Sem cabeçalho/menu nem rodapé de propósito: página de campanha
+         autónoma, pensada para não dar saída do funil de conversão. --}}
     <main>
         @yield('content')
     </main>
-
-    @include('partials.footer')
 </body>
 </html>
