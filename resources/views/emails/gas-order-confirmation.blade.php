@@ -1,7 +1,5 @@
 <x-mail::message marca="QSCMC">
-# Obrigado pela sua encomenda!
-
-Olá, {{ $order->name }}. Recebemos o seu pedido de entrega de gás com sucesso. Brevemente entraremos em contacto para confirmar a hora de entrega.
+Olá, {{ $order->name }}. Recebemos o seu pedido de entrega de gás com sucesso. Brevemente entraremos em contacto para confirmar o dia e hora de entrega do seu pedido.
 
 ## Os dados do seu pedido
 
