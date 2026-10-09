@@ -62,7 +62,7 @@
                 </div>
             </div>
 
-            <div class="relative min-h-[300px] lg:col-start-2 lg:row-start-1">
+            <div class="relative min-h-[300px] max-lg:order-first lg:col-start-2 lg:row-start-1">
                 <img src="{{ \App\Support\Blocos::imagem($data['imagem'] ?? null) }}" alt="" class="absolute inset-0 size-full object-cover">
                 {{-- No mobile (empilhado) as garrafas ficam por cima da fotografia, a assentar na faixa lima. --}}
                 @if (filled($data['imagem_garrafas'] ?? null))
