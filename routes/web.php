@@ -23,18 +23,6 @@ Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsle
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog-sugestoes', [BlogController::class, 'suggest'])->name('blog.suggest');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
-// Landing pages de campanha, fora do backoffice de propósito (não geridas
-// pela Page nem editáveis no composer) — ver resources/views/campanhas/.
-// Isto tem de vir antes do Route::fallback para ganhar à Page da BD com o
-// mesmo slug (campanhas/revisao-oficial já lá existia).
-Route::view('/campanhas/revisao-oficial', 'campanhas.revisao-oficial')->name('campanhas.revisao-oficial');
-Route::view('/campanhas/pastilhas-travao', 'campanhas.pastilhas-travao')->name('campanhas.pastilhas-travao');
-
-// Landing page da parceria Repsol Gás — entrega de bilhas de gás ao domicílio.
-// Pedidos ficam guardados à parte (GasOrder), não são marcações de oficina.
-Route::view('/repsol-gas', 'repsol-gas')->name('repsol-gas');
-Route::post('/repsol-gas', [GasOrderController::class, 'store'])->name('gas-orders.store');
-
 Route::view('/politica-de-privacidade', 'privacy')->name('privacy');
 Route::view('/politica-de-cookies', 'cookies')->name('cookies');
 Route::view('/termos-e-condicoes', 'terms')->name('terms');
@@ -49,6 +37,11 @@ Route::get('/robots.txt', function () {
 
     return response($conteudo, 200, ['Content-Type' => 'text/plain']);
 });
+
+// Landing page da parceria Repsol Gás — entrega de bilhas de gás ao domicílio.
+// Pedidos ficam guardados à parte (GasOrder), não são marcações de oficina.
+Route::view('/repsol-gas', 'repsol-gas')->name('repsol-gas');
+Route::post('/repsol-gas', [GasOrderController::class, 'store'])->name('gas-orders.store');
 
 // Páginas criadas no backoffice e, em último caso, os redirects 301 dos URLs
 // antigos do WordPress (ex: /inspecao-automovel -> /blog/inspecao-automovel).
