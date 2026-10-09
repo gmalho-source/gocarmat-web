@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-producao-repsol',
         'version' => 'dev-producao-repsol',
-        'reference' => '6b7bdfd95c27581b1a67d2231912663246736391',
+        'reference' => '1242f54bbc9a1bdd1c51554e57d73739aa10aa88',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -523,7 +523,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-producao-repsol',
             'version' => 'dev-producao-repsol',
-            'reference' => '6b7bdfd95c27581b1a67d2231912663246736391',
+            'reference' => '1242f54bbc9a1bdd1c51554e57d73739aa10aa88',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
