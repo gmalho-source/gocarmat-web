@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-producao-imagens-artigos',
-        'version' => 'dev-producao-imagens-artigos',
-        'reference' => '096a3922448e7d013c65cb00b59c4b3055f777b8',
+        'pretty_version' => 'dev-producao-repsol',
+        'version' => 'dev-producao-repsol',
+        'reference' => '7c2c85c374bb3203ec6e03516c56875fac5539f7',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -521,9 +521,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-producao-imagens-artigos',
-            'version' => 'dev-producao-imagens-artigos',
-            'reference' => '096a3922448e7d013c65cb00b59c4b3055f777b8',
+            'pretty_version' => 'dev-producao-repsol',
+            'version' => 'dev-producao-repsol',
+            'reference' => '7c2c85c374bb3203ec6e03516c56875fac5539f7',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

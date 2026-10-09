@@ -107,7 +107,22 @@ function initCampanhaCtaFixo() {
     atualizar();
 }
 
+// Landing Repsol Gás: os botões de bilha no hero escolhem a opção do
+// dropdown "Opção pretendida" do formulário (o dropdown é que é submetido).
+function initGasBilhaDisplay() {
+    const select = document.querySelector('[data-bilha-select]');
+    const botoes = document.querySelectorAll('[data-bilha-botao]');
+    if (!select || !botoes.length) return;
+
+    botoes.forEach((botao) => {
+        botao.addEventListener('click', () => {
+            select.value = botao.dataset.bilhaBotao;
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initCarousels();
     initCampanhaCtaFixo();
+    initGasBilhaDisplay();
 });

@@ -10,7 +10,7 @@
     $colado = (bool) ($data['colar_ao_rodape'] ?? false);
 @endphp
 
-<section {{ ($data['ligar_barra_fixa'] ?? false) ? 'data-cta-scroll-target' : '' }} class="mt-16 flex flex-col items-start gap-8 px-8 py-12 sm:px-12 xl:mt-24 xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-14 {{ $f['sec'] }} {{ $colado ? 'rounded-t-[32px]' : 'rounded-[32px]' }}">
+<section {{ ($data['ligar_barra_fixa'] ?? false) ? 'data-cta-scroll-target' : '' }} class="{{ $data['margem'] ?? 'mt-16 xl:mt-24' }} flex flex-col items-start gap-8 px-8 py-12 sm:px-12 xl:flex-row xl:items-center xl:justify-between xl:px-24 xl:py-14 {{ $f['sec'] }} {{ $colado ? 'rounded-t-[32px]' : 'rounded-[32px]' }}">
     <div class="flex items-center gap-8">
         @if (filled($data['icone_imagem'] ?? null))
             <img src="{{ \App\Support\Blocos::imagem($data['icone_imagem']) }}" alt="" class="size-[90px] shrink-0 rounded-full object-cover xl:size-[110px]">
@@ -22,14 +22,17 @@
         <div>
             <h2 class="font-mono text-2xl font-bold uppercase leading-[1.2] tracking-[-0.03em] sm:text-3xl {{ ($data['cor_titulo'] ?? '') === 'energia' ? 'text-energia' : $f['titulo'] }}">
                 {{ $data['titulo'] }}
+                @if (filled($data['titulo_destaque'] ?? null))
+                    <span class="text-lima">{{ $data['titulo_destaque'] }}</span>
+                @endif
             </h2>
             @if (filled($data['texto'] ?? null))
-                <p class="mt-2 max-w-[640px] text-base font-light leading-[1.68] {{ $f['texto'] }}">{{ $data['texto'] }}</p>
+                <p class="mt-2 {{ $data['texto_max'] ?? 'max-w-[640px]' }} text-base font-light leading-[1.68] {{ $f['texto'] }}">{{ $data['texto'] }}</p>
             @endif
         </div>
     </div>
 
     @if (filled($data['botao_texto'] ?? null))
-        <x-pill :variant="\App\Support\Blocos::escuro($data['fundo'] ?? 'carbono') ? 'lima' : 'dark'" :href="($data['botao_link'] ?? null) ?: route('marcacoes')">{{ $data['botao_texto'] }}</x-pill>
+        <x-pill :variant="\App\Support\Blocos::escuro($data['fundo'] ?? 'carbono') ? 'lima' : 'dark'" :href="($data['botao_link'] ?? null) ?: route('marcacoes')" :class="($data['botao_centrado'] ?? false) ? 'max-xl:self-center' : ''">{{ $data['botao_texto'] }}</x-pill>
     @endif
 </section>
