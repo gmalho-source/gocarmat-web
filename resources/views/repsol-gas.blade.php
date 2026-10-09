@@ -23,6 +23,7 @@
         'cor_icone' => 'lima',
         'botao_texto' => 'Encomendar Agora',
         'botao_link' => '#form-marcacao',
+        'mobile_so_botao' => true,
     ]])
 
 <div class="mx-auto w-full max-w-[1920px] px-4 sm:px-8 xl:px-16">
