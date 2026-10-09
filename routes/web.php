@@ -10,6 +10,18 @@ use App\Models\Page;
 use App\Models\Redirect;
 use Illuminate\Support\Facades\Route;
 
+// Landing Repsol Gás no subdomínio próprio (repsol-gas.gocarmat.pt): a raiz é a
+// página e o formulário envia para a própria raiz. Tudo o resto volta ao site
+// principal, para o subdomínio não duplicar o site inteiro. Tem de vir primeiro
+// para o "{caminho}" não ser apanhado pelas rotas do domínio principal.
+Route::domain(config('app.repsol_host'))->group(function () {
+    Route::get('/', fn () => view('repsol-gas'));
+    Route::post('/', [GasOrderController::class, 'store']);
+    Route::get('/repsol-gas', fn () => redirect('/', 301));
+    Route::any('{caminho}', fn () => redirect()->away('https://www.gocarmat.pt'.request()->getRequestUri(), 301))
+        ->where('caminho', '.*');
+});
+
 // Estas páginas são geridas no backoffice (composer de blocos). Cada rota indica
 // a view original como alternativa, caso a página ainda não exista na BD.
 Route::get('/', fn () => app(PageController::class)->show('home', 'home'))->name('home');
@@ -32,7 +44,15 @@ Route::view('/campanhas/pastilhas-travao', 'campanhas.pastilhas-travao')->name('
 
 // Landing page da parceria Repsol Gás — entrega de bilhas de gás ao domicílio.
 // Pedidos ficam guardados à parte (GasOrder), não são marcações de oficina.
-Route::view('/repsol-gas', 'repsol-gas')->name('repsol-gas');
+// O endereço oficial é o subdomínio (grupo no topo deste ficheiro); no domínio
+// principal /repsol-gas redireciona para lá, e em local/staging serve a página.
+Route::get('/repsol-gas', function () {
+    if (in_array(request()->getHost(), ['gocarmat.pt', 'www.gocarmat.pt'], true)) {
+        return redirect()->away('https://'.config('app.repsol_host').'/', 301);
+    }
+
+    return view('repsol-gas');
+})->name('repsol-gas');
 Route::post('/repsol-gas', [GasOrderController::class, 'store'])->name('gas-orders.store');
 
 Route::view('/politica-de-privacidade', 'privacy')->name('privacy');
