@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Gás ao domicílio em Oeiras — GOCARMAT × Repsol">
     <meta property="og:description" content="Encomende a sua bilha de gás Repsol e receba-a em casa, em todo o concelho de Oeiras. Pagamento no ato da entrega, por MB Way ou Multibanco.">
-    <link rel="canonical" href="{{ url('/repsol-gas') }}">
+    <link rel="canonical" href="{{ 'https://'.config('app.repsol_host').'/' }}">
 @endpush
 
 @section('content')
@@ -49,7 +49,7 @@
         'imagem_garrafas' => 'images/repsol-garrafas.png',
         'formulario_titulo' => 'Encomende a sua bilha de gás',
         'formulario_texto' => 'Preencha os seus dados e escolha a data e o horário mais convenientes para a entrega.',
-        'redirect_to' => '/repsol-gas',
+        'redirect_to' => '/'.ltrim(request()->path(), '/'),
     ]])
 
     <div class="mt-8 grid gap-6 xl:mt-12 xl:grid-cols-2 xl:gap-10">

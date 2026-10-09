@@ -11,7 +11,7 @@
 @endphp
 
 <section class="relative">
-    <form method="POST" action="{{ route('gas-orders.store') }}">
+    <form method="POST" action="{{ url()->current() }}">
         @csrf
         <div class="hidden" aria-hidden="true">
             <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>

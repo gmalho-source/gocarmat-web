@@ -118,6 +118,9 @@ return [
     |
     */
 
+    // Subdomínio onde vive a landing Repsol Gás (opção A: é o endereço oficial).
+    'repsol_host' => env('REPSOL_HOST', 'repsol-gas.gocarmat.pt'),
+
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
