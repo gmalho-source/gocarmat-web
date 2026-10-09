@@ -55,7 +55,7 @@
      mais nenhuma configuração de "purpose" para o Analytics funcionar. --}}
 <script type="text/javascript">
 var _iub = _iub || [];
-_iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"enableTcf":true,"floatingPreferencesButtonDisplay":"bottom-right","googleAdditionalConsentMode":true,"perPurposeConsent":true,"reloadOnConsent":true,"siteId":2498738,"tcfPurposes":{"2":"consent_only","7":"consent_only","8":"consent_only","9":"consent_only","10":"consent_only"},"whitelabel":false,"cookiePolicyId":35917140,"banner":{"acceptButtonDisplay":true,"closeButtonRejects":true,"customizeButtonDisplay":true,"explicitWithdrawal":true,"fontSizeBody":"12px","listPurposes":true,"ownerName":"gocarmat","position":"bottom","rejectButtonDisplay":true,"showPurposesToggles":true,"showTotalNumberOfProviders":true}};
+_iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"enableTcf":true,"floatingPreferencesButtonDisplay":"bottom-right","googleAdditionalConsentMode":true,"perPurposeConsent":true,"reloadOnConsent":true,"siteId":2498738,"tcfPurposes":{"2":"consent_only","7":"consent_only","8":"consent_only","9":"consent_only","10":"consent_only"},"whitelabel":false,"cookiePolicyId":35917140,"banner":{"acceptButtonDisplay":true,"closeButtonRejects":true,"customizeButtonDisplay":true,"explicitWithdrawal":true,"fontSizeBody":"12px","listPurposes":true,"ownerName":"gocarmat","position":"bottom","rejectButtonDisplay":true,"showTotalNumberOfProviders":true}};
 _iub.csLangConfiguration = {"pt":{"cookiePolicyId":35917140}};
 </script>
 <script type="text/javascript" src="//cs.iubenda.com/sync/2498738.js"></script>
