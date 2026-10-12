@@ -25,6 +25,12 @@
                 <p class="text-lg font-bold text-carbono">Pedido enviado com sucesso!</p>
                 <p class="mt-1 text-base text-carbono">Recebemos a sua marcação e enviámos um e-mail de confirmação. A nossa equipa entrará em contacto consigo brevemente.</p>
             </div>
+
+            {{-- Evento para o GTM/Meta Ads: só dispara quando o pedido foi gravado. --}}
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({ event: 'lead_form_success', form_id: 'contactos' });
+            </script>
         @endif
 
         @if ($errors->any())
