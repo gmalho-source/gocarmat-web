@@ -182,6 +182,13 @@
                             <p class="mt-3 text-base text-carbono">Até breve!</p>
                         </div>
                     </div>
+
+                    {{-- Evento para o GTM/Meta Ads: só dispara quando o pedido foi gravado
+                         (o rastreio no submit era cancelado antes de o servidor responder). --}}
+                    <script>
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({ event: 'lead_form_success', form_id: 'lp_gas_oeiras' });
+                    </script>
                 @endif
             </div>
         </div>
