@@ -31,7 +31,7 @@ class GasOrdersTable
                     ->label('Telefone')
                     ->searchable(),
                 TextColumn::make('bilha')
-                    ->label('Bilha')
+                    ->label('Garrafa')
                     ->badge(),
                 TextColumn::make('janela_entrega')
                     ->label('Janela de entrega'),

@@ -42,7 +42,7 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::view('/campanhas/revisao-oficial', 'campanhas.revisao-oficial')->name('campanhas.revisao-oficial');
 Route::view('/campanhas/pastilhas-travao', 'campanhas.pastilhas-travao')->name('campanhas.pastilhas-travao');
 
-// Landing page da parceria Repsol Gás — entrega de bilhas de gás ao domicílio.
+// Landing page da parceria Repsol Gás — entrega de garrafas de gás ao domicílio.
 // Pedidos ficam guardados à parte (GasOrder), não são marcações de oficina.
 // O endereço oficial é o subdomínio (grupo no topo deste ficheiro); no domínio
 // principal /repsol-gas redireciona para lá, e em local/staging serve a página.
