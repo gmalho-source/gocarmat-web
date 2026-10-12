@@ -7,7 +7,7 @@
 @endif
 **E-mail:** {{ $order->email }}
 **Telefone:** {{ $order->phone }}
-**Bilha:** {{ $order->bilha }}
+**Garrafa:** {{ $order->bilha }}
 **Janela de entrega:** {{ $order->janela_entrega }}
 
 **Recebido a:** {{ $order->created_at->format('d/m/Y H:i') }}

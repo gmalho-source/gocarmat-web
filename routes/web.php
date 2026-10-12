@@ -50,7 +50,7 @@ Route::get('/robots.txt', function () {
     return response($conteudo, 200, ['Content-Type' => 'text/plain']);
 });
 
-// Landing page da parceria Repsol Gás — entrega de bilhas de gás ao domicílio.
+// Landing page da parceria Repsol Gás — entrega de garrafas de gás ao domicílio.
 // Pedidos ficam guardados à parte (GasOrder), não são marcações de oficina.
 // O endereço oficial é o subdomínio (grupo no topo deste ficheiro); no domínio
 // principal /repsol-gas redireciona para lá, e em local/staging serve a página.

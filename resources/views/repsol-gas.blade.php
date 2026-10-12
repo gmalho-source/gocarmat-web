@@ -1,4 +1,4 @@
-{{-- Landing page da parceria Repsol Gás (entrega de bilhas de gás ao
+{{-- Landing page da parceria Repsol Gás (entrega de garrafas de gás ao
      domicílio), fora do backoffice de propósito — ver campanhas/revisao-oficial.blade.php
      para o mesmo padrão aplicado a uma campanha de oficina.
      Pedidos ficam guardados em GasOrder (não são marcações), geridos em
@@ -6,19 +6,19 @@
 @extends('layouts.landing')
 
 @section('title', 'Gás ao domicílio em Oeiras — GOCARMAT × Repsol')
-@section('meta_description', 'Encomende a sua bilha de gás Repsol e receba-a em casa, em todo o concelho de Oeiras. Pagamento no ato da entrega, por MB Way ou Multibanco.')
+@section('meta_description', 'Encomende a sua garrafa de gás Repsol e receba-a em casa, em todo o concelho de Oeiras. Pagamento no ato da entrega, por MB Way ou Multibanco.')
 
 @push('meta')
     <meta property="og:type" content="website">
     <meta property="og:title" content="Gás ao domicílio em Oeiras — GOCARMAT × Repsol">
-    <meta property="og:description" content="Encomende a sua bilha de gás Repsol e receba-a em casa, em todo o concelho de Oeiras. Pagamento no ato da entrega, por MB Way ou Multibanco.">
+    <meta property="og:description" content="Encomende a sua garrafa de gás Repsol e receba-a em casa, em todo o concelho de Oeiras. Pagamento no ato da entrega, por MB Way ou Multibanco.">
     <link rel="canonical" href="{{ 'https://'.config('app.repsol_host').'/' }}">
 @endpush
 
 @section('content')
     @include('blocks.campanha_cta_fixo', ['data' => [
         'titulo' => 'Ficou sem gás?',
-        'texto' => 'Encomende já a sua bilha Repsol, com entrega ao domicílio.',
+        'texto' => 'Encomende já a sua garrafa Repsol, com entrega ao domicílio.',
         'icone' => 'droplet',
         'cor_icone' => 'lima',
         'botao_texto' => 'Encomendar Agora',
@@ -37,8 +37,8 @@
         'eyebrow' => 'Pagamento no ato da entrega - ',
         'eyebrow_destaque' => 'de segunda-feira a sábado',
         'titulo' => 'Gás à porta, em todo o concelho de Oeiras.',
-        'texto' => 'Encomende a sua bilha de gás Repsol e receba-a na sua morada e no horário selecionados.',
-        'bilha_titulo' => 'Qual é a bilha de que precisa?',
+        'texto' => 'Encomende a sua garrafa de gás Repsol e receba-a na sua morada e no horário selecionados.',
+        'bilha_titulo' => 'Qual é a garrafa de que precisa?',
         'bilha_texto' => 'Escolha uma das opções disponíveis para venda e entrega ao domicílio.',
         'entrega_titulo' => 'Entregamos em todo o concelho de Oeiras',
         'entrega_itens' => [
@@ -47,7 +47,7 @@
         ],
         'imagem' => 'images/repsol-gas-hero.webp',
         'imagem_garrafas' => 'images/repsol-garrafas.png',
-        'formulario_titulo' => 'Encomende a sua bilha de gás',
+        'formulario_titulo' => 'Encomende a sua garrafa de gás',
         'formulario_texto' => 'Preencha os seus dados e escolha a data e o horário mais convenientes para a entrega.',
         'redirect_to' => '/'.ltrim(request()->path(), '/'),
     ]])
@@ -58,7 +58,7 @@
             'titulo' => 'Pague como for mais conveniente',
             'imagem' => 'images/repsol-pagamento-fundo.webp',
             'texto' => '*O pagamento é feito apenas no ato da entrega.',
-            'texto_destaque' => '<strong class="text-white">Fale connosco</strong> e garanta já a entrega da sua bilha <strong class="text-white">Repsol</strong>.',
+            'texto_destaque' => '<strong class="text-white">Fale connosco</strong> e garanta já a entrega da sua garrafa <strong class="text-white">Repsol</strong>.',
             'metodos' => [
                 ['nome' => 'MB WAY', 'logo' => 'images/logo-mbway.png'],
                 ['nome' => 'Multibanco', 'logo' => 'images/logo-multibanco.png'],
@@ -73,7 +73,7 @@
                 'abrir_primeiro' => true,
                 'itens' => [
                     ['pergunta' => 'Onde efetuam entregas?', 'resposta' => 'As entregas estão disponíveis em todo o concelho de Oeiras.'],
-                    ['pergunta' => 'Que bilhas estão disponíveis?', 'resposta' => 'Repsol K11, Repsol K6 e Repsol K13 — escolha a que precisa no formulário de encomenda.'],
+                    ['pergunta' => 'Que garrafas estão disponíveis?', 'resposta' => 'Repsol K11, Repsol K6 e Repsol K13 — escolha a que precisa no formulário de encomenda.'],
                     ['pergunta' => 'Em que horários posso receber a encomenda?', 'resposta' => 'De segunda a sexta-feira das 09h00 às 20h00, ou aos sábados das 09h00 às 15h00.'],
                     ['pergunta' => 'Como posso pagar?', 'resposta' => 'O pagamento é feito no ato da entrega, por MB Way ou Multibanco.'],
                     ['pergunta' => 'O pedido fica imediatamente confirmado?', 'resposta' => 'Depois de enviar o formulário, a nossa equipa entra em contacto consigo para confirmar a data e o horário da entrega.'],
@@ -85,7 +85,7 @@
     @include('blocks.cta_icone', ['data' => [
         'titulo' => 'Ficou sem gás? ',
         'titulo_destaque' => 'Nós levamo-lo até si.',
-        'texto' => 'Escolha a sua bilha Repsol e peça a entrega em qualquer localidade do concelho de Oeiras.',
+        'texto' => 'Escolha a sua garrafa Repsol e peça a entrega em qualquer localidade do concelho de Oeiras.',
         'texto_max' => 'max-w-none',
         'botao_centrado' => true,
         'margem' => 'mt-8 xl:mt-12',
