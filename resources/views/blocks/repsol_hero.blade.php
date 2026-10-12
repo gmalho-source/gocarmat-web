@@ -1,4 +1,4 @@
-{{-- Hero da landing Repsol Gás: botões de bilha (escolhem a opção do dropdown
+{{-- Hero da landing Repsol Gás: botões de garrafa (escolhem a opção do dropdown
      do formulário) + formulário de encomenda embutido, à semelhança de
      campanha_hero_marcacao.blade.php mas para pedidos de gás (GasOrder), não
      marcações de oficina. --}}
@@ -103,7 +103,7 @@
                 {{-- Depois de enviar, o formulário continua no layout (invisível) para o cartão
                      manter exatamente o mesmo tamanho, e a mensagem de sucesso aparece por cima. --}}
                 <div @class(['invisible' => session('success')]) @if (session('success')) aria-hidden="true" inert @endif>
-                <h2 class="text-2xl font-bold leading-[1.2] tracking-[-0.03em] text-white">{{ $data['formulario_titulo'] ?? 'Encomende a sua bilha de gás' }}</h2>
+                <h2 class="text-2xl font-bold leading-[1.2] tracking-[-0.03em] text-white">{{ $data['formulario_titulo'] ?? 'Encomende a sua garrafa de gás' }}</h2>
 
                     @if (filled($data['formulario_texto'] ?? null))
                         <p class="mt-3 text-sm font-light leading-[1.5] text-gelo">{{ $data['formulario_texto'] }}</p>
