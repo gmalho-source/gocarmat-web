@@ -22,7 +22,7 @@ class GasOrderInfolist
                 TextEntry::make('phone')
                     ->label('Telefone'),
                 TextEntry::make('bilha')
-                    ->label('Bilha')
+                    ->label('Garrafa')
                     ->badge(),
                 TextEntry::make('janela_entrega')
                     ->label('Janela de entrega'),
