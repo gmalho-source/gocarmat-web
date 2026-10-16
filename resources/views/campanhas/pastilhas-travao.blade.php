@@ -21,6 +21,7 @@
         'cor_icone' => 'energia',
         'botao_texto' => 'Marcar Agora',
         'botao_link' => '#form-marcacao',
+        'mobile_so_botao' => true,
     ]])
 
 <div class="mx-auto w-full max-w-[1920px] px-4 sm:px-8 xl:px-16">
@@ -47,6 +48,8 @@
         'titulo' => 'O que está incluído nesta ',
         'titulo_destaque' => 'campanha',
         'margem' => 'mt-16 xl:-mt-[124px]',
+        // O formulário do hero pende por cima deste painel: o título quebra antes de chegar a ele.
+        'titulo_max' => 'xl:max-w-[calc(100%-525px)]',
         'itens' => [
             ['numero' => '01.', 'titulo' => 'Pastilhas de travão', 'texto' => 'Substituição de um jogo de pastilhas de travão, no eixo dianteiro ou traseiro.'],
             ['numero' => '02.', 'titulo' => 'Inspeção do disco', 'texto' => 'Avaliação do estado dos discos de travão associados.'],
