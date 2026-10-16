@@ -21,6 +21,7 @@
         'cor_icone' => 'energia',
         'botao_texto' => 'Marcar Agora',
         'botao_link' => '#form-marcacao',
+        'mobile_so_botao' => true,
     ]])
 
 <div class="mx-auto w-full max-w-[1920px] px-4 sm:px-8 xl:px-16">
@@ -46,6 +47,8 @@
         'titulo' => 'O que está incluído nesta ',
         'titulo_destaque' => 'campanha',
         'margem' => 'mt-16 xl:-mt-[124px]',
+        // O formulário do hero pende por cima deste painel: o título quebra antes de chegar a ele.
+        'titulo_max' => 'xl:max-w-[calc(100%-525px)]',
         'itens' => [
             ['numero' => '01.', 'titulo' => 'Óleo do motor', 'texto' => 'Substituição do óleo do motor (5W30 / 5W40 / 10W40, até 5 litros).'],
             ['numero' => '02.', 'titulo' => 'Filtro de óleo', 'texto' => 'Substituição do filtro de óleo.'],

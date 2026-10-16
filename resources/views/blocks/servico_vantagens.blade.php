@@ -13,7 +13,7 @@
 @endphp
 
 <section class="{{ $margem }} rounded-[32px] bg-gelo px-8 py-14 sm:px-12 xl:px-16 xl:py-20">
-    <h2 class="font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] text-carbono sm:text-[52px]">
+    <h2 class="font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] text-carbono sm:text-[52px] {{ $data['titulo_max'] ?? '' }}">
         {{ $data['titulo'] }}
         @if (filled($data['titulo_destaque'] ?? null))
             <span class="text-energia">{{ $data['titulo_destaque'] }}</span>
