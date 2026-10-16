@@ -21,7 +21,7 @@
             <div class="absolute right-10 top-10 hidden size-[120px] items-center justify-center rounded-full bg-carbono text-lima xl:flex">
                 <x-ui.icon name="bolt" class="size-16" />
             </div>
-            <h2 class="max-w-[480px] text-5xl font-bold leading-[1.2] tracking-[-0.03em] text-carbono xl:text-[62px]">{{ $data['titulo'] }}</h2>
+            <h2 class="max-w-[480px] text-5xl font-bold leading-[1.2] tracking-[-0.03em] text-carbono xl:whitespace-nowrap xl:text-[clamp(34px,calc(5.1vw_-_34px),62px)]">{{ $data['titulo'] }}</h2>
             @if (filled($data['subtitulo'] ?? null))
                 <p class="mt-4 max-w-[416px] font-mono text-2xl font-bold leading-[1.2] tracking-[-0.72px] text-carbono">{{ $data['subtitulo'] }}</p>
             @endif
