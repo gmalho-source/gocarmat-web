@@ -93,7 +93,7 @@
                 <div class="absolute right-10 top-10 hidden size-[120px] items-center justify-center rounded-full bg-carbono text-lima xl:flex">
                     <x-ui.icon name="bolt" class="size-14" />
                 </div>
-                <h2 class="max-w-[480px] text-5xl font-bold leading-[1.2] tracking-[-0.03em] text-carbono xl:text-[62px]">EVA POWERLAB</h2>
+                <h2 class="max-w-[480px] text-5xl font-bold leading-[1.2] tracking-[-0.03em] text-carbono xl:whitespace-nowrap xl:text-[clamp(34px,calc(5.1vw_-_34px),62px)]">EVA POWERLAB</h2>
                 <p class="mt-4 max-w-[416px] font-mono text-2xl font-bold leading-[1.2] tracking-[-0.72px] text-carbono">O laboratório de mobilidade elétrica da GOCARMAT</p>
                 <p class="mt-6 max-w-[416px] text-base font-light leading-[1.68] tracking-[-0.16px] text-carbono">
                     Diagnóstico, reparação e certificação de baterias de alta tensão — para BEV, HEV e PHEV de todas as marcas, ao abrigo do regulamento europeu (MV-BER 461/2010) e sem perder a garantia.
