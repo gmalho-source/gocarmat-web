@@ -12,7 +12,7 @@
     $margem = $data['margem'] ?? ($compacto ? 'mt-6 xl:mt-8' : 'mt-16 xl:mt-24');
 @endphp
 
-<section class="{{ $margem }} rounded-[32px] bg-gelo px-8 py-14 sm:px-12 xl:px-16 xl:py-20">
+<section class="{{ $margem }} rounded-[32px] bg-gelo px-8 py-14 sm:px-12 xl:px-16 xl:py-20 {{ $data['pb'] ?? '' }}">
     <h2 class="font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] text-carbono sm:text-[52px] {{ $data['titulo_max'] ?? '' }}">
         {{ $data['titulo'] }}
         @if (filled($data['titulo_destaque'] ?? null))

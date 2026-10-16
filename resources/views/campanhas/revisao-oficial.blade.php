@@ -49,6 +49,8 @@
         'margem' => 'mt-16 xl:-mt-[124px]',
         // O formulário do hero pende por cima deste painel: o título quebra antes de chegar a ele.
         'titulo_max' => 'xl:max-w-[calc(100%-525px)]',
+        // No mobile, menos espaço por baixo do último cartão.
+        'pb' => 'max-sm:pb-7',
         'itens' => [
             ['numero' => '01.', 'titulo' => 'Óleo do motor', 'texto' => 'Substituição do óleo do motor (5W30 / 5W40 / 10W40, até 5 litros).'],
             ['numero' => '02.', 'titulo' => 'Filtro de óleo', 'texto' => 'Substituição do filtro de óleo.'],
@@ -63,7 +65,7 @@
         'titulo' => 'Todos os serviços GOCARMAT em promoção incluem um check-up à sua viatura',
         'texto' => 'O check-up engloba a verificação de:',
         'imagem' => 'images/campanha-revisao-oficial-checkup.jpg',
-        'margem' => 'mt-16 xl:mt-8',
+        'margem' => 'mt-16 max-sm:mt-8 xl:mt-8',
         'colunas' => 'xl:grid-cols-[minmax(0,4fr)_minmax(0,5fr)]',
         'padding' => 'px-8 py-8 xl:px-16 xl:py-16',
         'itens' => [
