@@ -24,11 +24,6 @@ class Page extends Model
             ->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()));
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     public function metaTitle(): string
     {
         return $this->meta_title ?: $this->title;
