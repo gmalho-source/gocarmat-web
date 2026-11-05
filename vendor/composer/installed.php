@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-producao-repsol',
-        'version' => 'dev-producao-repsol',
-        'reference' => '51804e57906722a7fdc171927f9da7af973f2b24',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '30719c411b85f1de0dc21d7a116b156856e3dd3f',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -521,9 +521,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-producao-repsol',
-            'version' => 'dev-producao-repsol',
-            'reference' => '51804e57906722a7fdc171927f9da7af973f2b24',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '30719c411b85f1de0dc21d7a116b156856e3dd3f',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

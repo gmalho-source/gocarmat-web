@@ -1,5 +1,17 @@
-{{-- Lista do check-up incluído nas campanhas, com imagem opcional ao lado --}}
-<section class="mt-16 grid gap-10 rounded-[32px] bg-gelo px-8 py-14 xl:mt-24 xl:grid-cols-2 xl:gap-16 xl:px-16 xl:py-20">
+{{-- Lista do check-up incluído nas campanhas, com imagem opcional ao lado.
+     'margem' substitui por completo as classes de margem superior, se for
+     preciso um valor específico (ver servico_vantagens.blade.php).
+     'colunas' controla a proporção imagem/texto: '1-1' (por omissão, 50/50),
+     '1-2' (imagem a 1/3, texto a 2/3), ou uma classe xl:grid-cols-[...] à
+     medida, para uma proporção específica. --}}
+@php
+    $margem = $data['margem'] ?? 'mt-16 xl:mt-24';
+    $colunasMapa = ['1-1' => 'xl:grid-cols-2', '1-2' => 'xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]'];
+    $colunas = $colunasMapa[$data['colunas'] ?? '1-1'] ?? ($data['colunas'] ?? $colunasMapa['1-1']);
+    $padding = $data['padding'] ?? 'px-8 py-14 xl:px-16 xl:py-20';
+@endphp
+
+<section class="{{ $margem }} grid gap-10 rounded-[32px] bg-gelo {{ $padding }} {{ $colunas }} xl:gap-16">
     @if (filled($data['imagem'] ?? null))
         <div class="relative min-h-[300px] overflow-hidden rounded-[24px] xl:order-1">
             <img src="{{ \App\Support\Blocos::imagem($data['imagem']) }}" alt="" class="absolute inset-0 size-full object-cover">
