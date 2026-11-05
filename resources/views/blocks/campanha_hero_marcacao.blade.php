@@ -81,8 +81,8 @@
                         <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
                     </div>
                     <input type="hidden" name="service" value="{{ $data['servico'] ?? 'Outro assunto' }}">
-                    <input type="hidden" name="office_id" value="{{ $data['office_id'] ?? '' }}">
-                    <input type="hidden" name="redirect_to" value="{{ $data['redirect_to'] ?? url()->current() }}">
+                    <input type="hidden" name="office_id" value="{{ filled($data['office_id'] ?? null) ? $data['office_id'] : optional(\App\Models\Office::active()->first())->id }}">
+                    <input type="hidden" name="redirect_to" value="{{ $data['redirect_to'] ?? '/'.ltrim(request()->path(), '/') }}">
 
                     <div class="grid gap-3 sm:grid-cols-2">
                         <div>

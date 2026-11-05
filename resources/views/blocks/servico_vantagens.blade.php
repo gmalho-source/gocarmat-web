@@ -10,10 +10,20 @@
     $colunasMapa = ['3' => 'xl:grid-cols-3', '4' => 'xl:grid-cols-4'];
     $colunas = $colunasMapa[(string) ($data['colunas'] ?? 3)] ?? 'xl:grid-cols-3';
     $margem = $data['margem'] ?? ($compacto ? 'mt-6 xl:mt-8' : 'mt-16 xl:mt-24');
+
+    // 'sobre_hero': vem logo a seguir ao hero de campanha, cujo cartão do
+    // formulário pende por cima deste painel — sobe-se o painel, o título
+    // quebra antes de chegar ao formulário e no mobile há menos espaço em baixo.
+    $sobreHero = (bool) ($data['sobre_hero'] ?? false);
+    if ($sobreHero) {
+        $margem = 'mt-16 xl:-mt-[124px]';
+    }
+    $tituloMax = $sobreHero ? 'xl:max-w-[calc(100%-525px)]' : ($data['titulo_max'] ?? '');
+    $pb = $sobreHero ? 'max-sm:pb-7' : ($data['pb'] ?? '');
 @endphp
 
-<section class="{{ $margem }} rounded-[32px] bg-gelo px-8 py-14 sm:px-12 xl:px-16 xl:py-20 {{ $data['pb'] ?? '' }}">
-    <h2 class="font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] text-carbono sm:text-[52px] {{ $data['titulo_max'] ?? '' }}">
+<section class="{{ $margem }} rounded-[32px] bg-gelo px-8 py-14 sm:px-12 xl:px-16 xl:py-20 {{ $pb }}">
+    <h2 class="font-mono text-4xl font-extrabold uppercase leading-[1.2] tracking-[-0.03em] text-carbono sm:text-[52px] {{ $tituloMax }}">
         {{ $data['titulo'] }}
         @if (filled($data['titulo_destaque'] ?? null))
             <span class="text-energia">{{ $data['titulo_destaque'] }}</span>
