@@ -101,6 +101,8 @@ return array(
     'App\\Services\\Brevo' => $baseDir . '/app/Services/Brevo.php',
     'App\\Services\\DocxArtigoImportador' => $baseDir . '/app/Services/DocxArtigoImportador.php',
     'App\\Support\\Blocos' => $baseDir . '/app/Support/Blocos.php',
+    'App\\Support\\ImagensDePaginas' => $baseDir . '/app/Support/ImagensDePaginas.php',
+    'App\\Support\\PaginasCampanha' => $baseDir . '/app/Support/PaginasCampanha.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'BladeUI\\Heroicons\\BladeHeroiconsServiceProvider' => $vendorDir . '/blade-ui-kit/blade-heroicons/src/BladeHeroiconsServiceProvider.php',
     'BladeUI\\Icons\\BladeIconsServiceProvider' => $vendorDir . '/blade-ui-kit/blade-icons/src/BladeIconsServiceProvider.php',

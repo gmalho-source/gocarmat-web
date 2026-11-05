@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Pages\Schemas;
 
+use App\Http\Controllers\BookingController;
+use App\Models\Office;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DateTimePicker;
@@ -14,6 +16,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Text;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 
@@ -27,6 +30,15 @@ class PageForm
         'energia' => 'Azul (destaque)',
         'carbono' => 'Escuro',
         'lima' => 'Lima',
+    ];
+
+    /** Ícones disponíveis nos blocos de chamada à ação. */
+    private const ICONES = [
+        'car' => 'Carro',
+        'car-burst' => 'Carro (colisão)',
+        'bolt' => 'Raio',
+        'shield' => 'Escudo',
+        'wrench' => 'Chave',
     ];
 
     public static function configure(Schema $schema): Schema
@@ -66,11 +78,23 @@ class PageForm
                                             }),
                                         TextInput::make('slug')
                                             ->label('Slug (URL)')
-                                            ->helperText('Endereço: gocarmat.pt/{slug}')
+                                            ->helperText('Endereço: gocarmat.pt/{slug}. Pode ter barras para páginas dentro de uma secção (ex: campanhas/nome-da-campanha).')
                                             ->required()
                                             ->maxLength(255)
                                             ->unique(ignoreRecord: true)
-                                            ->rules(['alpha_dash']),
+                                            ->regex('/^[a-z0-9_-]+(\/[a-z0-9_-]+)*$/')
+                                            ->validationMessages(['regex' => 'Use só letras minúsculas, números, hífenes e barras, sem espaços nem barra no início ou no fim.']),
+                                        Select::make('layout')
+                                            ->label('Modelo da página')
+                                            ->options([
+                                                'site' => 'Site completo (com menu e rodapé)',
+                                                'landing' => 'Landing de campanha (sem menu nem rodapé)',
+                                            ])
+                                            ->default('site')
+                                            ->required()
+                                            ->native(false)
+                                            ->helperText('As campanhas usam "Landing": a página não tem saídas para o resto do site.')
+                                            ->columnSpanFull(),
                                     ]),
 
                                 Section::make('Publicação')
@@ -302,7 +326,7 @@ class PageForm
                     TextInput::make('titulo')->label('Título')->required(),
                     Textarea::make('texto')->label('Texto')->rows(2),
                     Select::make('icone')->label('Ícone')
-                        ->options(['bolt' => 'Raio', 'car-burst' => 'Carro', 'shield' => 'Escudo', 'wrench' => 'Chave'])
+                        ->options(self::ICONES)
                         ->native(false),
                     Select::make('cor_icone')->label('Cor do ícone')
                         ->options(['energia' => 'Azul', 'lima' => 'Lima'])->default('energia')->native(false),
@@ -310,6 +334,9 @@ class PageForm
                     TextInput::make('botao_link')->label('Link do botão'),
                     Select::make('fundo')->label('Fundo')->options(self::FUNDOS)->default('carbono')->native(false),
                     Toggle::make('colar_ao_rodape')->label('Colar ao rodapé (sem margem inferior)'),
+                    Toggle::make('ligar_barra_fixa')
+                        ->label('É o chamamento final da campanha')
+                        ->helperText('A barra fixa de marcação no fundo do ecrã esconde-se quando este bloco aparece.'),
                 ]),
 
             Builder\Block::make('marcacoes_form')
@@ -335,6 +362,144 @@ class PageForm
                             TextInput::make('label')->label('Descrição')->required(),
                             TextInput::make('email')->label('E-mail')->email()->required(),
                         ])->reorderable(),
+                ]),
+
+            Builder\Block::make('servico_hero')
+                ->label('Hero de serviço (com faixa de destaque)')
+                ->icon('heroicon-o-rectangle-group')
+                ->schema([
+                    TextInput::make('breadcrumb_pai')->label('Migalha — secção (ex: Serviços)')->default('Serviços'),
+                    TextInput::make('breadcrumb_link')->label('Migalha — link da secção'),
+                    TextInput::make('breadcrumb_atual')->label('Migalha — página atual'),
+                    TextInput::make('titulo')->label('Título')->required(),
+                    Textarea::make('texto')->label('Texto')->rows(3),
+                    FileUpload::make('imagem')->label('Imagem')->image()->disk('public')->directory('pages'),
+                    Select::make('fundo')->label('Fundo')->options(self::FUNDOS)->default('energia')->native(false),
+                    Repeater::make('botoes')->label('Botões')
+                        ->schema([
+                            TextInput::make('texto')->label('Texto')->required(),
+                            TextInput::make('link')->label('Link')->required(),
+                        ])->maxItems(2)->defaultItems(0),
+                    TextInput::make('faixa_numero')->label('Faixa sobre a imagem — destaque (ex: 94,90€)'),
+                    TextInput::make('faixa_texto')->label('Faixa sobre a imagem — texto'),
+                ]),
+
+            Builder\Block::make('servico_vantagens')
+                ->label('Vantagens numeradas')
+                ->icon('heroicon-o-check-badge')
+                ->schema([
+                    TextInput::make('titulo')->label('Título')->required(),
+                    TextInput::make('titulo_destaque')->label('Parte final do título a destacar (azul)'),
+                    Select::make('colunas')->label('Cartões por linha')
+                        ->options([3 => '3', 4 => '4'])->default(3)->native(false),
+                    Toggle::make('compacto')->label('Menos espaço por cima (a seguir a um texto simples)'),
+                    Toggle::make('sobre_hero')
+                        ->label('Subir por baixo do formulário do hero de campanha')
+                        ->helperText('Ligar só quando este bloco vem logo a seguir ao hero com formulário.'),
+                    Repeater::make('itens')->label('Vantagens')
+                        ->schema([
+                            TextInput::make('numero')->label('Número (ex: 01.)'),
+                            TextInput::make('titulo')->label('Título')->required(),
+                            Textarea::make('texto')->label('Texto')->rows(2),
+                        ])->reorderable(),
+                    Textarea::make('nota')->label('Nota em letra pequena')->rows(2),
+                ]),
+
+            Builder\Block::make('mapa_oficinas')
+                ->label('Mapa das oficinas')
+                ->icon('heroicon-o-map')
+                ->schema([
+                    TextInput::make('titulo')->label('Título (opcional)'),
+                ]),
+
+            Builder\Block::make('pagina_brevemente')
+                ->label('Página "brevemente disponível"')
+                ->icon('heroicon-o-clock')
+                ->schema([
+                    TextInput::make('titulo')->label('Título')->required(),
+                    TextInput::make('mensagem_titulo')->label('Mensagem — título')->default('Brevemente online.'),
+                    Textarea::make('mensagem_texto')->label('Mensagem — texto')->rows(2),
+                ]),
+
+            Builder\Block::make('campanhas_grelha')
+                ->label('Campanhas — listagem')
+                ->icon('heroicon-o-tag')
+                ->schema([
+                    TextInput::make('titulo')->label('Título')->default('Gocarmat Campanhas'),
+                    Repeater::make('itens')->label('Campanhas')
+                        ->schema([
+                            TextInput::make('titulo')->label('Título')->required(),
+                            TextInput::make('preco')->label('Preço (ex: 94,90€)'),
+                            Textarea::make('texto')->label('Descrição')->rows(2),
+                            Textarea::make('condicoes')->label('Condições (letra pequena)')->rows(3),
+                            TextInput::make('link')->label('Link da campanha (ex: /campanhas/nome)')->required(),
+                            FileUpload::make('imagem')->label('Imagem')->image()->disk('public')->directory('pages'),
+                        ])->reorderable()->defaultItems(0),
+                ]),
+
+            Builder\Block::make('campanha_cta_fixo')
+                ->label('Campanha — barra fixa de marcação')
+                ->icon('heroicon-o-bars-arrow-down')
+                ->schema([
+                    TextInput::make('titulo')->label('Título')->required(),
+                    TextInput::make('texto')->label('Texto'),
+                    Select::make('icone')->label('Ícone')->options(self::ICONES)->default('car')->native(false),
+                    Select::make('cor_icone')->label('Cor do ícone')
+                        ->options(['energia' => 'Azul', 'lima' => 'Lima'])->default('energia')->native(false),
+                    TextInput::make('botao_texto')->label('Texto do botão')->default('Marcar Agora'),
+                    TextInput::make('botao_link')->label('Link do botão')
+                        ->default('#form-marcacao')
+                        ->helperText('"#form-marcacao" leva ao formulário do topo da página.'),
+                    Toggle::make('mobile_so_botao')->label('No telemóvel mostrar só o botão')->default(true),
+                ]),
+
+            Builder\Block::make('campanha_hero_marcacao')
+                ->label('Campanha — hero com formulário de marcação')
+                ->icon('heroicon-o-inbox-arrow-down')
+                ->schema([
+                    TextInput::make('breadcrumb_pai')->label('Migalha — secção')->default('Campanhas'),
+                    TextInput::make('breadcrumb_atual')->label('Migalha — campanha')->required(),
+                    TextInput::make('titulo')->label('Título')->required(),
+                    Textarea::make('texto')->label('Texto')->rows(3),
+                    FileUpload::make('imagem')->label('Imagem')->image()->disk('public')->directory('pages'),
+                    Select::make('fundo')->label('Fundo')->options(self::FUNDOS)->default('energia')->native(false),
+                    Repeater::make('botoes')->label('Botões')
+                        ->schema([
+                            TextInput::make('texto')->label('Texto')->required(),
+                            TextInput::make('link')->label('Link')->required(),
+                        ])->maxItems(2)->defaultItems(0),
+                    TextInput::make('faixa_numero')->label('Destaque sobre a imagem (ex: 94,90€)'),
+                    TextInput::make('faixa_texto')->label('Texto por baixo do título'),
+                    TextInput::make('formulario_titulo')->label('Título do formulário')->default('Marque a sua Revisão'),
+                    Select::make('servico')->label('Serviço associado ao pedido')
+                        ->options(array_combine(BookingController::SERVICES, BookingController::SERVICES))
+                        ->default('Outro assunto')->native(false),
+                    Select::make('office_id')->label('Oficina que recebe o pedido')
+                        ->options(fn () => Office::active()->pluck('name', 'id'))
+                        ->placeholder('A primeira oficina ativa')->native(false),
+                    Textarea::make('notas_predefinidas')->label('Notas já preenchidas no pedido (ex: nome da campanha)')->rows(2),
+                ]),
+
+            Builder\Block::make('campanha_checkup')
+                ->label('Campanha — lista de check-up com imagem')
+                ->icon('heroicon-o-clipboard-document-check')
+                ->schema([
+                    TextInput::make('titulo')->label('Título')->required(),
+                    TextInput::make('texto')->label('Texto de introdução'),
+                    FileUpload::make('imagem')->label('Imagem')->image()->disk('public')->directory('pages'),
+                    Select::make('colunas')->label('Proporção imagem / texto')
+                        ->options(['4-5' => 'Imagem um pouco mais pequena', '1-1' => '50 / 50', '1-2' => 'Imagem a um terço'])
+                        ->default('4-5')->native(false),
+                    Repeater::make('itens')->label('Itens verificados')
+                        ->simple(TextInput::make('texto')->required())
+                        ->reorderable(),
+                ]),
+
+            Builder\Block::make('campanha_rodape')
+                ->label('Campanha — rodapé mínimo')
+                ->icon('heroicon-o-minus')
+                ->schema([
+                    Text::make('Rodapé fixo com o logótipo e os links legais. Não tem campos: colocar sempre no fim da página, a seguir ao chamamento final.'),
                 ]),
         ];
     }
