@@ -5,10 +5,14 @@
      '1-2' (imagem a 1/3, texto a 2/3), ou uma classe xl:grid-cols-[...] à
      medida, para uma proporção específica. --}}
 @php
-    $margem = $data['margem'] ?? 'mt-16 xl:mt-24';
-    $colunasMapa = ['1-1' => 'xl:grid-cols-2', '1-2' => 'xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]'];
-    $colunas = $colunasMapa[$data['colunas'] ?? '1-1'] ?? ($data['colunas'] ?? $colunasMapa['1-1']);
-    $padding = $data['padding'] ?? 'px-8 py-14 xl:px-16 xl:py-20';
+    $margem = $data['margem'] ?? 'mt-16 max-sm:mt-8 xl:mt-8';
+    $colunasMapa = [
+        '1-1' => 'xl:grid-cols-2',
+        '1-2' => 'xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]',
+        '4-5' => 'xl:grid-cols-[minmax(0,4fr)_minmax(0,5fr)]',
+    ];
+    $colunas = $colunasMapa[$data['colunas'] ?? '4-5'] ?? ($data['colunas'] ?? $colunasMapa['4-5']);
+    $padding = $data['padding'] ?? 'px-8 py-8 xl:px-16 xl:py-16';
 @endphp
 
 <section class="{{ $margem }} grid gap-10 rounded-[32px] bg-gelo {{ $padding }} {{ $colunas }} xl:gap-16">

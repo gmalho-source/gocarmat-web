@@ -1,6 +1,5 @@
 {{-- Landing page da parceria Repsol Gás (entrega de garrafas de gás ao
-     domicílio), fora do backoffice de propósito — ver campanhas/revisao-oficial.blade.php
-     para o mesmo padrão aplicado a uma campanha de oficina.
+     domicílio), fora do composer de páginas de propósito.
      Pedidos ficam guardados em GasOrder (não são marcações), geridos em
      /admin/gas-orders. --}}
 @extends('layouts.landing')

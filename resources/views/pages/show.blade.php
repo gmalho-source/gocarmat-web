@@ -1,4 +1,4 @@
-@extends('layouts.site')
+@extends($page->layout === 'landing' ? 'layouts.landing' : 'layouts.site')
 
 @php
     // Evita "GOCARMAT" repetido quando o meta title já inclui a marca.
@@ -50,8 +50,10 @@
         $encostaAoRodape = (bool) ($ultimo['data']['colar_ao_rodape'] ?? false);
     @endphp
 
-    @unless ($encostaAoRodape)
+    @if ($page->layout === 'landing')
+        <div class="h-4"></div>
+    @elseif (! $encostaAoRodape)
         <div class="h-24 xl:h-[128px]"></div>
-    @endunless
+    @endif
 </div>
 @endsection
