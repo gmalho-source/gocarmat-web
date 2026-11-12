@@ -481,6 +481,9 @@ class PageForm
                         ->options(fn () => Office::active()->pluck('name', 'id'))
                         ->placeholder('A primeira oficina ativa')->native(false),
                     Textarea::make('notas_predefinidas')->label('Notas já preenchidas no pedido (ex: nome da campanha)')->rows(2),
+                    Toggle::make('formulario_sobe')
+                        ->label('Subir o cartão do formulário')
+                        ->helperText('Ligar se, em ecrãs grandes, o formulário ficar por cima das caixas de baixo (acontece com títulos e notas compridos).'),
                 ]),
 
             Builder\Block::make('campanha_checkup')

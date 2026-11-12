@@ -82,6 +82,7 @@ class PaginasCampanha
                         'formulario_titulo' => 'Marque a Revisão na Oficina Foros da Amora',
                         'aviso_topo' => 'Campanha EXCLUSIVA para a Oficina Foros da Amora',
                         'notas_predefinidas' => 'Campanha EXCLUSIVA para a Oficina Foros da Amora — Revisão Oficial por 94,90€',
+                        'formulario_sobe' => true,
                         'servico' => 'Revisão Oficial',
                     ]],
                     ['type' => 'servico_vantagens', 'data' => [
@@ -133,6 +134,7 @@ class PaginasCampanha
                     ]],
                     ['type' => 'campanha_hero_marcacao', 'data' => [
                         'breadcrumb_pai' => 'Campanhas',
+                        'aviso_topo' => 'Campanha EXCLUSIVA para as Oficinas Foros da Amora e Adroana',
                         'breadcrumb_atual' => 'Pastilhas de Travão',
                         'titulo' => 'Pastilhas de travão por apenas 84,90€.',
                         'texto' => 'Substituição de um jogo de pastilhas de travão (eixo dianteiro ou traseiro), com check-up incluído.',
@@ -142,7 +144,7 @@ class PaginasCampanha
                         ],
                         'faixa_numero' => '84,90€',
                         'faixa_texto' => 'Preço fixo por um jogo de pastilhas de travão, com check-up incluído.',
-                        'formulario_titulo' => 'Marque a Substituição',
+                        'formulario_titulo' => 'Marque a Revisão nas Oficinas Foros da Amora e Adroana',
                         'servico' => 'Outro assunto',
                         'notas_predefinidas' => 'Campanha: Pastilhas de Travão por 84,90€',
                     ]],

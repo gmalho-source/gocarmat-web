@@ -61,7 +61,7 @@
     {{-- Cartão do formulário: em fluxo normal (empilhado por baixo) até lg,
          só flutua sobre a imagem em ecrãs largos, onde há espaço de sobra.
          O id é o alvo do botão da barra de CTA fixa (campanha_cta_fixo). --}}
-    <div id="{{ $data['formulario_id'] ?? 'form-marcacao' }}" class="relative z-10 mt-6 scroll-mt-24 px-4 sm:px-8 lg:absolute lg:z-auto lg:mt-0 lg:right-0 lg:top-[220px] lg:w-[480px] lg:px-0 xl:w-[557px]">
+    <div id="{{ $data['formulario_id'] ?? 'form-marcacao' }}" class="relative z-10 mt-6 scroll-mt-24 px-4 sm:px-8 lg:absolute lg:z-auto lg:mt-0 lg:right-0 {{ ($data['formulario_sobe'] ?? false) ? 'lg:top-[170px]' : 'lg:top-[220px]' }} lg:w-[480px] lg:px-0 xl:w-[557px]">
         <div class="rounded-[24px] bg-energia p-7 shadow-2xl xl:p-8">
             <h2 class="text-center text-2xl font-bold leading-[1.2] tracking-[-0.03em] text-white">{{ $data['formulario_titulo'] ?? 'Marque a sua Revisão' }}</h2>
 
