@@ -63,6 +63,7 @@ class BookingController extends Controller
             'redirect_to' => ['nullable', 'string', 'max:255', 'regex:/^\/[^\/].*$|^\/$/'],
         ], [
             'privacy.accepted' => 'É necessário aceitar a Política de Privacidade.',
+            'office_id.required' => 'Escolha a oficina.',
             'phone.regex' => 'O telefone só pode conter números e o símbolo + para indicativos.',
         ]);
 
