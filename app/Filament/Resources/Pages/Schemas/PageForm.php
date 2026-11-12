@@ -480,6 +480,10 @@ class PageForm
                     Select::make('office_id')->label('Oficina que recebe o pedido')
                         ->options(fn () => Office::active()->pluck('name', 'id'))
                         ->placeholder('A primeira oficina ativa')->native(false),
+                    Select::make('oficinas_opcoes')->label('Oficinas a escolher no formulário')
+                        ->helperText('Escolha duas ou mais para o cliente escolher a oficina no formulário (o pedido vai para a oficina escolhida). Com menos de duas, usa-se a oficina indicada acima.')
+                        ->options(fn () => Office::active()->pluck('name', 'id'))
+                        ->multiple()->native(false),
                     Textarea::make('notas_predefinidas')->label('Notas já preenchidas no pedido (ex: nome da campanha)')->rows(2),
                     Toggle::make('formulario_sobe')
                         ->label('Subir o cartão do formulário')
