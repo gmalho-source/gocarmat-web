@@ -458,6 +458,9 @@ class PageForm
                 ->icon('heroicon-o-inbox-arrow-down')
                 ->schema([
                     TextInput::make('breadcrumb_pai')->label('Migalha — secção')->default('Campanhas'),
+                    TextInput::make('aviso_topo')
+                        ->label('Aviso grande no topo da página')
+                        ->helperText('Faixa lima, em letras grandes, por cima do hero (ex: campanha exclusiva de uma oficina). Deixe vazio para não mostrar.'),
                     TextInput::make('breadcrumb_atual')->label('Migalha — campanha')->required(),
                     TextInput::make('titulo')->label('Título')->required(),
                     Textarea::make('texto')->label('Texto')->rows(3),
@@ -478,6 +481,9 @@ class PageForm
                         ->options(fn () => Office::active()->pluck('name', 'id'))
                         ->placeholder('A primeira oficina ativa')->native(false),
                     Textarea::make('notas_predefinidas')->label('Notas já preenchidas no pedido (ex: nome da campanha)')->rows(2),
+                    Toggle::make('formulario_sobe')
+                        ->label('Subir o cartão do formulário')
+                        ->helperText('Ligar se, em ecrãs grandes, o formulário ficar por cima das caixas de baixo (acontece com títulos e notas compridos).'),
                 ]),
 
             Builder\Block::make('campanha_checkup')

@@ -4,6 +4,15 @@
      objetivo é converter sem sair da página. --}}
 @php $f = \App\Support\Blocos::fundo($data['fundo'] ?? 'energia'); @endphp
 
+{{-- Aviso grande no topo (ex: campanha exclusiva de uma oficina). Fica fora da
+     <section> de propósito: o cartão do formulário é posicionado em relação a
+     ela e não pode descer com a altura do aviso. --}}
+@if (filled($data['aviso_topo'] ?? null))
+    <div class="bg-lima px-6 py-5 text-center sm:px-10 sm:py-6">
+        <p class="font-mono text-xl font-extrabold uppercase leading-[1.2] tracking-[-0.02em] text-carbono sm:text-3xl">{{ $data['aviso_topo'] }}</p>
+    </div>
+@endif
+
 <section class="relative lg:pb-40">
     <div class="grid overflow-hidden rounded-b-[32px] lg:grid-cols-[minmax(0,42%)_minmax(0,58%)]">
         <div class="{{ $f['sec'] }} px-8 py-10 sm:px-12 xl:px-12 xl:py-14">
@@ -52,9 +61,9 @@
     {{-- Cartão do formulário: em fluxo normal (empilhado por baixo) até lg,
          só flutua sobre a imagem em ecrãs largos, onde há espaço de sobra.
          O id é o alvo do botão da barra de CTA fixa (campanha_cta_fixo). --}}
-    <div id="{{ $data['formulario_id'] ?? 'form-marcacao' }}" class="relative z-10 mt-6 scroll-mt-24 px-4 sm:px-8 lg:absolute lg:z-auto lg:mt-0 lg:right-0 lg:top-[220px] lg:w-[480px] lg:px-0 xl:w-[557px]">
+    <div id="{{ $data['formulario_id'] ?? 'form-marcacao' }}" class="relative z-10 mt-6 scroll-mt-24 px-4 sm:px-8 lg:absolute lg:z-auto lg:mt-0 lg:right-0 {{ ($data['formulario_sobe'] ?? false) ? 'lg:top-[170px]' : 'lg:top-[220px]' }} lg:w-[480px] lg:px-0 xl:w-[557px]">
         <div class="rounded-[24px] bg-energia p-7 shadow-2xl xl:p-8">
-            <h2 class="text-2xl font-bold leading-[1.2] tracking-[-0.03em] text-white">{{ $data['formulario_titulo'] ?? 'Marque a sua Revisão' }}</h2>
+            <h2 class="text-center text-2xl font-bold leading-[1.2] tracking-[-0.03em] text-white">{{ $data['formulario_titulo'] ?? 'Marque a sua Revisão' }}</h2>
 
             @if (session('success'))
                 <div class="mt-6 rounded-2xl bg-lima px-6 py-5">
