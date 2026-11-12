@@ -9,7 +9,7 @@
      ela e não pode descer com a altura do aviso. --}}
 @if (filled($data['aviso_topo'] ?? null))
     <div class="bg-lima px-6 py-5 text-center sm:px-10 sm:py-6">
-        <p class="font-mono text-xl font-extrabold uppercase leading-[1.2] tracking-[-0.02em] text-carbono sm:text-3xl xl:text-4xl">{{ $data['aviso_topo'] }}</p>
+        <p class="font-mono text-xl font-extrabold uppercase leading-[1.2] tracking-[-0.02em] text-carbono sm:text-3xl">{{ $data['aviso_topo'] }}</p>
     </div>
 @endif
 
