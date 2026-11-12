@@ -61,7 +61,7 @@
     {{-- Cartão do formulário: em fluxo normal (empilhado por baixo) até lg,
          só flutua sobre a imagem em ecrãs largos, onde há espaço de sobra.
          O id é o alvo do botão da barra de CTA fixa (campanha_cta_fixo). --}}
-    <div id="{{ $data['formulario_id'] ?? 'form-marcacao' }}" class="relative z-10 mt-6 scroll-mt-24 px-4 sm:px-8 lg:absolute lg:z-auto lg:mt-0 lg:right-0 {{ ($data['formulario_sobe'] ?? false) ? 'lg:top-[170px]' : 'lg:top-[220px]' }} lg:w-[480px] lg:px-0 xl:w-[557px]">
+    <div id="{{ $data['formulario_id'] ?? 'form-marcacao' }}" class="relative z-10 mt-6 scroll-mt-24 px-4 sm:px-8 lg:absolute lg:z-auto lg:mt-0 lg:right-0 {{ ($data['formulario_sobe'] ?? false) ? 'lg:top-[150px]' : 'lg:top-[220px]' }} lg:w-[480px] lg:px-0 xl:w-[557px]">
         <div class="rounded-[24px] bg-energia p-7 shadow-2xl xl:p-8">
             <h2 class="text-center text-2xl font-bold leading-[1.2] tracking-[-0.03em] text-white">{{ $data['formulario_titulo'] ?? 'Marque a sua Revisão' }}</h2>
 
@@ -90,7 +90,19 @@
                         <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
                     </div>
                     <input type="hidden" name="service" value="{{ $data['servico'] ?? 'Outro assunto' }}">
-                    <input type="hidden" name="office_id" value="{{ filled($data['office_id'] ?? null) ? $data['office_id'] : optional(\App\Models\Office::active()->first())->id }}">
+                    @php
+                        // Com duas ou mais oficinas escolhidas no bloco, o cliente escolhe no formulário;
+                        // senão o pedido vai para a oficina fixa (ou a primeira ativa).
+                        $idsOficinas = array_values(array_filter((array) ($data['oficinas_opcoes'] ?? [])));
+                        $oficinasOpcoes = count($idsOficinas) >= 2
+                            ? \App\Models\Office::active()->whereIn('id', $idsOficinas)->get()
+                                ->sortBy(fn ($o) => array_search($o->id, $idsOficinas))->values()
+                            : collect();
+                        $escolheOficina = $oficinasOpcoes->count() >= 2;
+                    @endphp
+                    @unless ($escolheOficina)
+                        <input type="hidden" name="office_id" value="{{ filled($data['office_id'] ?? null) ? $data['office_id'] : optional(\App\Models\Office::active()->first())->id }}">
+                    @endunless
                     <input type="hidden" name="redirect_to" value="{{ $data['redirect_to'] ?? '/'.ltrim(request()->path(), '/') }}">
 
                     <div class="grid gap-3 sm:grid-cols-2">
@@ -115,6 +127,18 @@
                             <input id="hero_phone" name="phone" type="tel" inputmode="tel" required maxlength="20" pattern="\+?[0-9]+" title="Apenas números e o símbolo + para indicativos" value="{{ old('phone') }}" placeholder="ex: +351912345678" class="{{ $inputClass }}" oninput="this.value = this.value.replace(/[^0-9+]/g, '')">
                         </div>
                     </div>
+
+                    @if ($escolheOficina)
+                        <div>
+                            <label for="hero_office" class="mb-1 block text-sm font-semibold text-white">Oficina</label>
+                            <select id="hero_office" name="office_id" required class="{{ $inputClass }}">
+                                <option value="" disabled @selected(! old('office_id'))>Escolha a oficina</option>
+                                @foreach ($oficinasOpcoes as $oficina)
+                                    <option value="{{ $oficina->id }}" @selected((string) old('office_id') === (string) $oficina->id)>Oficina {{ $oficina->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
 
                     <div>
                         <label for="hero_notes" class="mb-1 block text-sm font-semibold text-white">Notas</label>
